@@ -75,10 +75,11 @@ function login()
 			        setUserSessionDetails(data,jsonToBeSend);
                     j('#loading').hide();         
         }else{
-            var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
+        window.location.href = defaultPagePath+'smartExpense.html';
+ /*           var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
 	        var pageRef=defaultPagePath+'category.html';
         	 j('#mainHeader').load(headerBackBtn);
-             j('#mainContainer').load(pageRef);
+             j('#mainContainer').load(pageRef);*/
               appPageHistory.push(pageRef);
 			  //addEmployeeDetails(data);
                  
@@ -135,8 +136,8 @@ function commanLogin(){
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
 	jsonToDomainNameSend["userName"] = domainName;
-    jsonToDomainNameSend["mobilePlatform"] = device.platform;
-	//jsonToDomainNameSend["mobilePlatform"] = "Android";
+    //jsonToDomainNameSend["mobilePlatform"] = device.platform;
+	jsonToDomainNameSend["mobilePlatform"] = "Android";
   	//var res=JSON.stringify(jsonToDomainNameSend);
 	var requestPath = WebServicePath;
 	j.ajax({
@@ -233,8 +234,9 @@ function displayBusinessExp(){
 			headerBackBtn=defaultPagePath+'expenzingImagePage.html';
 			pgRef=defaultPagePath+'loginPageResetPswd.html';
 		}else if(window.localStorage.getItem("UserStatus")=='Valid'){
-			pgRef=defaultPagePath+'category.html';
-			headerBackBtn=defaultPagePath+'categoryMsgPage.html';
+/*			pgRef=defaultPagePath+'category.html';
+			headerBackBtn=defaultPagePath+'categoryMsgPage.html';*/
+            window.location.href = defaultPagePath+'smartExpense.html';
 		}else{
 			headerBackBtn=defaultPagePath+'expenzingImagePage.html';
 		    pgRef=defaultPagePath+'loginPage.html';
