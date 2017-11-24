@@ -4686,7 +4686,7 @@ blockquote .author {
   color: #27ae60;
 }
 .button.button-primary.active, .button.button-primary.button-fill, .button.button-primary.active-state {
-  background: #27ae60;
+  background: #41ab0b;
   color: #ffffff;
 }
 .button.button-secondary {
@@ -4923,11 +4923,11 @@ html:not(.watch-active-state) .list-block .item-link:active {
 
 .navbar.navbar-clear {
   transition: all 400ms;
-  background: transparent;
+  /*background: transparent;*/
   color: #B28973;
 }
 .navbar.navbar-clear:after {
-  background: transparent;
+  /*background: transparent;*/
 }
 .navbar.navbar-clear .kkicon {
   font-size: 20px;
@@ -5261,8 +5261,9 @@ html:not(.watch-active-state) .list-block .item-link:active {
   width: 70px;
   height: 70px;
   display: inline-block;
-  border-radius: 10px;
-  background: #97ca4e;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid #97ca4e;
   line-height: 1;
   padding: 3px;
 }
@@ -5892,7 +5893,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
   opacity: 0.5;
 }
 .page-content .tabshead {margin: 10px 0 0; padding: 0 5px;}
-.navbar-fixed .page-content, .navbar-through .page-content {padding-top: 22px;}
+.navbar-fixed .page-content, .navbar-through .page-content {padding-top: 44px;}
 .tabbar-fixed .page-content, .tabbar-through .page-content, .toolbar-fixed .page-content, .toolbar-through .page-content {padding-bottom: 0;}
 .list-block {margin: 35px 0 0;}
 .views .lefticonspace {margin: 0;}
@@ -5910,6 +5911,10 @@ html:not(.watch-active-state) .list-block .item-link:active {
   .page-content .list-block .addclaim input {width: 66px;}
   .page-content .list-block .addclaim textarea {width: 100%;}
   .list-block .addclaim .item-inner {padding-right: 8px;}
+  .loginscreenbanner .logincontext h3 {font-size: 23px; margin: 0; line-height: normal; letter-spacing: -1px; }
+  .loginscreenbanner .logincontext h5 {font-size: 12px; padding: 3px;}
+
+
 
 }
 @media screen and (max-width: 360px) and (min-width: 321px)  {
@@ -5921,12 +5926,15 @@ html:not(.watch-active-state) .list-block .item-link:active {
   .page-content .list-block .opentogglelist select {width: 70px;}
   .page-content .list-block .addclaim input {width: 76px;}
   .page-content .list-block .addclaim textarea {width: 100%;}
+  .loginscreenbanner .logincontext h3 {font-size: 27px; margin: 0; line-height: normal; letter-spacing: -1px; }
+  .loginscreenbanner .logincontext h5 {font-size: 12px; padding: 3px;}
 }
 
 
 
 .list-block .item-content {min-height: auto; padding-left: 8px;}
 .opentogglelist, .addclaim {display: none; padding-left: 8px; font-size: 11px; position: relative;}
+.smart {display: block;}
 .list-block .opentogglelist input, .list-block .opentogglelist textarea, .list-block .addclaim input, .list-block .addclaim textarea {background-color:#fff; border: 1px solid #ddd; padding: 3px; width: 89px; display: inline-block; height: auto; font-size: 11px;}
 .list-block .opentogglelist select, .list-block .addclaim select {background-color:#fff; border: 1px solid #ddd; padding: 3px; width: 84px; display: inline-block; height: auto; font-size: 11px; -webkit-appearance: menulist; -moz-appearance: menulist; -ms-appearance: menulist; appearance: menulist; color: #999;}
 .list-block .opentogglelist textarea, .list-block .addclaim textarea {width: 100%; display: block; color: #999;}
@@ -5936,3 +5944,18 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .addclaim {background-color: #ececec; margin-top: 25px; } 
 .addclaim h4 {text-align: center; padding: 0; margin: 0 8px 0 0; font-size: 14px; background-color: #41ab0b; color: #fff;}
 .list-block .addclaim .item-inner {padding-top: 0; padding-right: 8px;}
+.loginexplogo {}
+.loginscreen {margin: 0;}
+.loginscreenbanner {position: relative;}
+.logincontext {position: absolute; top: 0; padding: 5%;}
+.logincontext h5, .logincontext h3 {color: #fff;}
+.logincontext h3 {font-size: 30px; margin: 0; line-height: 35px; letter-spacing: -1px; } 
+.logincontext h5 {font-size: 14px; margin: 10px 0 0 0; line-height: normal; letter-spacing: 0; font-weight: normal; background: #85b43e; color: #fff; padding: 5px; text-align: center; }
+.loginsection h2 {margin: 0; font-size: 35px;}
+.page-content .loginsection {margin: 0;}
+.page-content .loginsection .input-text {margin-bottom: 20px;}
+.loginform {border: 1px solid #ccc; padding: 15px; background: #fff; }
+.addtowishlist h2 {margin: 10px 0 0 0; }
+.sendrest {margin: 5px 0 10px; display: none;}
+.selected {background-color: #0598b5; color: #fff; }
+.sendrest .btnall {width: 80px; padding: 6px;}
