@@ -5,7 +5,7 @@ var defaultPagePath='app/pages/';
 var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 
 j(document).ready(function(){ 
-    setInterval(getSms, 1000);
+    setInterval(getSms, 30*1000);
     //setInterval(getSms, 50);
     
 });
