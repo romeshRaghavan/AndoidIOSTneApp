@@ -470,7 +470,7 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 
 
 
-function fetchSMSClaim() {
+function fetchSMSClaim8() {
     
     mydb.transaction(function(t) {
      /* mydb.transaction(function (t) {
