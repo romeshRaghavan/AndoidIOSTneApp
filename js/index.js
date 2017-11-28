@@ -3479,13 +3479,13 @@ function getSms(){
                    indexFrom : 0,// start from index 0
                  //maxCount : 100, // count of SMS to return each time
                    };
+	var lastSmsId =window.localStorage.getItem("lastSmsId");
+	alert("lastSmsId>>>>"+lastSmsId);
            if(SMS) SMS.listSMS(filter, function(data){
             	if(Array.isArray(data)){
         			for(var i in data) {
         				var sms = data[i];
         				//smsList.push(sms);
-					var lastSmsId =window.localStorage.getItem("lastSmsId");
-					alert("lastSmsId>>>>"+lastSmsId);
 					alert("sms._id>>"+sms._id);
                         if(lastSmsId < sms._id){
                             if(smsFilterBox(sms.body)){
