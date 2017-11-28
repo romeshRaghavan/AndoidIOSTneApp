@@ -1239,3 +1239,7 @@ function fetchDataFromWishList() {
 function changePage() {
      window.location.href = 'add-to-wishlist.html';
 }
+
+function changePage1() {
+     window.location.href = 'smartExpense.html';
+}
