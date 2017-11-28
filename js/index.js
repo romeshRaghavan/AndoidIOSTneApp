@@ -3480,6 +3480,7 @@ function getSms(){
                  //maxCount : 100, // count of SMS to return each time
                    };
          var lastSmsId =window.localStorage.getItem("lastSmsId");
+		alert("lastSmsId>>>>"+lastSmsId);
            if(SMS) SMS.listSMS(filter, function(data){
             	if(Array.isArray(data)){
         			for(var i in data) {
@@ -3489,6 +3490,7 @@ function getSms(){
                             if(smsFilterBox(sms.body)){
                             // cordova.plugins.backgroundMode.wakeUp();
                             // alert("saving sms");
+				    alert(sms.body);
                             saveSMS(sms); 
                              
                         }
