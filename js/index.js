@@ -2,9 +2,9 @@ var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
 var urlPath;
-//var WebServicePath ='http://1.255.255.122:8085/NexstepWebService/mobileLinkResolver.service';
+var WebServicePath ='http://1.255.255.140:8085/NexstepWebService/mobileLinkResolver.service';
 // var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
-var WebServicePath ='http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service';
+//var WebServicePath ='http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -31,7 +31,7 @@ var smsList = [];
 var smsBodyString = "";  
 var smsToExpenseStr = "" ;
 var smsWatchFlagStatus = false;
-var expensePageFlag = '';		//S for smsExpenses And N for normal expenses
+var expensePageFlag = '';
 var filtersStr = "";
 j(document).ready(function(){ 
 document.addEventListener("deviceready",loaded,false);
@@ -136,8 +136,8 @@ function commanLogin(){
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
 	jsonToDomainNameSend["userName"] = domainName;
-    //jsonToDomainNameSend["mobilePlatform"] = device.platform;
-	jsonToDomainNameSend["mobilePlatform"] = "Android";
+    jsonToDomainNameSend["mobilePlatform"] = device.platform;
+	//jsonToDomainNameSend["mobilePlatform"] = "Android";
   	//var res=JSON.stringify(jsonToDomainNameSend);
 	var requestPath = WebServicePath;
 	j.ajax({
