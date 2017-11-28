@@ -35,7 +35,7 @@ var expensePageFlag = '';
 var filtersStr = "";
 j(document).ready(function(){ 
 document.addEventListener("deviceready",loaded,false);
-    setInterval(getSms, 60*1000);
+    setInterval(getSms, 5*1000);
     //setInterval(getSms, 50);
     
 });
