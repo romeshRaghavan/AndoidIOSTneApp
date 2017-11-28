@@ -528,7 +528,7 @@ function fetchSMSClaim() {
             var a2 = j('<a></a>').text('Add to wishlist').attr({ class: ["action-blue js-down"].join(' ') }).appendTo(div17);  
             var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages1("+row.smsId+");"].join(' ')}).appendTo(div17);  
                 
-            mytable.appendTo("#box");  
+            mytable.appendTo("#box8");  
            //createExpenseName("expenseName_"+i);
             }  
                     
