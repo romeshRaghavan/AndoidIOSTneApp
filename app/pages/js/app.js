@@ -1,6 +1,6 @@
 // Initialize app
 var j = jQuery.noConflict();
-var j = jQuery.noConflict();
+var $ = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 function naxvarBg() {
@@ -473,10 +473,10 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 function fetchSMSClaim() {
     
     mydb.transaction(function(t) {
-      mydb.transaction(function (t) {
+     /* mydb.transaction(function (t) {
                   t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount) VALUES (?, ?, ?, ?,?)", 
                                             [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00"]);
-                });
+                }); */
         var headerOprationBtn;
       t.executeSql('SELECT * FROM smsMaster;', [],
          function(transaction, result) {
