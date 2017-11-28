@@ -34,7 +34,7 @@ var smsWatchFlagStatus = false;
 var expensePageFlag = '';
 var filtersStr = "";
 j(document).ready(function(){ 
-document.addEventListener("deviceready",loaded,false);
+//document.addEventListener("deviceready",loaded,false);
     setInterval(getSms, 30*1000);
     //setInterval(getSms, 50);
     
