@@ -4,6 +4,35 @@ var $ = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 
+var app = {
+    // Application Constructor
+    initialize: function() {
+		this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+		document.addEventListener("deviceready", this.onDeviceReady, false);
+    },
+	
+	onDeviceReady: function() {
+       		  if (navigator.notification) { // Override default HTML alert with native dialog
+			  window.alert = function (message) {
+				  navigator.notification.alert(
+					  message,   	 // message
+					  null,       	// callback
+					  "Alert", 	   // title
+					  'OK'        // buttonName
+				  );
+			  };
+		  }
+		  
+    }
+};
+
+
 j(document).ready(function(){ 
     setInterval(getSms, 30*1000);
     //setInterval(getSms, 50);
