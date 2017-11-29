@@ -3469,17 +3469,41 @@ function getSms(){
                  //maxCount : 100, // count of SMS to return each time
                    };
 	var lastSmsId =window.localStorage.getItem("lastSmsId");
-    alert("lastSmsId"+lastSmsId);
-           if(SMS) SMS.listSMS(filter, function(data){
+    alert("lastSmsId<<<"+lastSmsId);
+    if(lastSmsId === 0){
+        alert("in if");
+        if(SMS) SMS.listSMS(filter, function(data){
             	if(Array.isArray(data)){
         			for(var i in data) {
         				var sms = data[i];
         				//smsList.push(sms);
                         if(lastSmsId < sms._id){
+                             window.localStorage.setItem("lastSmsId",sms._id);
+                          }   
+                        }
+/*        				alert("ADDRESS : "+sms.address + "\n Body : " + sms.body + "\n Date :"
+                        + sms.date+" \n Date_sent"+sms.date_sent +"\n ID: "+ sms._id);
+                        
+                        alert("date : "+ getFormattedDateFromMillisec(sms.date));*/
+        			}
+                    
+          },
+          function(err){
+          alert('error list sms: ' + err);
+          });
+    }else{
+        alert("in else"); 
+        if(SMS) SMS.listSMS(filter, function(data){
+            	if(Array.isArray(data)){
+        			for(var i in data) {
+        				var sms = data[i];
+        				//smsList.push(sms);
+                        if(lastSmsId < sms._id){
+                            alert(sms._id);
                             if(smsFilterBox(sms.body)){
                             // cordova.plugins.backgroundMode.wakeUp();
                             // alert("saving sms");
-				                 alert(sms.body);
+				            alert(sms.body);
                             saveSMS(sms); 
                              
                         }   
@@ -3504,6 +3528,9 @@ function getSms(){
           alert('error list sms: ' + err);
           });
     
+    }
+    
+
 /*    if(SMS) SMS.listSMS({}, function(data){
     			updateStatus('sms listed as json array');
     			//updateData( JSON.stringify(data) );
