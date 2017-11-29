@@ -1130,7 +1130,6 @@ function saveBusinessDetailsInWishList(i,smsId){
 		}*/
 		
 		/*if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){*/
-		 alert("1");
 		j('#loading_Cat').show();			  
 		  
 		  if(file ==undefined){
@@ -1144,9 +1143,8 @@ function saveBusinessDetailsInWishList(i,smsId){
 
 			});
 
-        alert("2222");
         			mydb.transaction(function (t) {
-				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsID]);
+				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsId]);
 			});
           location.reload();
 
@@ -1208,7 +1206,6 @@ function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,e
 	}
 
 function fetchDataFromWishListA() {
-    alert("k");
     mydb.transaction(function(t) {
 
       t.executeSql('SELECT * FROM wishListForBussExpense;', [],
