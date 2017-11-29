@@ -1154,8 +1154,13 @@ function setUserSessionDetails(val,userJSON){
 	 window.localStorage.setItem("UserName",userJSON["user"]);
 	 window.localStorage.setItem("Password",userJSON["pass"]);
      window.localStorage.setItem("localLanguage",0);
+    
+    var a =  window.localStorage.getItem("lastSmsId");
+    if(a != null && a!= "" && a != 0){
+         window.localStorage.setItem("lastSmsId",a);
+    }else{
      window.localStorage.setItem("lastSmsId",0);
-	
+    }
 }
 
 function setUserStatusInLocalStorage(status){
