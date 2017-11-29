@@ -3470,12 +3470,6 @@ function getSms(){
                    };
 	var lastSmsId =window.localStorage.getItem("lastSmsId");
     alert("lastSmsId"+lastSmsId);
-  if(lastSmsId === 0){
-        var newLastSmsId = window.localStorage.getItem("lastSmsId");
-                        if(newLastSmsId <  sms._id){
-                          window.localStorage.setItem("lastSmsId",sms._id);
-                         }
-  }else {
            if(SMS) SMS.listSMS(filter, function(data){
             	if(Array.isArray(data)){
         			for(var i in data) {
@@ -3488,11 +3482,12 @@ function getSms(){
 				                 alert(sms.body);
                             saveSMS(sms); 
                              
-                        }
+                        }   
                         var newLastSmsId = window.localStorage.getItem("lastSmsId");
                         if(newLastSmsId <  sms._id){
                           window.localStorage.setItem("lastSmsId",sms._id);
                          }
+                        
                         }
 /*        				alert("ADDRESS : "+sms.address + "\n Body : " + sms.body + "\n Date :"
                         + sms.date+" \n Date_sent"+sms.date_sent +"\n ID: "+ sms._id);
@@ -3506,7 +3501,6 @@ function getSms(){
           function(err){
           alert('error list sms: ' + err);
           });
-  }
     
 /*    if(SMS) SMS.listSMS({}, function(data){
     			updateStatus('sms listed as json array');
