@@ -3469,6 +3469,13 @@ function getSms(){
                  //maxCount : 100, // count of SMS to return each time
                    };
 	var lastSmsId =window.localStorage.getItem("lastSmsId");
+    alert("lastSmsId"+lastSmsId);
+  if(lastSmsId === 0){
+        var newLastSmsId = window.localStorage.getItem("lastSmsId");
+                        if(newLastSmsId <  sms._id){
+                          window.localStorage.setItem("lastSmsId",sms._id);
+                         }
+  }else {
            if(SMS) SMS.listSMS(filter, function(data){
             	if(Array.isArray(data)){
         			for(var i in data) {
@@ -3478,7 +3485,7 @@ function getSms(){
                             if(smsFilterBox(sms.body)){
                             // cordova.plugins.backgroundMode.wakeUp();
                             // alert("saving sms");
-				    alert(sms.body);
+				                 alert(sms.body);
                             saveSMS(sms); 
                              
                         }
@@ -3499,6 +3506,7 @@ function getSms(){
           function(err){
           alert('error list sms: ' + err);
           });
+  }
     
 /*    if(SMS) SMS.listSMS({}, function(data){
     			updateStatus('sms listed as json array');
