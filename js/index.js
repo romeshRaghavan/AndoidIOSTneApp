@@ -75,7 +75,8 @@ function login()
 			        setUserSessionDetails(data,jsonToBeSend);
                     j('#loading').hide();         
         }else{
-        window.location.href = defaultPagePath+'smartExpense.html';
+        //window.location.href = defaultPagePath+'smartExpense.html';
+            document.location.href=defaultPagePath+'smartExpense.html';
  /*           var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
 	        var pageRef=defaultPagePath+'category.html';
         	 j('#mainHeader').load(headerBackBtn);
@@ -236,7 +237,9 @@ function displayBusinessExp(){
 		}else if(window.localStorage.getItem("UserStatus")=='Valid'){
 /*			pgRef=defaultPagePath+'category.html';
 			headerBackBtn=defaultPagePath+'categoryMsgPage.html';*/
-            window.location.href = defaultPagePath+'smartExpense.html';
+           // window.location.href = defaultPagePath+'smartExpense.html';
+            document.location.href=defaultPagePath+'smartExpense.html';
+            
 		}else{
 			headerBackBtn=defaultPagePath+'expenzingImagePage.html';
 		    pgRef=defaultPagePath+'loginPage.html';
