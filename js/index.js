@@ -42,16 +42,14 @@ var filtersStr = "";
 
 function login()
    {
-   	if(document.getElementById("userName")!=null){
-    var userName = document.getElementById("userName");
-	}else if(document.getElementById("userName")!=null){
-		var userName = document.getElementById("userNameId");
-	}
-	var password = document.getElementById("pass");
+
+		var userName = "1487@angel.com";
+
+	var password = "123";
     
     var jsonToBeSend=new Object();
-    jsonToBeSend["user"] = userName.value;
-    jsonToBeSend["pass"] = password.value;
+    jsonToBeSend["user"] = "1487@angel.com";
+    jsonToBeSend["pass"] = "123";
 	//setUrlPathLocalStorage(urlPath);
 	urlPath=window.localStorage.getItem("urlPath");
 	j('#loading').show();
@@ -76,7 +74,7 @@ function login()
                     j('#loading').hide();         
         }else{
         //window.location.href = defaultPagePath+'smartExpense.html';
-            document.location.href=defaultPagePath+'smartExpense.html';
+            //document.location.href=defaultPagePath+'index.html';
  /*           var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
 	        var pageRef=defaultPagePath+'category.html';
         	 j('#mainHeader').load(headerBackBtn);
@@ -132,13 +130,13 @@ function login()
 }
  
 function commanLogin(){
- 	var userName = document.getElementById("userName");
- 	var userNameValue = userName.value; 
+ 	var userName = "1487@angel.com";
+ 	var userNameValue = "1487@angel.com";
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
 	jsonToDomainNameSend["userName"] = domainName;
-    jsonToDomainNameSend["mobilePlatform"] = device.platform;
-	//jsonToDomainNameSend["mobilePlatform"] = "Android";
+    //jsonToDomainNameSend["mobilePlatform"] = device.platform;
+	jsonToDomainNameSend["mobilePlatform"] = "Android";
   	//var res=JSON.stringify(jsonToDomainNameSend);
 	var requestPath = WebServicePath;
 	j.ajax({
@@ -238,7 +236,7 @@ function displayBusinessExp(){
 /*			pgRef=defaultPagePath+'category.html';
 			headerBackBtn=defaultPagePath+'categoryMsgPage.html';*/
            // window.location.href = defaultPagePath+'smartExpense.html';
-            document.location.href=defaultPagePath+'smartExpense.html';
+            //document.location.href=defaultPagePath+'smartExpense.html';
             
 		}else{
 			headerBackBtn=defaultPagePath+'expenzingImagePage.html';

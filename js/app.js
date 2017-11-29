@@ -475,7 +475,7 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 function fetchSMSClaim8() {
     
     mydb.transaction(function(t) {
-     /* mydb.transaction(function (t) {
+/*      mydb.transaction(function (t) {
                   t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount) VALUES (?, ?, ?, ?,?)", 
                                             [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00"]);
                 }); */
@@ -527,7 +527,7 @@ function fetchSMSClaim8() {
              j(div16).append('<button class="btnall" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');">send for approval</button> <button class="btnall" onclick = "saveBusinessDetailsInWishList('+i+','+row.smsId+');">Add to wishlist</button> <button class="btnall" onclick ="discardMessages1('+row.smsId+');">Delete</button>');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
             var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send for approval').appendTo(div17);  
-            var a2 = j('<a></a>').text('Add to wishlist').attr({ class: ["action-blue js-down"].join(' ') }).appendTo(div17);  
+            var a2 = j('<a></a>').text('Add to wishlist').attr({ class: ["action-blue js-down"].join(' ') ,onclick : ["saveBusinessDetailsInWishList("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
             var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages1("+row.smsId+");"].join(' ')}).appendTo(div17);  
                 
             mytable.appendTo("#box8");  
@@ -761,6 +761,7 @@ function updateSms(i,smsId){
 
 function smartSmsSendForApprover(i,smsId){
     var jsonExpenseDetailsArr = [];
+    alert("1");
 				  var busExpDetailsArr = [];
 				  expenseClaimDates=new Object;
 				  var accountHeadIdToBeSent=''
@@ -848,8 +849,8 @@ function smartSmsSendForApprover(i,smsId){
 								  busExpDetailsArr.push(busExpDetailId);
 								  requestRunning = true;
 							  //}
-
-     sendForApprovalBusinessDetails(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
+alert("2");
+                sendForApprovalBusinessDetailsA(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
 						if(accountHeadIdToBeSent!="" && busExpDetailsArr.length>0){
 						  	 sendForApprovalBusinessDetails(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
 						  }
@@ -972,7 +973,8 @@ function smartSmsSendForApprover1(){
 
 }
 
-function sendForApprovalBusinessDetails(jsonBEArr,busExpDetailsArr,accountHeadID){
+function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadID){
+    alert("3");
 	 var jsonToSaveBE = new Object();
 	 jsonToSaveBE["employeeId"] = window.localStorage.getItem("EmployeeId");
 	 jsonToSaveBE["expenseDetails"] = jsonBEArr;
@@ -986,13 +988,13 @@ function sendForApprovalBusinessDetails(jsonBEArr,busExpDetailsArr,accountHeadID
 	
      var pageRefSuccess='../../'+defaultPagePath+'success.html';
      var pageRefFailure='../../'+defaultPagePath+'failure.html';
-	callSendForApprovalServiceForBE(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure);
+	callSendForApprovalServiceForBEA(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure);
 	 
 }
 
 
-function callSendForApprovalServiceForBE(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure){
-j('#loading_Cat').show();
+function callSendForApprovalServiceForBEA(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure){
+alert("a");
 var headerBackBtn=defaultPagePath+'backbtnPage.html';
 j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense",
@@ -1009,7 +1011,7 @@ j.ajax({
 						 successMessage = data.Message;
 						 for(var i=0; i<busExpDetailsArr.length; i++ ){
 							var businessExpDetailId = busExpDetailsArr[i];
-                             discardMessages(businessExpDetailId);
+                             discardMessagesA(businessExpDetailId);
 							//deleteSelectedExpDetails(businessExpDetailId);
 						 }
 						 requestRunning = false;
@@ -1042,11 +1044,11 @@ j.ajax({
 }
 
 
-function discardMessages(smsID){
+function discardMessagesA(smsID){
 			mydb.transaction(function (t) {
 				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsID]);
 			});
-    window.location.href ='smartExpense.html';
+          location.reload();
 		}
 
 
@@ -1062,10 +1064,10 @@ function discardMessages1(smsID){
             	mydb.transaction(function (t) {
 				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsID]);
 			});
-                  window.location.href ='smartExpense.html';
+                  location.reload();
 		   },
            cancel: function () {
-             window.location.href ='smartExpense.html';
+            location.reload();
         
     }
         }
@@ -1144,9 +1146,11 @@ function saveBusinessDetailsInWishList(i,smsId){
 								
 
 			});
-		
-        
-        discardMessages(smsId);
+        			mydb.transaction(function (t) {
+				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsID]);
+			});
+        location.reload();
+
 		/*}else{
 			return false;
 		}*/
@@ -1237,12 +1241,7 @@ function fetchDataFromWishList() {
                 });
          });
 }
-
-function changePage() {
-     window.location.href = 'add-to-wishlist.html';
+function changePage(){
+    alert("1");
+    window.location.href = 'add-to-wishlist.html';
 }
-
-function changePage1() {
-     window.location.href = 'smartExpense.html';
-}
-
