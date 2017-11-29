@@ -34,7 +34,7 @@ var smsWatchFlagStatus = false;
 var expensePageFlag = '';
 var filtersStr = "";
  j(document).ready(function(){ 
-//document.addEventListener("deviceready",loaded,false);
+    document.addEventListener("deviceready",loaded,false);
    setInterval(getSms, 10*1000);
   //setInterval(getSms, 50);
     
@@ -3494,6 +3494,8 @@ function getSms(){
                         
                         alert("date : "+ getFormattedDateFromMillisec(sms.date));*/
         			}
+                    
+                    location.reload();
         		}
           },
                             

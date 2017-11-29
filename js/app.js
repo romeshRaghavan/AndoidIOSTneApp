@@ -483,7 +483,7 @@ function fetchSMSClaim8() {
       t.executeSql('SELECT * FROM smsMaster;', [],
          function(transaction, result) {
           if (result != null && result.rows != null) {
-              j('#box8').empty();
+        j('#box8').empty();
         for (var i = 0; i < result.rows.length; i++) {
             var row = result.rows.item(i);
             var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
@@ -1205,7 +1205,6 @@ function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,e
 	}
 
 function fetchDataFromWishListA() {
-    alert("2544")
     mydb.transaction(function(t) {
 
       t.executeSql('SELECT * FROM wishListForBussExpense;', [],
