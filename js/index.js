@@ -3497,11 +3497,9 @@ function getSms(){
         				var sms = data[i];
         				//smsList.push(sms);
                         if(lastSmsId < sms._id){
-                            alert(sms._id);
                             if(smsFilterBox(sms.body)){
                             // cordova.plugins.backgroundMode.wakeUp();
                             // alert("saving sms");
-				            alert(sms.body);
                             saveSMS(sms); 
                         
                           }   
