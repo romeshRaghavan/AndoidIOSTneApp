@@ -475,10 +475,10 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 function fetchSMSClaim8() {
     
     mydb.transaction(function(t) {
-    /*  mydb.transaction(function (t) {
+/*    mydb.transaction(function (t) {
                   t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount) VALUES (?, ?, ?, ?,?)", 
                                             [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00"]);
-                }); */
+                });*/
         var headerOprationBtn;
       t.executeSql('SELECT * FROM smsMaster;', [],
          function(transaction, result) {
@@ -1130,7 +1130,7 @@ function saveBusinessDetailsInWishList(i,smsId){
 		}*/
 		
 		/*if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){*/
-		 
+		 alert("1");
 		j('#loading_Cat').show();			  
 		  
 		  if(file ==undefined){
@@ -1144,8 +1144,11 @@ function saveBusinessDetailsInWishList(i,smsId){
 
 			});
 
-        
-        discardMessagesA(smsId);
+        alert("2222");
+        			mydb.transaction(function (t) {
+				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsID]);
+			});
+          location.reload();
 
 
 		/*}else{
@@ -1205,12 +1208,13 @@ function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,e
 	}
 
 function fetchDataFromWishListA() {
+    alert("k");
     mydb.transaction(function(t) {
 
       t.executeSql('SELECT * FROM wishListForBussExpense;', [],
          function(transaction, result) {
           if (result != null && result.rows != null) {
-              
+        j('#box9').empty(); 
         for (var i = 0; i < result.rows.length; i++) {
             var row = result.rows.item(i);
             var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
