@@ -475,7 +475,7 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 function fetchSMSClaim8() {
     
     mydb.transaction(function(t) {
-/*      mydb.transaction(function (t) {
+      /*mydb.transaction(function (t) {
                   t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount) VALUES (?, ?, ?, ?,?)", 
                                             [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00"]);
                 }); */
@@ -483,7 +483,7 @@ function fetchSMSClaim8() {
       t.executeSql('SELECT * FROM smsMaster;', [],
          function(transaction, result) {
           if (result != null && result.rows != null) {
-              
+              $('#box8').remove();
         for (var i = 0; i < result.rows.length; i++) {
             var row = result.rows.item(i);
             var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
@@ -761,7 +761,6 @@ function updateSms(i,smsId){
 
 function smartSmsSendForApprover(i,smsId){
     var jsonExpenseDetailsArr = [];
-    alert("1");
 				  var busExpDetailsArr = [];
 				  expenseClaimDates=new Object;
 				  var accountHeadIdToBeSent=''
@@ -849,7 +848,6 @@ function smartSmsSendForApprover(i,smsId){
 								  busExpDetailsArr.push(busExpDetailId);
 								  requestRunning = true;
 							  //}
-alert("2");
                 sendForApprovalBusinessDetailsA(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
 						if(accountHeadIdToBeSent!="" && busExpDetailsArr.length>0){
 						  	 sendForApprovalBusinessDetails(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
@@ -974,7 +972,6 @@ function smartSmsSendForApprover1(){
 }
 
 function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadID){
-    alert("3");
 	 var jsonToSaveBE = new Object();
 	 jsonToSaveBE["employeeId"] = window.localStorage.getItem("EmployeeId");
 	 jsonToSaveBE["expenseDetails"] = jsonBEArr;
@@ -994,7 +991,6 @@ function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadI
 
 
 function callSendForApprovalServiceForBEA(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure){
-alert("a");
 var headerBackBtn=defaultPagePath+'backbtnPage.html';
 j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense",
@@ -1019,6 +1015,7 @@ j.ajax({
 						 //j('#mainHeader').load(headerBackBtn);
 
                           alert(successMessage);
+                            location.reload();
 						 //j('#mainContainer').load(pageRefSuccess);
 						// appPageHistory.push(pageRef);
 						}
@@ -1146,10 +1143,10 @@ function saveBusinessDetailsInWishList(i,smsId){
 								
 
 			});
-        			mydb.transaction(function (t) {
-				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsID]);
-			});
-        location.reload();
+
+        
+        discardMessagesA(smsId);
+
 
 		/*}else{
 			return false;
@@ -1207,7 +1204,8 @@ function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,e
 		return true;
 	}
 
-function fetchDataFromWishList() {
+function fetchDataFromWishListA() {
+    alert("2544")
     mydb.transaction(function(t) {
 
       t.executeSql('SELECT * FROM wishListForBussExpense;', [],
@@ -1233,7 +1231,7 @@ function fetchDataFromWishList() {
             var a2 = j('<a></a>').text('Add to wishlist').attr({ class: ["action-blue js-down"].join(' ') }).appendTo(div17);  
             var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages1("+row.smsId+");"].join(' ')}).appendTo(div17);  
                 
-            mytable.appendTo("#box1");
+            mytable.appendTo("#box9");
          
             }
      }     
@@ -1242,6 +1240,10 @@ function fetchDataFromWishList() {
          });
 }
 function changePage(){
-    alert("1");
     window.location.href = 'add-to-wishlist.html';
+}
+
+function reload(){
+
+    location.reload();
 }
