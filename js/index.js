@@ -62,29 +62,18 @@ function login()
          success: function(data) {
          	if (data.Status == 'Success'){
                 
-                if(data.hasOwnProperty('multiLangInMobile') && data.multiLangInMobile != null &&
-                   data.multiLangInMobile){
-                       	var headerBackBtn=defaultPagePath+'withoutBckBtn.html';
-	                    var pageRef=defaultPagePath+'language.html';
-                    j('#mainHeader').load(headerBackBtn);
-                    j('#mainContainer').load(pageRef); 
-                       appPageHistory.push(pageRef);
-                    setUserStatusInLocalStorage("Valid");
-			        setUserSessionDetails(data,jsonToBeSend);
-                    j('#loading').hide();         
-        }else{
         //window.location.href = defaultPagePath+'smartExpense.html';
             //document.location.href=defaultPagePath+'index.html';
  /*           var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
 	        var pageRef=defaultPagePath+'category.html';
         	 j('#mainHeader').load(headerBackBtn);
              j('#mainContainer').load(pageRef);*/
-              appPageHistory.push(pageRef);
+              //appPageHistory.push(pageRef);
 			  //addEmployeeDetails(data);
                  
 			  setUserStatusInLocalStorage("Valid");
 			  setUserSessionDetails(data,jsonToBeSend);
-                           
+                
                 if(data.hasOwnProperty('EaInMobile') && 
                  data.EaInMobile != null){
                   if(data.EaInMobile){
@@ -96,8 +85,7 @@ function login()
 				synchronizeTRMasterData();
 				synchronizeTRForTS();  
 			  }
-                synchronizeBEMasterData();
-                
+               
                 
             if(data.hasOwnProperty('smartClaimsViaSMSOnMobile') && 
                  data.smartClaimsViaSMSOnMobile != null){
@@ -106,7 +94,7 @@ function login()
 	               startWatch();
                   }
                  }
-                }
+                
 			
 			}else if(data.Status == 'Failure'){
  			   successMessage = data.Message;
@@ -3153,7 +3141,7 @@ function operationsOnSMS(){
 }
 
 function smsFilterBox(smsText){
-	var filtersStr = window.localStorage.getItem("SMSFilterationStr");
+	var filtersStr = "Successfully$Successfully$Not$OTP@successful$paid$payment of";
 	//console.log("filtersStr  "+filtersStr)
 	var blockedWordsStr = filtersStr.split("@")[0];
 	var allowedWordsStr = filtersStr.split("@")[1];
@@ -3481,15 +3469,12 @@ function getSms(){
                  //maxCount : 100, // count of SMS to return each time
                    };
 	var lastSmsId =window.localStorage.getItem("lastSmsId");
-	alert("lastSmsId>>>>"+lastSmsId);
            if(SMS) SMS.listSMS(filter, function(data){
             	if(Array.isArray(data)){
         			for(var i in data) {
         				var sms = data[i];
         				//smsList.push(sms);
-					alert("sms._id>>"+sms._id);
                         if(lastSmsId < sms._id){
-                            alert("lastSmsId < sms._id>> true");
                             if(smsFilterBox(sms.body)){
                             // cordova.plugins.backgroundMode.wakeUp();
                             // alert("saving sms");
