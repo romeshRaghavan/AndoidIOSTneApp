@@ -2,8 +2,8 @@ var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
 var urlPath;
-//var WebServicePath ='http://1.255.255.140:8085/NexstepWebService/mobileLinkResolver.service';
-var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
+var WebServicePath ='http://1.255.255.140:8085/NexstepWebService/mobileLinkResolver.service';
+//var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath ='http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
@@ -33,12 +33,12 @@ var smsToExpenseStr = "" ;
 var smsWatchFlagStatus = false;
 var expensePageFlag = '';
 var filtersStr = "";
-// j(document).ready(function(){ 
-//document.addEventListener("deviceready",loaded,false);
-   //setInterval(getSms, 10*1000);
+ j(document).ready(function(){ 
+document.addEventListener("deviceready",loaded,false);
+   setInterval(getSms, 10*1000);
   //setInterval(getSms, 50);
     
-//}); 
+}); 
 
 function login()
    {
