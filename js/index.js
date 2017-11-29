@@ -3469,9 +3469,7 @@ function getSms(){
                  //maxCount : 100, // count of SMS to return each time
                    };
 	var lastSmsId =window.localStorage.getItem("lastSmsId");
-    alert("lastSmsId<<<"+lastSmsId);
     if(lastSmsId === 0){
-        alert("in if");
         if(SMS) SMS.listSMS(filter, function(data){
             	if(Array.isArray(data)){
         			for(var i in data) {
@@ -3492,7 +3490,7 @@ function getSms(){
           alert('error list sms: ' + err);
           });
     }else{
-        alert("in else"); 
+
         if(SMS) SMS.listSMS(filter, function(data){
             	if(Array.isArray(data)){
         			for(var i in data) {

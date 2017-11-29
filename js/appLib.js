@@ -2260,7 +2260,6 @@ function saveSMS(sms){
 		senderAddress = senderAddress.toLowerCase();	
 		var smsSentDate = getFormattedDateFromMillisec(parseInt(sms.date_sent));
 		var smsAmount = parseIncomingSMSForAmount(smsMsg);
-        alert("in saveSMS "+senderAddress);
 		if (smsMsg != "") {
 	            mydb.transaction(function (t) {
 	                t.executeSql("INSERT INTO smsMaster (smsText,senderAddr,smsSentDate,smsAmount) VALUES (?,?,?,?)", 
