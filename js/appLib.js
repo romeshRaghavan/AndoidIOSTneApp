@@ -2260,7 +2260,7 @@ function fetchTravelSettlementExpFromMain() {
 
  //  SMS changes
 function saveSMS(sms){
-	j('#loading_Cat').show();
+
 	if (mydb) {
 		//save incoming sms
 	    var smsMsg = sms.body;
@@ -2274,9 +2274,8 @@ function saveSMS(sms){
 	                t.executeSql("INSERT INTO smsMaster (smsText,senderAddr,smsSentDate,smsAmount) VALUES (?,?,?,?)", 
 												[smsMsg,senderAddress,smsSentDate,smsAmount]);
 				});
-	            j('#loading_Cat').hide();
+
 	        } else {
-	        	j('#loading_Cat').hide();
 	        }
 	} else {
         alert("db not found, your browser does not support web sql!");
