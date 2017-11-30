@@ -508,10 +508,10 @@ function fetchSMSClaim8() {
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
 /*            j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
             var select1 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen3);
-                var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("AC Bus").appendTo(select1);
-                var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Cab").appendTo(select1);
-                var option3 =j('<option></option>').attr({ class: [""].join(' ') }).text("Late hrs - Auto").appendTo(select1);
-            var option7 =j('<option></option>').attr({ class: [""].join(' ') }).text("Late hrs - Cab").appendTo(select1);
+                var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
+                var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
+                var option3 =j('<option></option>').attr({ class: [""].join(' ') }).text("Telephone").appendTo(select1);
+            var option7 =j('<option></option>').attr({ class: [""].join(' ') }).text("Client Entertainment").appendTo(select1);
             var spen4 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text(' Currency :').appendTo(div12);
             var select2 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen4);
             var option4 = j('<option></option>').attr({ class: [""].join(' ') }).text("INR").appendTo(select2);
@@ -1073,6 +1073,7 @@ function discardMessages1(smsID){
 }
 
 function saveBusinessDetailsInWishList(i,smsId){
+    alert("1");
 	exceptionMessage='';
 	if (mydb) {
 		//get the values of the text inputs
@@ -1129,13 +1130,12 @@ function saveBusinessDetailsInWishList(i,smsId){
 			file = fileTempCameraBE; 
 		}*/
 		
-		/*if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){*/
-		j('#loading_Cat').show();			  
-		  
+		/*if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){*/		  
+/*		  
 		  if(file ==undefined){
 		  	file="";
-			}
-			
+			}*/
+			alert("2"+smsId);
 		  mydb.transaction(function (t) {
 				t.executeSql("INSERT INTO wishListForBussExpense (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment,wayPointunitValue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
 											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file,way_points]);
@@ -1143,7 +1143,8 @@ function saveBusinessDetailsInWishList(i,smsId){
 
 			});
 
-        			mydb.transaction(function (t) {
+         mydb.transaction(function (t) {
+             alert("aa"+smsId);
 				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsId]);
 			});
           location.reload();
@@ -1246,4 +1247,7 @@ function changePage(){
 function reload(){
 
     location.reload();
+}
+function changePage1(){
+    window.location.href = 'index.html';
 }
