@@ -1251,3 +1251,7 @@ function reload(){
 function changePage1(){
     window.location.href = 'index.html';
 }
+
+function hide(){
+  j('.ontent-block tabshead').hide(); 
+}
