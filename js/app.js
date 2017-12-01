@@ -475,10 +475,10 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 function fetchSMSClaim8() {
     
     mydb.transaction(function(t) {
-/*    mydb.transaction(function (t) {
+    mydb.transaction(function (t) {
                   t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount) VALUES (?, ?, ?, ?,?)", 
                                             [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00"]);
-                });*/
+                });
         var headerOprationBtn;
       t.executeSql('SELECT * FROM smsMaster;', [],
          function(transaction, result) {
@@ -495,7 +495,7 @@ function fetchSMSClaim8() {
             j(spen).append('<img src="images/Uber-Logo-120x120.jpg" alt ="">');
             var div5 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div3);
             var div6 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div5);
-            j(div6).append('<span class="data">SMS date : '+row.smsSentDate+' | Amount Rs. : '+row.smsAmount+'</span>');
+            j(div6).append('<span class="data">SMS date : '+row.smsSentDate+' | Amount : '+row.smsAmount+'</span>');
             var div7 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div5);
             j(div7).append(row.smsText);
              var div8 = j('<div></div>').attr({ class: ["opentogglelist"].join(' '),style:["display:none"].join(' ') }).appendTo(div1);
@@ -524,7 +524,7 @@ function fetchSMSClaim8() {
             var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
             j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.smsText+'</textarea>');  
              var div16 = j('<div></div>').attr({ class: ["allbtn"].join(' ') }).appendTo(div11);
-             j(div16).append('<button class="btnall" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');">send for approval</button> <button class="btnall" onclick = "saveBusinessDetailsInWishList('+i+','+row.smsId+');">Add to wishlist</button> <button class="btnall" onclick ="discardMessages1('+row.smsId+');">Delete</button>');
+             j(div16).append('<button class="btnall" onclick ="updateSms('+i+','+row.smsId+'),reload();">Done</button>  <button class="btnall" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');">send for approval</button> <button class="btnall" onclick = "saveBusinessDetailsInWishList('+i+','+row.smsId+');">Add to wishlist</button> <button class="btnall" onclick ="discardMessages1('+row.smsId+');">Delete</button>');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
             var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send for approval').appendTo(div17);  
             var a2 = j('<a></a>').text('Add to wishlist').attr({ class: ["action-blue js-down"].join(' ') ,onclick : ["saveBusinessDetailsInWishList("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
@@ -586,8 +586,10 @@ function expandCollapse(obj) {
                 var displayVal = obj.parentNode.childNodes[i].style.display;
                 if(displayVal && displayVal==='none') {
                     obj.parentNode.childNodes[i].style.display='block';
+                    obj.style.display='none';
                 } else if(displayVal) {
                     obj.parentNode.childNodes[i].style.display='none';
+                    obj.style.display='block';
                 }
                 break;
             }
@@ -1254,4 +1256,27 @@ function changePage1(){
 
 function hide(){
   j('.ontent-block tabshead').hide(); 
+}
+
+function hideOn(obj) {
+       
+    try {
+        for(var i=0; i<obj.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes.length; i++) {
+            var clName = obj.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[i].className;
+            if(clName && clName==='item-content claimlisting') {
+                var displayVal = obj.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[i].style.display;
+                if(displayVal && displayVal==='none') {
+                    obj.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[i].style.display='block';
+                    obj.parentNode.parentNode.parentNode.parentNode.style.display='none';
+                } else if(displayVal) {
+                    obj.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[i].style.display='none';
+                    obj.parentNode.parentNode.parentNode.parentNode.style.display='block';
+                }
+                break;
+            }
+        }
+
+    } catch(e) {
+        console.log("Exception : " + e);
+    }
 }

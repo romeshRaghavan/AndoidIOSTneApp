@@ -4903,7 +4903,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
   background: #fff;
   color: #454545;
   font-family: 'robotolight', sans-serif;
-  text-transform: uppercase;
+/*  text-transform: uppercase;*/
 }
 .navbar:after {
   background: #454545;
@@ -5025,8 +5025,8 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .panel .list-block .list-group ul li.divider {
   background: #4d4d4d;
   padding: 0 15px;
-  text-transform: uppercase;
-  font-size: 12px;
+/*  text-transform: uppercase;*/
+ font-size: 12px;
   line-height: 25px;
 }
 .panel .list-block .list-group ul .js-toggle-menu {
@@ -5099,7 +5099,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .dashboard-menu .menu-link > span:last-child {
   display: block;
   color: #FFFFFF;
-  text-transform: uppercase;
+/*  text-transform: uppercase;*/
   font-size: 8px;
   position: absolute;
   width: 100%;
@@ -5121,7 +5121,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
 }
 .picker-modal h2,
 .popup h2 {
-  text-transform: uppercase;
+/*  text-transform: uppercase;*/
   font-family: 'robotoblack', sans-serif;
   color: #B28973;
   font-size: 28px;
@@ -5940,6 +5940,8 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .list-block .opentogglelist textarea, .list-block .addclaim textarea {width: 100%; display: block; color: #999;}
 .allbtn {text-align: center;}
 .btnall {border: 1px solid #0598b5; background-color: #13a8c6; color: #fff; padding: 4px; font-size: 12px; text-transform: capitalize; margin-top: 8px; border-radius: 3px; } 
+.btnall {border: 1px solid #0598b5; background-color: #13a8c6; color: #fff; padding: 4px; font-size: 12px; text-transform: capitalize; margin-top: 8px; border-radius: 3px; } 
+.btnALL {border: 1px solid #41ab0c; background-color: ##41ab0c; color: #fff; padding: 4px; font-size: 12px; text-transform: capitalize; margin-top: 8px; border-radius: 3px; } 
 .closeme {position: absolute; top: -12%; right: 2%; width: 20px; height: 20px; } 
 .addclaim {background-color: #ececec; margin-top: 25px; } 
 .addclaim h4 {text-align: center; padding: 0; margin: 0 8px 0 0; font-size: 14px; background-color: #41ab0b; color: #fff;}
