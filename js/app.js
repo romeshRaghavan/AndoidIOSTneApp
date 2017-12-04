@@ -508,7 +508,7 @@ function fetchSMSClaim8() {
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
-/*            j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
+        /*j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
             var select1 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen3);
             var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
             var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
@@ -1304,7 +1304,7 @@ function takePhoto(){
 
     
     
-		camerastatus = status;    
+		//camerastatus = status;    
     
 }
 
