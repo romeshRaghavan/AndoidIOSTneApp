@@ -440,21 +440,21 @@ j(document).ready(function() {
 
 
 
-// j(document).ready(function(){
+ j(document).ready(function(){
 
-//     j(".claimlisting").on("click", function () {
-//         jheader = j(this);
-//         jcontent = jheader.next();
-//         jcontent.slideToggle();
-//     });
-//     j(".addexpense").on("click", function(){
-//         j(".addclaim").fadeIn();
-//     });
-//     j(".closeme").on("click", function(){
-//         j(".addclaim").fadeOut();
-//     });
+     j(".claimlisting").on("click", function () {
+        jheader = j(this);
+         jcontent = jheader.next();
+       jcontent.slideToggle();
+     });
+    j(".addexpense").on("click", function(){
+         j(".addclaim").fadeIn();
+   });
+    j(".closeme").on("click", function(){
+         j(".addclaim").fadeOut();     
+    });
 
-// });
+});
 
 
 j.fn.serializeObject = function() {
@@ -1078,7 +1078,6 @@ function discardMessages1(smsID){
 }
 
 function saveBusinessDetailsInWishList(i,smsId){
-    alert("1");
 	exceptionMessage='';
 	if (mydb) {
 		//get the values of the text inputs
@@ -1140,7 +1139,6 @@ function saveBusinessDetailsInWishList(i,smsId){
 		  if(file ==undefined){
 		  	file="";
 			}*/
-			alert("2"+smsId);
 		  mydb.transaction(function (t) {
 				t.executeSql("INSERT INTO wishListForBussExpense (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment,wayPointunitValue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
 											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file,way_points]);
@@ -1334,4 +1332,33 @@ function showPic(i,image){
     var attach = "attach_"+i;
      show.src = image;
      attach.src =image;
+}
+
+
+function addExpense(){
+     window.location.href = 'addExpense.html';
+}
+
+
+function saveSMS(sms){
+
+	if (mydb) {
+		//save incoming sms
+	    var smsMsg = sms.body;
+	    //alert("sms save "+sms);
+		var senderAddress = ""+sms.address;	
+		senderAddress = senderAddress.toLowerCase();	
+		var smsSentDate = getFormattedDateFromMillisec(parseInt(sms.date_sent));
+		var smsAmount = parseIncomingSMSForAmount(smsMsg);
+		if (smsMsg != "") {
+	            mydb.transaction(function (t) {
+	                t.executeSql("INSERT INTO addExpensetable (smsText,senderAddr,smsSentDate,smsAmount,smsAttachment) VALUES (?,?,?,?,?)", 
+												[smsMsg,senderAddress,smsSentDate,smsAmount,'images/dummy-image.png']);
+				});
+
+	        } else {
+	        }
+	} else {
+        alert("db not found, your browser does not support web sql!");
+    }
 }

@@ -158,6 +158,7 @@ if (window.openDatabase) {
         t.executeSql("CREATE TABLE IF NOT EXISTS smsMaster (smsId INTEGER PRIMARY KEY ASC, smsText TEXT,senderAddr TEXT,smsSentDate TEXT,smsAmount TEXT,smsAttachment BLOB)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS smsScrutinizerMst (ID INTEGER PRIMARY KEY ASC, filterText TEXT, filterFlag TEXT, status TEXT)");
         t.executeSql("CREATE TABLE IF NOT EXISTS wishListForBussExpense(busExpId INTEGER PRIMARY KEY ASC, accHeadId INTEGER REFERENCES accountHeadMst(accHeadId), expNameId INTEGER REFERENCES expNameMst(expNameId),expDate DATE, expFromLoc TEXT, expToLoc TEXT, expNarration TEXT, expUnit INTEGER, expAmt Double, currencyId INTEGER REFERENCES currencyMst(currencyId),isEntitlementExceeded TEXT,busExpAttachment BLOB,wayPointunitValue TEXT)");
+        t.executeSql("CREATE TABLE IF NOT EXISTS addExpensetable (smsId INTEGER PRIMARY KEY ASC, smsText TEXT,senderAddr TEXT,smsSentDate TEXT,smsAmount TEXT,smsAttachment BLOB)");
     });
 } else {
     alert(window.lang.translate('WebSQL is not supported by your browser!'));
@@ -2263,7 +2264,7 @@ function saveSMS(sms){
 		if (smsMsg != "") {
 	            mydb.transaction(function (t) {
 	                t.executeSql("INSERT INTO smsMaster (smsText,senderAddr,smsSentDate,smsAmount,smsAttachment) VALUES (?,?,?,?,?)", 
-												[smsMsg,senderAddress,smsSentDate,smsAmount,LOAD_FILE('images/dummy-image.png')]);
+												[smsMsg,senderAddress,smsSentDate,smsAmount,'images/dummy-image.png']);
 				});
 
 	        } else {
