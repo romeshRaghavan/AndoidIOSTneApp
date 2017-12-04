@@ -1289,7 +1289,7 @@ function goToHome(){
 }
 
 
-function takePhoto(i){
+function takePhoto(){
 		navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
             destinationType: 0 });
     
