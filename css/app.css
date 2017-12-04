@@ -4726,18 +4726,18 @@ img {
 
 .action-red {
   background: #ff2d55 !important;
-  font-size: 11px;
+  font-size: 12px;
   text-align: center;
 }
 
 .action-green {
   background: #2db62d !important;
-  font-size: 11px;
+  font-size: 12px;
   text-align: center;
 }
 .action-blue {
-   background: #546e7a !important;
-   font-size: 11px;
+   background: #2185ffe0 !important;
+   font-size: 12px;
    text-align: center;
 }
 .icon-20 {
@@ -5940,7 +5940,9 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .list-block .opentogglelist textarea, .list-block .addclaim textarea {width: 100%; display: block; color: #999;}
 .allbtn {text-align: center;}
 .btnall {border: 1px solid #0598b5; background-color: #13a8c6; color: #fff; padding: 4px; font-size: 12px; text-transform: capitalize; margin-top: 8px; border-radius: 3px; } 
-.btnall {border: 1px solid #0598b5; background-color: #13a8c6; color: #fff; padding: 4px; font-size: 12px; text-transform: capitalize; margin-top: 8px; border-radius: 3px; } 
+.btnall {border: 1px solid #0598b5; background-color: #13a8c6; color: #fff; padding: 4px; font-size: 12px; text-transform: capitalize; margin-top: 8px; border-radius: 3px; }
+.imagess { color: #fff; padding: 0; font-size: 35px; text-transform: capitalize;} 
+.imagess { color: #fff; padding: 0; font-size: 35px; text-transform: capitalize;} 
 .btnALL {border: 1px solid #41ab0c; background-color: ##41ab0c; color: #fff; padding: 4px; font-size: 12px; text-transform: capitalize; margin-top: 8px; border-radius: 3px; } 
 .closeme {position: absolute; top: -12%; right: 2%; width: 20px; height: 20px; } 
 .addclaim {background-color: #ececec; margin-top: 25px; } 
@@ -5961,3 +5963,14 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .sendrest {margin: 5px 0 10px; display: none;}
 .selected {background-color: #0598b5; color: #fff; }
 .sendrest .btnall {width: 80px; padding: 6px;}
+.button__badge {
+  background-color: #fa3e3e;
+  border-radius: 4px;
+  color: white;
+  padding: 0px 2px 0px 2px;
+  font-size: 10px;
+  position: absolute; /* Position the badge within the relatively positioned button */
+  top: 7px;
+  right: -2px;
+}
+.camimg{width: 53%;padding: 4px;}

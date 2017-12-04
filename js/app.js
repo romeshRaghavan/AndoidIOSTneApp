@@ -475,10 +475,10 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 function fetchSMSClaim8() {
     
     mydb.transaction(function(t) {
-    mydb.transaction(function (t) {
-                  t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount) VALUES (?, ?, ?, ?,?)", 
-                                            [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00"]);
-                });
+     mydb.transaction(function (t) {      
+      t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
+         
+             });  
         var headerOprationBtn;
       t.executeSql('SELECT * FROM smsMaster;', [],
          function(transaction, result) {
@@ -492,7 +492,7 @@ function fetchSMSClaim8() {
             var div3 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div2);
             var div4 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div3);
             var spen = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div4);
-            j(spen).append('<img src="images/Uber-Logo-120x120.jpg" alt ="">');
+            j(spen).append('<img id = "show_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var div5 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div3);
             var div6 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div5);
             j(div6).append('<span class="data">SMS date : '+row.smsSentDate+' | Amount : '+row.smsAmount+'</span>');
@@ -502,15 +502,17 @@ function fetchSMSClaim8() {
             var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
             var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
-            j(spen1).append('<img src="images/Uber-Logo-120x120.jpg" alt ="">');
+            j(spen1).append('<img id="attach_"'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
+            j(spen11).append('<img style="width: 53%; padding: 4px;" src="images/camera.png" onclick="takePhoto();">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
 /*            j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
             var select1 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen3);
-                var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
-                var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
-                var option3 =j('<option></option>').attr({ class: [""].join(' ') }).text("Telephone").appendTo(select1);
+            var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
+            var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
+            var option3 =j('<option></option>').attr({ class: [""].join(' ') }).text("Telephone").appendTo(select1);
             var option7 =j('<option></option>').attr({ class: [""].join(' ') }).text("Client Entertainment").appendTo(select1);
             var spen4 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text(' Currency :').appendTo(div12);
             var select2 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen4);
@@ -520,18 +522,19 @@ function fetchSMSClaim8() {
 
             var div14 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen5 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense date :').appendTo(div14);
-             j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.smsSentDate+'> Amount <input type="text" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.smsAmount+'>');
+            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.smsSentDate+'> Amount <input type="text" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.smsAmount+'>');
             var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
             j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.smsText+'</textarea>');  
-             var div16 = j('<div></div>').attr({ class: ["allbtn"].join(' ') }).appendTo(div11);
-             j(div16).append('<button class="btnall" onclick ="updateSms('+i+','+row.smsId+'),reload();">Done</button>  <button class="btnall" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');">send for approval</button> <button class="btnall" onclick = "saveBusinessDetailsInWishList('+i+','+row.smsId+');">Add to wishlist</button> <button class="btnall" onclick ="discardMessages1('+row.smsId+');">Delete</button>');
+             var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
+             j(div16).append('<img class="imagess" style = "width: 35px;" src="images/done.png" onclick ="updateSms('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 35px;     padding-left :100px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> <img style = "width: 35px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishList('+i+','+row.smsId+');"></img> <img class="imagess"  style = "width: 35px;" src="images/todelete.png" onclick ="discardMessages1('+row.smsId+');"></img>');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
-            var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send for approval').appendTo(div17);  
-            var a2 = j('<a></a>').text('Add to wishlist').attr({ class: ["action-blue js-down"].join(' ') ,onclick : ["saveBusinessDetailsInWishList("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
-            var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages1("+row.smsId+");"].join(' ')}).appendTo(div17);  
+             var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send').appendTo(div17);  
+             var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-down"].join(' ') ,onclick : ["saveBusinessDetailsInWishList("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
+             var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages1("+row.smsId+");"].join(' ')}).appendTo(div17);  
                 
             mytable.appendTo("#box8");  
            //createExpenseName("expenseName_"+i);
+            showPic(i,row.smsAttachment);
             }  
                     
 /*            j("#source tr").click(function(){ 
@@ -1279,4 +1282,56 @@ function hideOn(obj) {
     } catch(e) {
         console.log("Exception : " + e);
     }
+}
+
+function goToHome(){
+    window.location.href = 'index.html';
+}
+
+
+function takePhoto(i){
+		navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
+            destinationType: 0 });
+    
+    
+
+/*
+       navigator.camera.getPicture(function(imageData) {
+    onTakePhotoDataSuccess(imageData, i),onTakeFail;
+}, null, options);
+
+*/
+
+    
+    
+		camerastatus = status;    
+    
+}
+
+function onTakeFail(message) {
+        
+    }
+
+function onTakePhotoDataSuccess(imageData) {   
+        var fileTempCamera = "data:image/jpeg;base64," + imageData;
+        show_1.src = "data:image/jpeg;base64," + imageData;
+		attach_1.src = "data:image/jpeg;base64," + imageData;
+		fileTempGalleryBE ="";
+       
+            if (fileTempCamera != "" && fileTempCamera != null) {
+	            mydb.transaction(function (t) {
+	                t.executeSql("UPDATE smsMaster set smsAttachment ='"+fileTempCamera+"' where smsId = 1;");
+				});
+            } else {
+        alert("db not found, your browser does not support web sql!");
+    }
+    
+    
+    }
+
+function showPic(i,image){
+    var show = "show_"+i;
+    var attach = "attach_"+i;
+     show.src = image;
+     attach.src =image;
 }

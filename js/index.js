@@ -1967,7 +1967,7 @@ function oprationONTravelSettlementExp(){
                 destinationType=navigator.camera.DestinationType;
             }
 	
-	function onPhotoDataSuccess(imageData) { 
+	function onPhotoDataSuccess(imageData) {
        resetImageData();
        if(voucherType == 'wallet'){
        	smallImageWallet.style.display = 'block';       

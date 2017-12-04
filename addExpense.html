@@ -15,6 +15,11 @@
       <link rel="stylesheet" href="select2/select2.css"/>
      <link rel="stylesheet" href="css/jquery-confirm.min.css">
    </head>
+    <style>
+     #menu-link-4 a::before{
+		content: "\f015";
+	}
+    </style>
    <body>
       <div class="statusbar-overlay"></div>
       <div class="panel-overlay"></div>
@@ -180,6 +185,9 @@
                   </div>
                   <div onclick ="getSms();" class="center sliding explogo"><img src="images/expenzing-logo.jpg" alt=""></div>
                   <div class="right">
+                     <a href="#" class="link icon-only">
+                         <span class="kkicon profilepic"><a id="menu-link-4"></a></span>
+                     </a>
                      <a href="#" class="link icon-only">
                         <span class="kkicon profilepic"><img src="images/add-receipt.png" alt="" class="blk"></span>
                      </a>
