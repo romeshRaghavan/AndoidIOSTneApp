@@ -1307,7 +1307,7 @@ function fetchDataFromWishListA() {
               
         for (var i = 0; i < result.rows.length; i++) {
             var row = result.rows.item(i);
-            var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
+            var mytable = j('<li></li>').attr({ id: "abc_"+i,class: ["swipeout"].join(' ') });
             var div1 = j('<div></div>').attr({ class: ["swipeout-content"].join(' ') }).appendTo(mytable);
             var div2 = j('<div></div>').attr({ class: ["item-content claimlisting"].join(' ') ,onclick : ["expandCollapse(this);"].join(' ') }).appendTo(div1);
             var div3 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div2);
@@ -1351,7 +1351,9 @@ function fetchDataFromWishListA() {
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
              var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.busExpId+");"].join(' ')}).text('Send').appendTo(div17);   
              var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages3("+row.busExpId+");"].join(' ')}).appendTo(div17);  
-                
+            var divA = j('<div></div>').attr({ class: ["closemenow"].join(' '),onclick : ["reload();"].join(' ') }).appendTo(div8);
+                j(divA).append('<img id="" src="images/closeme.png" alt ="">');
+                                              
             mytable.appendTo("#box9");  
            //createExpenseName("expenseName_"+i);
             //showPic(i,row.smsAttachment);
@@ -1761,4 +1763,33 @@ function saveBusinessDetailsInWishListkkk(i,smsId){
         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
         
     }
+}
+
+
+function chooseOption(imgObj) {
+	console.log("recept is is : " + imgObj.id);
+	if (window.confirm("Send to OCR?") == true) {
+		//document.getElementById("imgProcessingId").style.display = "block";
+		//document.getElementById("imgProcessingId").innerHTML  = "sending your reciept to OCR for processing...";
+		alert("sending your reciept to OCR for processing...");
+		setTimeout(delayFun, 3000);
+		//document.getElementById("imgProcessingId").innerHTML  = "Reciept Processed.";
+		alert("Reciept Processed.");
+		setTimeout(delayFun, 1);
+        document.getElementById("receiptClaim1").style.display = "block";
+		//document.getElementById("imgProcessingId").innerHTML  = "";
+	} else {
+		//document.getElementById("imgProcessingId").style.display = "block";
+		//document.getElementById("imgProcessingId").innerHTML = "sending your reciept to your saved list...";
+		alert("sending your reciept to your saved list...");
+		setTimeout(delayFun, 3000);
+		//document.getElementById("imgProcessingId").innerHTML = "Reciept saved to your saved list.";
+		setTimeout(delayFun, 1);
+		alert("Reciept saved to your saved list.");
+		//document.getElementById("imgProcessingId").innerHTML = "";
+	}
+}
+
+function delayFun() {
+	console.log("delayFun : ");
 }
