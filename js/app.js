@@ -237,7 +237,8 @@ var myApp = new Framework7({
 
 var mainView = myApp.addView('.view-main', {});
 
-myApp.onPageInit('index', function(){
+/*
+myApp.onPageInit('addExpense', function(){
     jj('.claimlisting').on('click', function (e) {
         jjheader = jj(this);
         jjcontent = jjheader.next();
@@ -253,6 +254,7 @@ myApp.onPageInit('index', function(){
 
     console.log('Index Page Init Function Triggered');
 }).trigger();
+*/
 
 myApp.onPageInit('wishlist', function(){
 
@@ -440,7 +442,7 @@ j(document).ready(function() {
 
 
 
- j(document).ready(function(){
+/* j(document).ready(function(){
 
      j(".claimlisting").on("click", function () {
         jheader = j(this);
@@ -454,7 +456,7 @@ j(document).ready(function() {
          j(".addclaim").fadeOut();     
     });
 
-});
+});*/
 
 
 j.fn.serializeObject = function() {
@@ -504,7 +506,7 @@ function fetchSMSClaim8() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_"'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 4px;" src="images/camera.png" onclick="takePhoto();">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -526,10 +528,10 @@ function fetchSMSClaim8() {
             var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
             j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.smsText+'</textarea>');  
              var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
-             j(div16).append('<img class="imagess" style = "width: 35px;" src="images/done.png" onclick ="updateSms('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 35px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> <img style = "width: 35px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishList('+i+','+row.smsId+');"></img> <img class="imagess"  style = "width: 35px;" src="images/todelete.png" onclick ="discardMessages1('+row.smsId+');"></img>');
+             j(div16).append('<img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="updateSms('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 25px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishList('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="discardMessages1('+row.smsId+');"></img>');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
              var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send').appendTo(div17);  
-             var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-down"].join(' ') ,onclick : ["saveBusinessDetailsInWishList("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
+             var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-up"].join(' ') ,onclick : ["saveBusinessDetailsInWishList("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
              var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages1("+row.smsId+");"].join(' ')}).appendTo(div17);  
                 
             mytable.appendTo("#box8");  
@@ -751,6 +753,27 @@ function updateSms(i,smsId){
         if (smsDate != "" && smsAmount != "" && smsNarration != "" && smsId != "") {
 	            mydb.transaction(function (t) {
 	                t.executeSql("UPDATE smsMaster set smsText ='"+smsNarration+"', smsSentDate ='"+smsDate+"',smsAmount = '"+smsAmount+"' where smsId = "+smsId+";");
+				});
+                 
+            
+            } else {
+        alert("db not found, your browser does not support web sql!");
+    }
+        
+}
+    
+}
+
+function updateBussinesExp(i,smsId){
+    var aa =  document.getElementById('smsAmount_'+i).value;
+    if (mydb) {
+        var smsDate = document.getElementById('smsDate_'+i).value;
+        var smsAmount =  document.getElementById('smsAmount_'+i).value;
+        var smsNarration =  document.getElementById('smsNarration_'+i).value;
+        
+        if (smsDate != "" && smsAmount != "" && smsNarration != "" && smsId != "") {
+	            mydb.transaction(function (t) {
+	                t.executeSql("UPDATE addExpensetable set smsText ='"+smsNarration+"', smsSentDate ='"+smsDate+"',smsAmount = '"+smsAmount+"' where smsId = "+smsId+";");
 				});
                  
             
@@ -1077,12 +1100,58 @@ function discardMessages1(smsID){
     
 }
 
+
+function discardMessages3(smsID){
+    
+    j.confirm({
+    title: 'Confirm!',
+    content: 'Do you really want to delete?',
+    buttons: {
+        confirm: function () {
+            	mydb.transaction(function (t) {
+				t.executeSql("DELETE FROM wishListForBussExpense  WHERE busExpId=?", [smsID]);
+			});
+                  location.reload();
+		   },
+           cancel: function () {
+            location.reload();
+        
+    }
+        }
+});
+    
+}
+
+
+
+
+function discardMessages2(smsID){
+    
+    j.confirm({
+    title: 'Confirm!',
+    content: 'Do you really want to delete?',
+    buttons: {
+        confirm: function () {
+            	mydb.transaction(function (t) {
+				t.executeSql("DELETE FROM addExpensetable WHERE smsId=?", [smsID]);
+			});
+                  location.reload();
+		   },
+           cancel: function () {
+            location.reload();
+        
+    }
+        }
+});
+    
+}
+
 function saveBusinessDetailsInWishList(i,smsId){
 	exceptionMessage='';
 	if (mydb) {
 		//get the values of the text inputs
           
-        var exp_date ="11/27/2017";
+        var exp_date ="12/05/2017";
 		var exp_from_loc = "";
 		var exp_to_loc = "";
 		var exp_narration = document.getElementById('smsNarration_'+i).value;
@@ -1142,16 +1211,13 @@ function saveBusinessDetailsInWishList(i,smsId){
 		  mydb.transaction(function (t) {
 				t.executeSql("INSERT INTO wishListForBussExpense (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment,wayPointunitValue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
 											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file,way_points]);
-								
+								t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsId]);
 
 			});
 
-         mydb.transaction(function (t) {
-             alert("aa"+smsId);
-				t.executeSql("DELETE FROM smsMaster WHERE smsId=?", [smsId]);
-			});
           location.reload();
 
+                    alert("Added to wishlist.");
 
 		/*}else{
 			return false;
@@ -1216,7 +1282,7 @@ function fetchDataFromWishListA() {
          function(transaction, result) {
           if (result != null && result.rows != null) {
         j('#box9').empty(); 
-        for (var i = 0; i < result.rows.length; i++) {
+/*        for (var i = 0; i < result.rows.length; i++) {
             var row = result.rows.item(i);
             var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
             var div1 = j('<div></div>').attr({ class: ["swipeout-content"].join(' ') }).appendTo(mytable);
@@ -1237,7 +1303,59 @@ function fetchDataFromWishListA() {
                 
             mytable.appendTo("#box9");
          
-            }
+            }*/
+              
+        for (var i = 0; i < result.rows.length; i++) {
+            var row = result.rows.item(i);
+            var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
+            var div1 = j('<div></div>').attr({ class: ["swipeout-content"].join(' ') }).appendTo(mytable);
+            var div2 = j('<div></div>').attr({ class: ["item-content claimlisting"].join(' ') ,onclick : ["expandCollapse(this);"].join(' ') }).appendTo(div1);
+            var div3 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div2);
+            var div4 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div3);
+            var spen = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div4);
+            j(spen).append('<img id = "show_'+i+'" src="images/dummy-image.png" alt ="">');
+            var div5 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div3);
+            var div6 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div5);
+            j(div6).append('<span class="data">Expense date : '+row.expDate+' | Amount : '+row.expAmt+'</span>');
+            var div7 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div5);
+            j(div7).append(row.expNarration);
+             var div8 = j('<div></div>').attr({ class: ["opentogglelist"].join(' '),style:["display:none"].join(' ') }).appendTo(div1);
+            var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
+            var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
+            var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
+            j(spen1).append('<img id="attach_"'+i+'" src="images/dummy-image.png" alt ="">');
+            var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
+            var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
+            var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
+        /*j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
+            var select1 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen3);
+            var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
+            var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
+            var option3 =j('<option></option>').attr({ class: [""].join(' ') }).text("Telephone").appendTo(select1);
+            var option7 =j('<option></option>').attr({ class: [""].join(' ') }).text("Client Entertainment").appendTo(select1);
+            var spen4 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text(' Currency :').appendTo(div12);
+            var select2 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen4);
+            var option4 = j('<option></option>').attr({ class: [""].join(' ') }).text("INR").appendTo(select2);
+            var option5 = j('<option></option>').attr({ class: [""].join(' ') }).text("USD").appendTo(select2);
+            var option6 =j('<option></option>').attr({ class: [""].join(' ') }).text("EUR").appendTo(select2);
+
+            var div14 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
+            var spen5 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense date :').appendTo(div14);
+            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.expDate+'> Amount <input type="text" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.expAmt+'>');
+            var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
+            j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.expNarration+'</textarea>');  
+             var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
+             j(div16).append('<img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="updateSms('+i+','+row.busExpId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.busExpId+');"></img> <img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="discardMessages3('+row.busExpId+');"></img>');
+             var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
+             var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.busExpId+");"].join(' ')}).text('Send').appendTo(div17);   
+             var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages3("+row.busExpId+");"].join(' ')}).appendTo(div17);  
+                
+            mytable.appendTo("#box9");  
+           //createExpenseName("expenseName_"+i);
+            //showPic(i,row.smsAttachment);
+            }  
      }     
           
                 });
@@ -1337,6 +1455,8 @@ function showPic(i,image){
 
 function addExpense(){
      window.location.href = 'addExpense.html';
+
+        jj('.addclaim').show();
 }
 
 
@@ -1360,5 +1480,285 @@ function saveSMS(sms){
 	        }
 	} else {
         alert("db not found, your browser does not support web sql!");
+    }
+}
+
+
+function addTobussinesExpense(){
+    
+	if (mydb) {
+		//save incoming sms
+        var smsDate = document.getElementById('expDate').value;
+        var smsAmount =  document.getElementById('amount').value;
+        var smsNarration =  document.getElementById('narration').value;
+        var senderAddress ="";
+        
+	            mydb.transaction(function (t) {
+	                t.executeSql("INSERT INTO addExpensetable (smsText,senderAddr,smsSentDate,smsAmount,smsAttachment) VALUES (?,?,?,?,?)", [smsNarration,senderAddress,smsDate,smsAmount,'images/dummy-image.png']);
+				});
+	            j("#addClaims").hide("slow");
+                 alert("Expense added Successfully.");
+            location.reload();
+
+	} else {
+        alert("db not found, your browser does not support web sql!");
+    }
+}
+    
+function fetchBussiness9() {
+    
+    mydb.transaction(function(t) {
+     mydb.transaction(function (t) {      
+      t.executeSql("INSERT INTO addExpensetable (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
+         
+             });  
+        var headerOprationBtn;
+      t.executeSql('SELECT * FROM addExpensetable;', [],
+         function(transaction, result) {
+          if (result != null && result.rows != null) {
+        j('#box10').empty();
+        for (var i = 0; i < result.rows.length; i++) {
+            var row = result.rows.item(i);
+            var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
+            var div1 = j('<div></div>').attr({ class: ["swipeout-content"].join(' ') }).appendTo(mytable);
+            var div2 = j('<div></div>').attr({ class: ["item-content claimlisting"].join(' ') ,onclick : ["expandCollapse(this);"].join(' ') }).appendTo(div1);
+            var div3 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div2);
+            var div4 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div3);
+            var spen = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div4);
+            j(spen).append('<img id = "show_'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            var div5 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div3);
+            var div6 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div5);
+            j(div6).append('<span class="data">Expense date : '+row.smsSentDate+' | Amount : '+row.smsAmount+'</span>');
+            var div7 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div5);
+            j(div7).append(row.smsText);
+             var div8 = j('<div></div>').attr({ class: ["opentogglelist"].join(' '),style:["display:none"].join(' ') }).appendTo(div1);
+            var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
+            var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
+            var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
+            j(spen1).append('<img id="attach_"'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
+            var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
+            var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
+        /*j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
+            var select1 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen3);
+            var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
+            var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
+            var option3 =j('<option></option>').attr({ class: [""].join(' ') }).text("Telephone").appendTo(select1);
+            var option7 =j('<option></option>').attr({ class: [""].join(' ') }).text("Client Entertainment").appendTo(select1);
+            var spen4 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text(' Currency :').appendTo(div12);
+            var select2 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen4);
+            var option4 = j('<option></option>').attr({ class: [""].join(' ') }).text("INR").appendTo(select2);
+            var option5 = j('<option></option>').attr({ class: [""].join(' ') }).text("USD").appendTo(select2);
+            var option6 =j('<option></option>').attr({ class: [""].join(' ') }).text("EUR").appendTo(select2);
+
+            var div14 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
+            var spen5 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense date :').appendTo(div14);
+            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.smsSentDate+'> Amount <input type="text" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.smsAmount+'>');
+            var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
+            j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.smsText+'</textarea>');  
+             var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
+             j(div16).append('<img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="updateBussinesExp('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 25px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishListkkk('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="discardMessages2('+row.smsId+');"></img>');
+             var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
+             var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send').appendTo(div17);  
+             var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-up"].join(' ') ,onclick : ["saveBusinessDetailsInWishListkkk("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
+             var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages2("+row.smsId+");"].join(' ')}).appendTo(div17);  
+                
+            mytable.appendTo("#box10");  
+           //createExpenseName("expenseName_"+i);
+           // showPic(i,row.smsAttachment);
+            }  
+                    
+/*            j("#source tr").click(function(){ 
+                headerOprationBtn = defaultPagePath+'headerPageForSMSOperation.html';
+                if(j(this).hasClass("selected")){ 
+                var headerBackBtn=defaultPagePath+'headerPageForSMSOperation.html';
+                    j(this).removeClass('selected');
+                    j('#mainHeader').load(headerBackBtn);
+                }else{
+                if(j(this).text()=='DateExpense expid From/To LocAmt'){
+                    
+                }else{
+                    j('#mainHeader').load(headerOprationBtn);
+                    j(this).addClass('selected');
+                }                   
+                }                               
+            });*/
+            }
+         });
+     });     
+          
+ } 
+
+
+
+function saveBusinessDetailsInWishListk(){
+	exceptionMessage='';
+	if (mydb) {
+		//get the values of the text inputs
+          
+        var exp_date ="12/05/2017";
+		var exp_from_loc = "";
+		var exp_to_loc = "";
+		var exp_narration = document.getElementById('narration').value;
+		var exp_unit = "1";
+		var way_points ="1";
+		var exp_amt =  document.getElementById('amount').value;
+		var entitlement_exceeded="N";
+		var acc_head_id;
+		var acc_head_val;
+		var exp_name_id;
+		var exp_name_val;
+		var currency_id;
+		var currency_val;
+		var file;
+        acc_head_id = 1;
+        exp_name_id= 6;
+        currency_id = 1;
+        
+		/*if(j("#accountHead").select2('data') != null){
+			acc_head_id = j("#accountHead").select2('data').id;
+			acc_head_val = j("#accountHead").select2('data').name;
+		}else{
+			acc_head_id = '-1';
+		}
+		
+		if(j("#expenseName").select2('data') != null){
+			exp_name_id = j("#expenseName").select2('data').id;
+			exp_name_val = j("#expenseName").select2('data').name;
+		}else{
+			exp_name_id = '-1';
+		}	
+		
+		if(j("#currency").select2('data') != null){
+			currency_id = j("#currency").select2('data').id;
+			currency_val = j("#currency").select2('data').name;
+		}else{
+			currency_id = '-1';
+		}
+		
+		if(fileTempGalleryBE ==undefined || fileTempGalleryBE ==""){
+		
+		}else{
+			file = fileTempGalleryBE;
+		}
+		
+		if(fileTempCameraBE ==undefined || fileTempCameraBE ==""){
+		
+		}else{
+			file = fileTempCameraBE; 
+		}*/
+		
+		/*if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){*/		  
+/*		  
+		  if(file ==undefined){
+		  	file="";
+			}*/
+		  mydb.transaction(function (t) {
+				t.executeSql("INSERT INTO wishListForBussExpense (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment,wayPointunitValue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file,way_points]);
+								
+
+			});
+
+         mydb.transaction(function (t) {
+             
+             
+				t.executeSql("DELETE FROM addExpensetable WHERE smsId=?", [smsId]);
+			});
+          location.reload();
+
+
+		/*}else{
+			return false;
+		}*/
+    } else {
+        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        
+    }
+}
+
+
+
+function saveBusinessDetailsInWishListkkk(i,smsId){
+	exceptionMessage='';
+	if (mydb) {
+		//get the values of the text inputs
+          
+        var exp_date ="12/05/2017";
+		var exp_from_loc = "";
+		var exp_to_loc = "";
+		var exp_narration = document.getElementById('smsNarration_'+i).value;
+		var exp_unit = "1";
+		var way_points ="1";
+		var exp_amt = document.getElementById('smsAmount_'+i).value;
+		var entitlement_exceeded="N";
+		var acc_head_id;
+		var acc_head_val;
+		var exp_name_id;
+		var exp_name_val;
+		var currency_id;
+		var currency_val;
+		var file;
+        acc_head_id = 1;
+        exp_name_id= 6;
+        currency_id = 1;
+        
+		/*if(j("#accountHead").select2('data') != null){
+			acc_head_id = j("#accountHead").select2('data').id;
+			acc_head_val = j("#accountHead").select2('data').name;
+		}else{
+			acc_head_id = '-1';
+		}
+		
+		if(j("#expenseName").select2('data') != null){
+			exp_name_id = j("#expenseName").select2('data').id;
+			exp_name_val = j("#expenseName").select2('data').name;
+		}else{
+			exp_name_id = '-1';
+		}	
+		
+		if(j("#currency").select2('data') != null){
+			currency_id = j("#currency").select2('data').id;
+			currency_val = j("#currency").select2('data').name;
+		}else{
+			currency_id = '-1';
+		}
+		
+		if(fileTempGalleryBE ==undefined || fileTempGalleryBE ==""){
+		
+		}else{
+			file = fileTempGalleryBE;
+		}
+		
+		if(fileTempCameraBE ==undefined || fileTempCameraBE ==""){
+		
+		}else{
+			file = fileTempCameraBE; 
+		}*/
+		
+		/*if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){*/		  
+/*		  
+		  if(file ==undefined){
+		  	file="";
+			}*/
+		  mydb.transaction(function (t) {
+				t.executeSql("INSERT INTO wishListForBussExpense (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment,wayPointunitValue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file,way_points]);
+								
+               t.executeSql("DELETE FROM addExpensetable WHERE smsId=?", [smsId]);
+			});
+
+            
+          location.reload();
+
+            alert("Added to wishlist.");
+		/*}else{
+			return false;
+		}*/
+    } else {
+        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        
     }
 }

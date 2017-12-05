@@ -2,8 +2,8 @@ var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
 var urlPath;
-var WebServicePath ='http://1.255.255.140:8085/NexstepWebService/mobileLinkResolver.service';
-//var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
+//var WebServicePath ='http://1.255.255.140:8085/NexstepWebService/mobileLinkResolver.service';
+var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath ='http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
@@ -43,12 +43,12 @@ var filtersStr = "";
 function login()
    {
 
-		var userName = "1487@angel.com";
+		var userName = "";
 
 	var password = "123";
     
     var jsonToBeSend=new Object();
-    jsonToBeSend["user"] = "1487@angel.com";
+    jsonToBeSend["user"] = "DineshS@expenzing.com";
     jsonToBeSend["pass"] = "123";
 	//setUrlPathLocalStorage(urlPath);
 	urlPath=window.localStorage.getItem("urlPath");

@@ -13,7 +13,8 @@
       <link rel="stylesheet" href="css/app.css">
       <link rel="stylesheet" href="#" id="theme-style">
       <link rel="stylesheet" href="select2/select2.css"/>
-     <link rel="stylesheet" href="css/jquery-confirm.min.css">
+      <link rel="stylesheet" href="css/jquery-confirm.min.css">
+      <link rel="stylesheet" href="css/datepicker.css">
    </head>
     <style>
      #menu-link-4 a::before{
@@ -189,8 +190,8 @@
                         <span class="kkicon profilepic"><img src="images/home.png" alt="" class="blk"></span>
                      </a>
                       &nbsp;
-                     <a href="#" onclick ="addExpense();"  class="link icon-only addexpense">
-                        <span class="kkicon profilepic"><img src="images/addexpense.png" alt="" class="blk"></span>
+                     <a href="#" onclick ="addExpense();"  class="">
+                        <span class="kkicon profilepic"><img src="images/addexpense_blue.png" alt="" class="blk"></span>
                      </a>
                        &nbsp;
                      <a href="#" class="link icon-only">
@@ -237,17 +238,16 @@
                         <div class="pages">
                            <div class="page no-toolbar">
                               <div class="tabs-animated-wrap" style="overflow: visible;">
-                                 <div class="tabs">
-                                    <div id="tab1" class="tab active">
                                        <div class="list-block mt-10 comments-box">
                                           <!-- this section for Add claim -->
-                                          <div class="addclaim">
+                                          <div id = "addClaims"  class="addclaim">
                                              <h4>Add Claim</h4>
                                              <div class="item-inner comments-list">
                                                 <div class="image">
                                                    <span class="ava">
                                                       <img src="images/dummy-image.png" alt="">
-                                                   </span>
+                                                       </span>
+  
                                                 </div>
                                                 <div class="text">
                                                    <div class="info">
@@ -261,21 +261,21 @@
                                                       </select></span>
                                                    </div>
                                                    <div class="info">
-                                                      <span class="data">Expense date : <input type="text" placeholder="Date"> Amount : <input type="text" placeholder="Amount"></span>
+                                                      <span class="data">Expense date : <input id="expDate" type="text" placeholder="Date"> Amount : <input id= "amount" type="tel" placeholder="Amount"></span>
                                                    </div>
                                                    <div class="comment">
-                                                      <textarea placeholder="Narration"></textarea>
+                                                      <textarea id="narration" placeholder="Narration"></textarea>
                                                    </div>
-                                                   <div class="allbtn"><button class="btnall">Send for approval</button> <button class="btnall">Add to wishlist</button> <button class="btnall">Delete</button></div>
+                                                   <div class="imagess">
+                        <img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="addTobussinesExpense();">&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="addTobussinesExpense();">&nbsp;&nbsp;&nbsp;<img style = "width: 25px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishListk()">&nbsp;&nbsp;<img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="closeAddExpense()">'
                                                 </div>
                                              </div>
-                                             <div class="closeme"><img src="images/closeme.png" alt=""></div>
                                           </div>
-                                          <ul id = "box8">
+                                        <div id ="close" class="closeme" onclick ="closeAddExpense()" ><img src="images/closeme.png" alt=""></div>
+                                           </div>
+                                          <ul id = "box10">
                                           </ul>
-                                       </div>
                                     </div>
-                                 </div>
                               </div>
                            </div>
                         </div>
@@ -300,10 +300,44 @@
       <script type="text/javascript" src="js/commonUtilities.js"></script>
       <script type="text/javascript" src="js/appLib.js"></script>
       <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="js/supported_date.js"></script>
+      <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 
    <script>   
-    fetchSMSClaim8();
+    fetchBussiness9();
     commanLogin();
+       j("#addClaims").show("slow");
+       j('.datepicker').pickadate();
+       
+  j(document).ready(function(){
+
+    j("#close").on("click", function(){
+          j("#addClaims").hide("slow"); 
+    });
+
+});
+var currentMonth;
+var currentDate;
+var currentYear;
+       j(function() { 
+		var date = new Date();
+		 currentMonth = date.getMonth();
+		 currentDate = date.getDate();
+		 currentYear = date.getFullYear();
+		j('#expDate').datepicker({
+		maxDate: new Date(currentYear, currentMonth, currentDate)
+		});
+	});
+	currentMonth = currentMonth+1;
+	if(currentDate<10){currentDate='0'+currentDate}
+	if(currentMonth<10){currentMonth='0'+currentMonth}
+	document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;	
+       
+       
+       
+function closeAddExpense(){
+    j("#addClaims").hide("slow"); 
+}       
    </script>
     <script src="cordova.js"></script>
    </body>

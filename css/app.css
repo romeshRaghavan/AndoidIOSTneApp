@@ -4523,6 +4523,10 @@ body {
   float: left !important;
 }
 
+.center {
+  float: center !important;
+}
+
 .mb-0 {
   margin-bottom: 0px !important;
 }
@@ -4736,7 +4740,7 @@ img {
   text-align: center;
 }
 .action-blue {
-   background: #2185ffe0 !important;
+   background: #007aff !important;
    font-size: 12px;
    text-align: center;
 }
@@ -5540,8 +5544,8 @@ html:not(.watch-active-state) .list-block .item-link:active {
   text-align: center;
 }
 .comments-box li .comments-list .image .ava img, .addclaim .comments-list .image .ava img {
-  width: 40px;
-  height: 40px;
+  width: 51px;
+  height: 51px;
   border-radius: 50%;
   border: 1px solid #ccc;
   padding: 2px;
@@ -5944,7 +5948,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .imagess { color: #fff; padding: 0; font-size: 35px; text-transform: capitalize;} 
 .imagess { color: #fff; padding: 0; font-size: 35px; text-transform: capitalize;} 
 .btnALL {border: 1px solid #41ab0c; background-color: ##41ab0c; color: #fff; padding: 4px; font-size: 12px; text-transform: capitalize; margin-top: 8px; border-radius: 3px; } 
-.closeme {position: absolute; top: -12%; right: 2%; width: 20px; height: 20px; } 
+.closeme {position: absolute; top: -8%; right: 2%; width: 20px; height: 20px; } 
 .addclaim {background-color: #ececec; margin-top: 25px; } 
 .addclaim h4 {text-align: center; padding: 0; margin: 0 8px 0 0; font-size: 14px; background-color: #41ab0b; color: #fff;}
 .list-block .addclaim .item-inner {padding-top: 0; padding-right: 8px;}
