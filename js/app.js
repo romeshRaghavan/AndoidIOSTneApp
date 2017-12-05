@@ -524,11 +524,11 @@ function fetchSMSClaim8() {
 
             var div14 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen5 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense date :').appendTo(div14);
-            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.smsSentDate+'> Amount <input type="text" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.smsAmount+'>');
+            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.smsSentDate+'> Amount <input type="tel" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.smsAmount+'>');
             var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
             j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.smsText+'</textarea>');  
              var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
-             j(div16).append('<img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="updateSms('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 25px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishList('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="discardMessages1('+row.smsId+');"></img>');
+             j(div16).append('<img class="imagess" style = "width: 20px;" src="images/done.png" onclick ="updateSms('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 20px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 20px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishList('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 20px;" src="images/todelete.png" onclick ="discardMessages1('+row.smsId+');"></img>');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
              var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send').appendTo(div17);  
              var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-up"].join(' ') ,onclick : ["saveBusinessDetailsInWishList("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
@@ -1343,11 +1343,11 @@ function fetchDataFromWishListA() {
 
             var div14 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen5 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense date :').appendTo(div14);
-            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.expDate+'> Amount <input type="text" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.expAmt+'>');
+            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.expDate+'> Amount <input type="tel" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.expAmt+'>');
             var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
             j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.expNarration+'</textarea>');  
              var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
-             j(div16).append('<img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="updateSms('+i+','+row.busExpId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.busExpId+');"></img> <img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="discardMessages3('+row.busExpId+');"></img>');
+             j(div16).append('<img class="imagess" style = "width: 20px;" src="images/done.png" onclick ="updateSms('+i+','+row.busExpId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 20px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.busExpId+');"></img> <img class="imagess"  style = "width: 20px;" src="images/todelete.png" onclick ="discardMessages3('+row.busExpId+');"></img>');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
              var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.busExpId+");"].join(' ')}).text('Send').appendTo(div17);   
              var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages3("+row.busExpId+");"].join(' ')}).appendTo(div17);  
@@ -1555,11 +1555,11 @@ function fetchBussiness9() {
 
             var div14 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen5 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense date :').appendTo(div14);
-            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.smsSentDate+'> Amount <input type="text" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.smsAmount+'>');
+            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.smsSentDate+'> Amount <input type="tel" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.smsAmount+'>');
             var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
             j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.smsText+'</textarea>');  
              var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
-             j(div16).append('<img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="updateBussinesExp('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 25px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishListkkk('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="discardMessages2('+row.smsId+');"></img>');
+             j(div16).append('<img class="imagess" style = "width: 20px;" src="images/done.png" onclick ="updateBussinesExp('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 20px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 20px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishListkkk('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 20px;" src="images/todelete.png" onclick ="discardMessages2('+row.smsId+');"></img>');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
              var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send').appendTo(div17);  
              var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-up"].join(' ') ,onclick : ["saveBusinessDetailsInWishListkkk("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
