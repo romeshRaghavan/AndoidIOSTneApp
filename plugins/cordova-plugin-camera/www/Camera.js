@@ -133,10 +133,11 @@ for (var key in Camera) {
  * @param {module:camera.CameraOptions} options CameraOptions
  */
 cameraExport.getPicture = function(successCallback, errorCallback, options) {
+    alert("1");
     argscheck.checkArgs('fFO', 'Camera.getPicture', arguments);
     options = options || {};
     var getValue = argscheck.getValue;
-
+    alert("2");
     var quality = getValue(options.quality, 50);
     var destinationType = getValue(options.destinationType, Camera.DestinationType.FILE_URI);
     var sourceType = getValue(options.sourceType, Camera.PictureSourceType.CAMERA);
@@ -149,13 +150,14 @@ cameraExport.getPicture = function(successCallback, errorCallback, options) {
     var saveToPhotoAlbum = !!options.saveToPhotoAlbum;
     var popoverOptions = getValue(options.popoverOptions, null);
     var cameraDirection = getValue(options.cameraDirection, Camera.Direction.BACK);
-
+alert("3");
     var args = [quality, destinationType, sourceType, targetWidth, targetHeight, encodingType,
                 mediaType, allowEdit, correctOrientation, saveToPhotoAlbum, popoverOptions, cameraDirection];
 
     exec(successCallback, errorCallback, "Camera", "takePicture", args);
     // XXX: commented out
     //return new CameraPopoverHandle();
+    alert("4");
 };
 
 /**
