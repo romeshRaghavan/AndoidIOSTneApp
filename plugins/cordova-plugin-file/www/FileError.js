@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-file.FileError", function(require, exports, module) {
 /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,8 +23,8 @@
 /**
  * FileError
  */
-function FileError (error) {
-    this.code = error || null;
+function FileError(error) {
+  this.code = error || null;
 }
 
 // File error codes
@@ -44,3 +45,5 @@ FileError.TYPE_MISMATCH_ERR = 11;
 FileError.PATH_EXISTS_ERR = 12;
 
 module.exports = FileError;
+
+});
