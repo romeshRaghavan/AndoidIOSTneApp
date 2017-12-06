@@ -16,8 +16,6 @@
      <link rel="stylesheet" href="css/jquery-confirm.min.css">
    </head>
     <body>
-                
-        
 <div class="statusbar-overlay"></div>
       <div class="panel-overlay"></div>
       <!-- Left panel -->
@@ -193,7 +191,7 @@
                         <span class="kkicon profilepic"><img src="images/add_receipt.png" alt="" class="blk"></span>
                      </a>
                        &nbsp;
-                     <a href="#" class="link icon-only">
+                     <a href="#" class="link icon-only" onclick ="addVoiceExpense();">
                         <span class="kkicon profilepic"><img src="images/mic.png" alt="" class="blk"></span>
                      </a>
                        &nbsp;
@@ -210,7 +208,7 @@
                </div>
       </div>
             <div class="pages navbar-fixed toolbar-fixed">
-               <div data-page="index" class="page page-bg">
+               <div  class="page page-bg" data-page="wishlist">
                   <div class="toolbar" style="display: none;">
                      <div class="toolbar-inner">
                         <a href="#" data-picker=".picker-social" class="open-picker link">
@@ -236,6 +234,9 @@
                      <div class="jumbotron">
                <h1 style=" text-align: center;" >Wishlist</h1>      
                   </div>
+                <div class="sendrest">
+                      <div class="allbtn"><button class="btnall">Send</button> <button class="btnall">Delete</button> <button class="btnall">Reset</button></div>
+                  </div>
                               <div class="tabs-animated-wrap" style="overflow: visible;">
                                        <div class="list-block mt-10 comments-box">
                                           <!-- this section for Add claim -->
@@ -252,6 +253,7 @@
             </div>
          </div>
       </div>
+    </div>
    <div style="display:none" id="loading_Cat" >
                <img src="../../images/loading2.gif" id="loading-image_Cat" alt="Loading..." >
   </div>

@@ -1319,6 +1319,7 @@ function fetchDataFromWishListA() {
             j(div6).append('<span class="data">Expense date : '+row.expDate+' | Amount : '+row.expAmt+'</span>');
             var div7 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div5);
             j(div7).append(row.expNarration);
+            
              var div8 = j('<div></div>').attr({ class: ["opentogglelist"].join(' '),style:["display:none"].join(' ') }).appendTo(div1);
             var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
             var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
@@ -1329,7 +1330,7 @@ function fetchDataFromWishListA() {
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
-        /*j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
+            /*j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
             var select1 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen3);
             var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
             var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
@@ -1347,7 +1348,7 @@ function fetchDataFromWishListA() {
             var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
             j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.expNarration+'</textarea>');  
              var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
-             j(div16).append('<img class="imagess" style = "width: 22px;" src="images/done.png" onclick ="updateSms('+i+','+row.busExpId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 22px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.busExpId+');"></img> <img class="imagess"  style = "width: 22px;" src="images/todelete.png" onclick ="discardMessages3('+row.busExpId+');"></img>');
+             j(div16).append('<img class="imagess" style = "width: 22px;" src="images/done.png" onclick ="updateSms('+i+','+row.busExpId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
              var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.busExpId+");"].join(' ')}).text('Send').appendTo(div17);   
              var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages3("+row.busExpId+");"].join(' ')}).appendTo(div17);  
@@ -1459,6 +1460,10 @@ function addExpense(){
      window.location.href = 'addExpense.html';
 
         jj('.addclaim').show();
+}
+
+function addVoiceExpense(){
+     window.location.href = 'voiceRead.html';
 }
 
 
@@ -1767,29 +1772,227 @@ function saveBusinessDetailsInWishListkkk(i,smsId){
 
 
 function chooseOption(imgObj) {
-	console.log("recept is is : " + imgObj.id);
 	if (window.confirm("Send to OCR?") == true) {
-		//document.getElementById("imgProcessingId").style.display = "block";
-		//document.getElementById("imgProcessingId").innerHTML  = "sending your reciept to OCR for processing...";
-		alert("sending your reciept to OCR for processing...");
-		setTimeout(delayFun, 3000);
-		//document.getElementById("imgProcessingId").innerHTML  = "Reciept Processed.";
-		alert("Reciept Processed.");
-		setTimeout(delayFun, 1);
-        document.getElementById("receiptClaim1").style.display = "block";
-		//document.getElementById("imgProcessingId").innerHTML  = "";
+        document.getElementById("imgProcessingId").textContent  = "sending your reciept to OCR for processing...";
+		setTimeout(delayFunOK, 2000);
 	} else {
-		//document.getElementById("imgProcessingId").style.display = "block";
-		//document.getElementById("imgProcessingId").innerHTML = "sending your reciept to your saved list...";
-		alert("sending your reciept to your saved list...");
-		setTimeout(delayFun, 3000);
-		//document.getElementById("imgProcessingId").innerHTML = "Reciept saved to your saved list.";
-		setTimeout(delayFun, 1);
-		alert("Reciept saved to your saved list.");
-		//document.getElementById("imgProcessingId").innerHTML = "";
+        document.getElementById("imgProcessingId").textContent  = "saving your reciept to saved list...";
+		setTimeout(delayFunCancel, 2000);
 	}
 }
 
-function delayFun() {
-	console.log("delayFun : ");
+function delayFunOK() {
+    document.getElementById("imgProcessingId").textContent  = "Reciept Processed successfully.";
+    setTimeout(function() {document.getElementById("imgProcessingId").textContent  = "";}, 1000);
+    document.getElementById("receiptClaim1").style.display = "block";
 }
+
+function delayFunCancel() {
+    document.getElementById("imgProcessingId").textContent  = "Reciept saved successfully to your saved list.";
+    setTimeout(function() {document.getElementById("imgProcessingId").textContent  = "";}, 1000);
+}
+
+
+
+try {
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
+}
+catch(e) {
+  console.error(e);
+  $('.no-browser-support').show();
+  $('.app').hide();
+}
+
+
+var noteTextarea = $('amount');
+var instructions = $('#recording-instructions');
+var notesList = $('ul#notes');
+
+var noteContent = '';
+
+// Get all notes from previous sessions and display them.
+var notes = getAllNotes();
+renderNotes(notes);
+
+
+
+/*-----------------------------
+      Voice Recognition 
+------------------------------*/
+
+// If false, the recording will stop after a few seconds of silence.
+// When true, the silence period is longer (about 15 seconds),
+// allowing us to keep recording even when the user pauses. 
+recognition.continuous = true;
+
+// This block is called every time the Speech APi captures a line. 
+recognition.onresult = function(event) {
+
+  // event is a SpeechRecognitionEvent object.
+  // It holds all the lines we have captured so far. 
+  // We only need the current one.
+  var current = event.resultIndex;
+
+  // Get a transcript of what was said.
+  var transcript = event.results[current][0].transcript;
+
+  // Add the current transcript to the contents of our Note.
+  // There is a weird bug on mobile, where everything is repeated twice.
+  // There is no official solution so far so we have to handle an edge case.
+  var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+
+  if(!mobileRepeatBug) {
+    noteContent += transcript;
+    noteTextarea.val(noteContent);
+  }
+};
+
+recognition.onstart = function() { 
+  instructions.text('Voice recognition activated. Try speaking into the microphone.');
+}
+
+recognition.onspeechend = function() {
+  instructions.text('You were quiet for a while so voice recognition turned itself off.');
+}
+
+recognition.onerror = function(event) {
+  if(event.error == 'no-speech') {
+    instructions.text('No speech was detected. Try again.');  
+  };
+}
+
+
+
+/*-----------------------------
+      App buttons and input 
+------------------------------*/
+
+$('#start-record-btn').on('click', function(e) {
+  if (noteContent.length) {
+    noteContent += ' ';
+  }
+  recognition.start();
+});
+
+
+$('#pause-record-btn').on('click', function(e) {
+  recognition.stop();
+  instructions.text('Voice recognition paused.');
+});
+
+// Sync the text inside the text area with the noteContent variable.
+noteTextarea.on('input', function() {
+  noteContent = $(this).val();
+})
+
+$('#save-note-btn').on('click', function(e) {
+  recognition.stop();
+
+  if(!noteContent.length) {
+    instructions.text('Could not save empty note. Please add a message to your note.');
+  }
+  else {
+    // Save note to localStorage.
+    // The key is the dateTime with seconds, the value is the content of the note.
+    saveNote(new Date().toLocaleString(), noteContent);
+
+    // Reset variables and update UI.
+    noteContent = '';
+    renderNotes(getAllNotes());
+    noteTextarea.val('');
+    instructions.text('Note saved successfully.');
+  }
+      
+})
+
+
+notesList.on('click', function(e) {
+  e.preventDefault();
+  var target = $(e.target);
+
+  // Listen to the selected note.
+  if(target.hasClass('listen-note')) {
+    var content = target.closest('.note').find('.content').text();
+    readOutLoud(content);
+  }
+
+  // Delete note.
+  if(target.hasClass('delete-note')) {
+    var dateTime = target.siblings('.date').text();  
+    deleteNote(dateTime);
+    target.closest('.note').remove();
+  }
+});
+
+
+
+/*-----------------------------
+      Speech Synthesis 
+------------------------------*/
+
+function readOutLoud(message) {
+	var speech = new SpeechSynthesisUtterance();
+
+  // Set the text and voice attributes.
+	speech.text = message;
+	speech.volume = 1;
+	speech.rate = 1;
+	speech.pitch = 1;
+  
+	window.speechSynthesis.speak(speech);
+}
+
+
+
+/*-----------------------------
+      Helper Functions 
+------------------------------*/
+
+function renderNotes(notes) {
+  var html = '';
+  if(notes.length) {
+    notes.forEach(function(note) {
+      html+= `<li class="note">
+        <p class="header">
+          <span class="date">${note.date}</span>
+          <a href="#" class="listen-note" title="Listen to Note">Listen to Note</a>
+          <a href="#" class="delete-note" title="Delete">Delete</a>
+        </p>
+        <p class="content">${note.content}</p>
+      </li>`;    
+    });
+  }
+  else {
+    html = '<li><p class="content">You don\'t have any notes yet.</p></li>';
+  }
+  notesList.html(html);
+}
+
+
+function saveNote(dateTime, content) {
+  localStorage.setItem('note-' + dateTime, content);
+}
+
+
+function getAllNotes() {
+  var notes = [];
+  var key;
+  for (var i = 0; i < localStorage.length; i++) {
+    key = localStorage.key(i);
+
+    if(key.substring(0,5) == 'note-') {
+      notes.push({
+        date: key.replace('note-',''),
+        content: localStorage.getItem(localStorage.key(i))
+      });
+    } 
+  }
+  return notes;
+}
+
+
+function deleteNote(dateTime) {
+  localStorage.removeItem('note-' + dateTime); 
+}
+
