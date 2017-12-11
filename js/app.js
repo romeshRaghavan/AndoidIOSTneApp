@@ -1410,8 +1410,14 @@ function goToHome(){
 
 
 function takePhoto(){
-		navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
-            destinationType: 0 });
+    CameraPreview.takePicture(function(base64PictureData){
+  /* code here */
+        onTakePhotoDataSuccess(base64PictureData);
+    });
+    
+    
+	/*	navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
+            destinationType: 0 });*/
     
     
 
