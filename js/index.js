@@ -43,8 +43,7 @@ var filtersStr = "";
 function login()
    {
 
-		var userName = "";
-
+    var userName = "";
 	var password = "123";
     
     var jsonToBeSend=new Object();

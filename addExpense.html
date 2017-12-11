@@ -15,6 +15,7 @@
       <link rel="stylesheet" href="select2/select2.css"/>
       <link rel="stylesheet" href="css/jquery-confirm.min.css">
       <link rel="stylesheet" href="css/datepicker.css">
+      <link rel="stylesheet" href="css/jquery-ui.css" />
    </head>
     <style>
      #menu-link-4 a::before{
@@ -302,23 +303,22 @@
       <script type="text/javascript" src="js/index.js"></script>
       <script type="text/javascript" src="js/supported_date.js"></script>
       <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+      <script type="text/javascript" src="js/jquery-ui.js"></script>
 
    <script>   
-    fetchBussiness9();
+    fetchBussiness10();
     commanLogin();
        j("#addClaims").show("slow");
-       j('.datepicker').pickadate();
        
   j(document).ready(function(){
 
     j("#close").on("click", function(){
           j("#addClaims").hide("slow"); 
     });
-
-});
-var currentMonth;
-var currentDate;
-var currentYear;
+      
+      var currentMonth;
+      var currentDate;
+      var currentYear;
        j(function() { 
 		var date = new Date();
 		 currentMonth = date.getMonth();
@@ -327,12 +327,10 @@ var currentYear;
 		j('#expDate').datepicker({
 		maxDate: new Date(currentYear, currentMonth, currentDate)
 		});
+     document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;
 	});
-	currentMonth = currentMonth+1;
-	if(currentDate<10){currentDate='0'+currentDate}
-	if(currentMonth<10){currentMonth='0'+currentMonth}
-	document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;	
-       
+
+});
        
        
 function closeAddExpense(){
