@@ -34,7 +34,7 @@
     <feature name="http://api.phonegap.com/1.0/media"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
      <gap:plugin name="cordova-plugin-camera" source="npm" />
-    <gap:plugin name="cordova-plugin-file" source="npm" spec="~4.3.2"/>
+    <gap:plugin name="cordova-plugin-file" source="npm" spec="~4.3.2" --force/>
     <gap:plugin name="cordova-plugin-file-transfer" source="npm" />
    <!-- <gap:plugin name="cordova-plugin-battery-status" source="npm" />
     <gap:plugin name="cordova-plugin-camera" source="npm" />
