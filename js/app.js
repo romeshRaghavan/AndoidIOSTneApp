@@ -1408,28 +1408,16 @@ function goToHome(){
     window.location.href = 'index.html';
 }
 
-let options = {
-  x: 0,
-  y: 0,
-  width: window.screen.width,
-  height: window.screen.height,
-  camera: CameraPreview.CAMERA_DIRECTION.BACK,
-  toBack: false,
-  tapPhoto: true,
-  previewDrag: false
-};
- 
-CameraPreview.startCamera(options);
 
 function takePhoto(){
-    CameraPreview.takePicture(function(base64PictureData){
-  /* code here */
+/*    CameraPreview.takePicture(function(base64PictureData){
+   code here 
         onTakePhotoDataSuccess(base64PictureData);
-    });
+    });*/
     
     
-	/*	navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
-            destinationType: 0 });*/
+		navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
+            destinationType: 0 });
     
     
 
