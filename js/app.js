@@ -1408,6 +1408,18 @@ function goToHome(){
     window.location.href = 'index.html';
 }
 
+let options = {
+  x: 0,
+  y: 0,
+  width: window.screen.width,
+  height: window.screen.height,
+  camera: CameraPreview.CAMERA_DIRECTION.BACK,
+  toBack: false,
+  tapPhoto: true,
+  previewDrag: false
+};
+ 
+CameraPreview.startCamera(options);
 
 function takePhoto(){
     CameraPreview.takePicture(function(base64PictureData){
