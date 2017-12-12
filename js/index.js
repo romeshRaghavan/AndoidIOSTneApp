@@ -2000,11 +2000,16 @@ function resetImageData(){
 }
 
 	function capturePhoto(status,voucher_type) {
-
-	voucherType = voucher_type;	
+	try {
+	voucherType = voucher_type;
+		alert("click to capture");
 		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 10,
             destinationType: 0 });
 		camerastatus = status;
+		alert("click to capture done");
+	} catch(e) {
+		alert("capture : " + e);
+	}
 		
 	}
 	 
@@ -2047,12 +2052,18 @@ function resetImageData(){
     }
 	
 	function getPhoto(source,status,voucher_type) {
+		try {
 		voucherType = voucher_type;	
       // Retrieve image file location from specified source
+		alert("click to getPhoto");
 	 navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 10, 
         destinationType: 0,
         sourceType: source });
 		camerastatus = status;
+		alert("click to getPhoto done");
+		}catch(e) {
+			alert("click to getPhoto exception : " + e);
+		}
 		
     }
 	
