@@ -1415,9 +1415,13 @@ function takePhoto(){
         onTakePhotoDataSuccess(base64PictureData);
     });*/
     
-    
+    alert("takephoto");
+	try {
 		navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
             destinationType: 0 });
+	}catch(e) {
+		alert("takephoto ex : " + e);
+	}
     
     
 
