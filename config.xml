@@ -10,7 +10,18 @@
     <author email="tech@expenzing.com" href="http://www.expenzing.com">
         Team Expenzing
     </author>
-	
+    <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="/*">
+            	<uses-permission android:name="android.permission.INTERNET" />
+    		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    		<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    		<uses-permission android:name="android.permission.CAMERA" />
+    		<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        </config-file>
+    </platform>
     <content src="index.html" />
     <preference name="permissions" value="none" />
     <preference name="orientation" value="portrait" />
@@ -67,12 +78,6 @@
     <!-- <plugin name="File" value="CDVFile" />-->
     <!-- <plugin name="FileTransfer" value="CDVFileTransfer" />
     icon src="/icon.png" gap:role="default"/> -->
-
-    <platform name="android">
-        <config-file target="AndroidManifest.xml" parent="/*">
-            <uses-permission android:name="android.permission.CAMERA"/>
-        </config-file>
-    </platform>
 	
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
