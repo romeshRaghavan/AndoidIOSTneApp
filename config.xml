@@ -7,7 +7,13 @@
     </description>
     <author email="tech@expenzing.com" href="http://www.expenzing.com">
         Team Expenzing
-    </author> 
+    </author>
+    <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="/*" platform="android">
+            <uses-permission android:name="android.permission.CAMERA"/>
+        </config-file>
+    </platform>
+	
     <content src="index.html" />
     <preference name="permissions" value="none" />
     <preference name="orientation" value="portrait" />
