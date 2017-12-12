@@ -66,6 +66,12 @@
     <!-- <plugin name="File" value="CDVFile" />-->
     <!-- <plugin name="FileTransfer" value="CDVFileTransfer" />
     icon src="/icon.png" gap:role="default"/> -->
+
+    <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.CAMERA"/>
+        </config-file>
+    </platform>
 	
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
