@@ -9,7 +9,7 @@
         Team Expenzing
     </author>
     <platform name="android">
-        <config-file target="AndroidManifest.xml" parent="/*" platform="android">
+        <config-file target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.CAMERA"/>
         </config-file>
     </platform>
