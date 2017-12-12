@@ -9,7 +9,7 @@
         Team Expenzing
     </author> 
     <content src="index.html" />
-    <preference name="permissions" value="none" />
+    <!-- <preference name="permissions" value="none" /> -->
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="false" />
@@ -29,10 +29,10 @@
    
 
     <feature name="http://api.phonegap.com/1.0/device" />
-    <!-- <feature name="http://api.phonegap.com/1.0/camera"/>  -->
-    <feature name="Camera">
+    <feature name="http://api.phonegap.com/1.0/camera"/>
+    <!-- <feature name="Camera">
     	<param name="android-package" value="org.apache.cordova.CameraLauncher" />
-    </feature>
+    </feature> -->
     <feature name="http://api.phonegap.com/1.0/file"/>
     <feature name="http://api.phonegap.com/1.0/file-transfer"/>
     <feature name="http://api.phonegap.com/1.0/media"/>
