@@ -1420,7 +1420,7 @@ function takePhoto(){
 //navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
       // destinationType: Camera.DestinationType.FILE_URI });
         
-		navigator.camera.getPicture(onPhotoDataSuccess,onFail, { quality: 10,
+      navigator.camera.getPicture(onPhotoDataSuccess,onFail, { quality: 10,
        destinationType: Camera.DestinationType.FILE_URI });
 	}catch(e) {
 		alert("takephoto ex : " + e);
@@ -1450,8 +1450,9 @@ function onPhotoDataSuccess(imageData) {
     var fileTempCamera = "data:image/jpeg;base64,"+imageData;
     alert("df"  +fileTempCamera);
     document.getElementById("show_0").src = "data:image/jpeg;base64,"+imageData;
+    document.getElementById("attach_0").src = "data:image/jpeg;base64,"+image;
        //show_0.src = "data:image/jpeg;base64,"+imageData;
-		attach_0.src = "data:image/jpeg;base64,"+imageData;
+		//attach_0.src = "data:image/jpeg;base64,"+imageData;
        
             if (fileTempCamera != "" && fileTempCamera != null) {
 	            mydb.transaction(function (t) {
@@ -1467,8 +1468,8 @@ function onPhotoDataSuccess(imageData) {
 function showPic(i,image){
     var show = "show_"+i;
     var attach = "attach_"+i;
-     show.src = image;
-     attach.src =image;
+    document.getElementById("show_"+i).src = "data:image/jpeg;base64,"+image;
+    document.getElementById("attach_"+i).src = "data:image/jpeg;base64,"+image;
 }
 
 
