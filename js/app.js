@@ -1419,7 +1419,7 @@ function takePhoto(){
 	try {
 //navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
       // destinationType: Camera.DestinationType.FILE_URI });
-		navigator.camera.getPicture(function(){alert("success")}, function(){alert("failed")}, { quality: 10,
+		navigator.camera.getPicture(onTakePhotoDataSuccess(),onTakeFail(), { quality: 10,
        destinationType: Camera.DestinationType.FILE_URI });
 	}catch(e) {
 		alert("takephoto ex : " + e);
@@ -1446,8 +1446,8 @@ function onTakeFail(message) {
 
 function onTakePhotoDataSuccess(imageData) {   
         var fileTempCamera = "data:image/jpeg;base64," + imageData;
-        show_1.src = "data:image/jpeg;base64," + imageData;
-		attach_1.src = "data:image/jpeg;base64," + imageData;
+        show_0.src = "data:image/jpeg;base64," + imageData;
+		attach_0.src = "data:image/jpeg;base64," + imageData;
 		fileTempGalleryBE ="";
        
             if (fileTempCamera != "" && fileTempCamera != null) {
