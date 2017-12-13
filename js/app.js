@@ -494,7 +494,7 @@ function fetchSMSClaim8() {
             var div3 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div2);
             var div4 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div3);
             var spen = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div4);
-            j(spen).append('<img  style="width: 53%; padding: 10px;" id = "show_'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            j(spen).append('<img  id = "show_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var div5 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div3);
             var div6 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div5);
             j(div6).append('<span class="data">SMS date : '+row.smsSentDate+' | Amount : '+row.smsAmount+'</span>');
@@ -504,7 +504,7 @@ function fetchSMSClaim8() {
             var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
             var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
-            j(spen1).append('<img  style="width: 53%; padding: 10px;" id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            j(spen1).append('<img  id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
             j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
@@ -1415,7 +1415,6 @@ function takePhoto(){
         onTakePhotoDataSuccess(base64PictureData);
     });*/
     
-    alert("takephoto");
 	try {
 //navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
       // destinationType: Camera.DestinationType.FILE_URI });
@@ -1446,9 +1445,7 @@ function onFail(message) {
     }
 
 function onPhotoDataSuccess(imageData) {
-    alert("1");
     var fileTempCamera = imageData;
-    alert("df"  +fileTempCamera);
     document.getElementById("show_0").src = imageData;
     document.getElementById("attach_0").src = imageData;
        //show_0.src = "data:image/jpeg;base64,"+imageData;
@@ -1468,7 +1465,6 @@ function onPhotoDataSuccess(imageData) {
 function showPic(i,image){
     var show = "show_"+i;
     var attach = "attach_"+i;
-    alert(image);
     document.getElementById("show_"+i).src = image;
     document.getElementById("attach_"+i).src = image;
 }

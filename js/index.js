@@ -34,7 +34,6 @@ var smsWatchFlagStatus = false;
 var expensePageFlag = '';
 var filtersStr = "";
  j(document).ready(function(){ 
-	 alert("start camera");
     document.addEventListener("deviceready",loaded,false);
    //setInterval(getSms, 10*1000);
   //setInterval(getSms, 50);
@@ -1963,7 +1962,6 @@ function oprationONTravelSettlementExp(){
 	}
 
 	function loaded() {
-		alert("start camera 1");
                 //pictureSource=navigator.camera.PictureSourceType;
                 //destinationType=navigator.camera.DestinationType;
 		var parentElement = document.getElementById("deviceready");
@@ -1973,8 +1971,6 @@ function oprationONTravelSettlementExp(){
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        alert('Received Event: ' + id);
-		alert("start camera 2");
             }
 	
 /*	function onPhotoDataSuccess(imageData) {
