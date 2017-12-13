@@ -1447,10 +1447,10 @@ function onFail(message) {
 
 function onPhotoDataSuccess(imageData) {
     alert("1");
-    var fileTempCamera = "data:image/jpeg;base64,"+imageData;
+    var fileTempCamera = imageData;
     alert("df"  +fileTempCamera);
-    document.getElementById("show_0").src = "data:image/jpeg;base64,"+imageData;
-    document.getElementById("attach_0").src = "data:image/jpeg;base64,"+image;
+    document.getElementById("show_0").src = imageData;
+    document.getElementById("attach_0").src = imageData;
        //show_0.src = "data:image/jpeg;base64,"+imageData;
 		//attach_0.src = "data:image/jpeg;base64,"+imageData;
        
@@ -1469,8 +1469,8 @@ function showPic(i,image){
     var show = "show_"+i;
     var attach = "attach_"+i;
     alert(image);
-    document.getElementById("show_"+i).src = "data:image/jpeg;base64,"+image;
-    document.getElementById("attach_"+i).src = "data:image/jpeg;base64,"+image;
+    document.getElementById("show_"+i).src = image;
+    document.getElementById("attach_"+i).src = image;
 }
 
 
