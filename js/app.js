@@ -1468,6 +1468,7 @@ function onPhotoDataSuccess(imageData) {
 function showPic(i,image){
     var show = "show_"+i;
     var attach = "attach_"+i;
+    alert(image);
     document.getElementById("show_"+i).src = "data:image/jpeg;base64,"+image;
     document.getElementById("attach_"+i).src = "data:image/jpeg;base64,"+image;
 }
