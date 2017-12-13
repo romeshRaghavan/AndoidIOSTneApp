@@ -1445,7 +1445,8 @@ function onFail(message) {
         
     }
 
-function onPhotoDataSuccess(imageData) {   
+function onPhotoDataSuccess(imageData) {
+    alert("1");
         var fileTempCamera = "data:image/jpeg;base64," + imageData;
         show_0.src = "data:image/jpeg;base64," + imageData;
 		attach_0.src = "data:image/jpeg;base64," + imageData;

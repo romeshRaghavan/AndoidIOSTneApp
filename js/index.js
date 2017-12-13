@@ -1977,7 +1977,7 @@ function oprationONTravelSettlementExp(){
 		alert("start camera 2");
             }
 	
-	function onPhotoDataSuccess(imageData) {
+/*	function onPhotoDataSuccess(imageData) {
        resetImageData();
        if(voucherType == 'wallet'){
        	smallImageWallet.style.display = 'block';       
@@ -1998,7 +1998,7 @@ function oprationONTravelSettlementExp(){
 		smallImageTS.src = "data:image/jpeg;base64," + imageData;
 		fileTempGalleryTS ="";
        }
-    }
+    }*/
 
 function resetImageData(){
 	fileTempCameraBE = "";
@@ -2011,8 +2011,8 @@ function resetImageData(){
 	try {
 	voucherType = voucher_type;
 		alert("click to capture");
-		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 10,
-            destinationType: 0 });
+/*		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 10,
+            destinationType: 0 });*/
 		camerastatus = status;
 		alert("click to capture done");
 	} catch(e) {
@@ -2021,9 +2021,9 @@ function resetImageData(){
 		
 	}
 	 
-	function onFail(message) {
+/*	function onFail(message) {
         
-    }
+    }*/
 	function onPhotoURISuccess(imageURI) { 
       // Uncomment to view the image file URI 
       // console.log(imageURI);
@@ -2064,9 +2064,9 @@ function resetImageData(){
 		voucherType = voucher_type;	
       // Retrieve image file location from specified source
 		alert("click to getPhoto");
-	 navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 10, 
+/*	 navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 10, 
         destinationType: 0,
-        sourceType: source });
+        sourceType: source });*/
 		camerastatus = status;
 		alert("click to getPhoto done");
 		}catch(e) {
