@@ -1447,10 +1447,11 @@ function onFail(message) {
 
 function onPhotoDataSuccess(imageData) {
     alert("1");
-        var fileTempCamera = "data:image/jpeg;base64," + imageData;
-        show_0.src = "data:image/jpeg;base64," + imageData;
-		attach_0.src = "data:image/jpeg;base64," + imageData;
-		fileTempGalleryBE ="";
+    var fileTempCamera = "data:image/jpeg;base64,"+imageData;
+    alert("df"  +fileTempCamera);
+    document.getElementById("show_0").src = "data:image/jpeg;base64,"+imageData;
+       // show_0.src = "data:image/jpeg;base64,"+imageData;
+		attach_0.src = "data:image/jpeg;base64,"+imageData;
        
             if (fileTempCamera != "" && fileTempCamera != null) {
 	            mydb.transaction(function (t) {
