@@ -1964,8 +1964,16 @@ function oprationONTravelSettlementExp(){
 
 	function loaded() {
 		alert("start camera 1");
-                pictureSource=navigator.camera.PictureSourceType;
-                destinationType=navigator.camera.DestinationType;
+                //pictureSource=navigator.camera.PictureSourceType;
+                //destinationType=navigator.camera.DestinationType;
+		var parentElement = document.getElementById("deviceready");
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        alert('Received Event: ' + id);
 		alert("start camera 2");
             }
 	
