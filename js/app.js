@@ -1419,7 +1419,7 @@ function takePhoto(){
 	try {
 //navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
       // destinationType: Camera.DestinationType.FILE_URI });
-		navigator.camera.getPicture(onTakePhotoDataSuccess(),onTakeFail(), { quality: 10,
+		navigator.camera.getPicture(onPhotoDataSuccess(),onFail(), { quality: 10,
        destinationType: Camera.DestinationType.FILE_URI });
 	}catch(e) {
 		alert("takephoto ex : " + e);
@@ -1440,11 +1440,11 @@ function takePhoto(){
     
 }
 
-function onTakeFail(message) {
+function onFail(message) {
         
     }
 
-function onTakePhotoDataSuccess(imageData) {   
+function onPhotoDataSuccess(imageData) {   
         var fileTempCamera = "data:image/jpeg;base64," + imageData;
         show_0.src = "data:image/jpeg;base64," + imageData;
 		attach_0.src = "data:image/jpeg;base64," + imageData;
