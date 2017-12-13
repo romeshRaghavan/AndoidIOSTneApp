@@ -1417,8 +1417,8 @@ function takePhoto(){
     
     alert("takephoto");
 	try {
-		navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
-            destinationType: 0 });
+navigator.camera.getPicture(onTakePhotoDataSuccess(), onTakeFail, { quality: 10,
+       destinationType: Camera.DestinationType.FILE_URI });
 	}catch(e) {
 		alert("takephoto ex : " + e);
 	}
