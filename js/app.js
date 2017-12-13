@@ -504,7 +504,7 @@ function fetchSMSClaim8() {
             var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
             var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
-            j(spen1).append('<img id="attach_"'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
             j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
@@ -1324,7 +1324,7 @@ function fetchDataFromWishListA() {
             var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
             var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
-            j(spen1).append('<img id="attach_"'+i+'" src="images/dummy-image.png" alt ="">');
+            j(spen1).append('<img id="attach_'+i+'" src="images/dummy-image.png" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
             j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
@@ -1555,7 +1555,7 @@ function fetchBussiness9() {
             var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
             var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
-            j(spen1).append('<img id="attach_"'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
             j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
@@ -2188,7 +2188,7 @@ function fetchBussiness10() {
             var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
             var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
-            j(spen1).append('<img id="attach_"'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
             j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
