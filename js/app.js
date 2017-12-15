@@ -506,7 +506,7 @@ function fetchSMSClaim8() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img  id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto("SMS");">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -1408,8 +1408,9 @@ function goToHome(){
     window.location.href = 'index.html';
 }
 
-
-function takePhoto(){
+var cameraTask;
+function takePhoto(camera_task){
+    cameraTask = camera_task;
 /*    CameraPreview.takePicture(function(base64PictureData){
    code here 
         onTakePhotoDataSuccess(base64PictureData);
@@ -1445,6 +1446,8 @@ function onFail(message) {
     }
 
 function onPhotoDataSuccess(imageData) {
+    
+    if(cameraTask == "SMS"){
     var fileTempCamera = imageData;
     document.getElementById("show_0").src = imageData;
     document.getElementById("attach_0").src = imageData;
@@ -1457,6 +1460,9 @@ function onPhotoDataSuccess(imageData) {
 				});
             } else {
         alert("db not found, your browser does not support web sql!");
+    }
+    }else if(cameraTask == "wallet"){
+        
     }
     
     
@@ -2244,3 +2250,114 @@ function fetchBussiness10() {
      });     
           
  } 
+
+function showImage(){
+    var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var modalImg = document.getElementById("img01");
+
+
+    modal.style.display = "block";
+    modalImg.src = this.src;
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+    modal.style.display = "none";
+}
+}
+
+
+
+function getReceiptsImage() {
+			var rowsWallet;
+			mytable = j('<table></table>').attr({ id: "walletSource",class: ["table","table-striped","table-bordered-wallet"].join(' ') });
+		 
+			mydb.transaction(function(t) {
+				
+		      t.executeSql('SELECT * FROM walletMst;', [],
+				 function(transaction, result) {
+					
+				if (result != null && result.rows != null) {
+					  
+					for (var i = 0; i < result.rows.length; i++) {
+						
+					  var row = result.rows.item(i);						 
+					  
+							if(i % 2 == 0){
+								rowsWallet = j('<tr></tr>').attr({ class: ["test"].join(' ') }).appendTo(mytable);  
+							}				
+							
+							j('<td></td>').attr({ class: ["walletattach"].join(' ') }).html('<text style="display: none">'+row.walletAttachment+'</text>'+'<p id="para" style="display: none">'+row.walletId+'</p>'+'<img src="'+row.walletAttachment+'">').appendTo(rowsWallet);
+							
+					}	
+/*				j("#walletSource td").click(function(){
+					headerOprationBtn = defaultPagePath+'headerPageForWalletOperation.html';
+					if(j(this).hasClass( "selected")){
+							j(this).removeClass('selected');
+							j('#mainHeader').load(headerOprationBtn);
+						}else{
+							j('#mainHeader').load(headerOprationBtn);
+							j(this).addClass('selected');					
+						}								
+					});*/
+				  }		
+				});
+			});
+			 mytable.appendTo("#walletBox");	 
+}
+
+
+    
+function saveWalletAttachment(path){
+	if (mydb) {
+		//get the values of the text inputs
+      
+
+		
+	if (file != "") {
+            mydb.transaction(function (t) {
+                t.executeSql("INSERT INTO walletMst (walletAttachment) VALUES (?)", 
+											[path]);
+                if(status == "0"){
+					document.getElementById('imageWallet').value ="";	
+					createWallet();					
+				}else{
+				    createWallet();
+				}
+			});
+        } else {
+            alert(window.lang.translate('You must enter inputs!'));
+        }
+	} else {
+         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+    }
+}
+    
+    
+function getGelleryPhoto(source) {
+		try {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 10, 
+        destinationType: 0,
+        sourceType: source });
+		}catch(e) {
+			alert("click to getPhoto exception : " + e);
+		}
+		
+    }
+    
+    
+function onPhotoURISuccess(imageURI) { 
+      // Uncomment to view the image file URI 
+      // console.log(imageURI);
+      // Get image handle
+      //
+    		saveWalletAttachment(imageURI);	
+
+	    
+    }
+    

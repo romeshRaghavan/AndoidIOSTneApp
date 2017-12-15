@@ -2020,7 +2020,7 @@ function resetImageData(){
 /*	function onFail(message) {
         
     }*/
-	function onPhotoURISuccess(imageURI) { 
+/*	function onPhotoURISuccess(imageURI) { 
       // Uncomment to view the image file URI 
       // console.log(imageURI);
       // Get image handle
@@ -2053,7 +2053,7 @@ function resetImageData(){
 		fileTempCameraTS = "";
 		}
 	    
-    }
+    }*/
 	
 	function getPhoto(source,status,voucher_type) {
 		try {

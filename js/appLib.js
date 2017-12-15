@@ -1265,12 +1265,6 @@ function saveWalletAttachment(status){
             mydb.transaction(function (t) {
                 t.executeSql("INSERT INTO walletMst (walletAttachment) VALUES (?)", 
 											[file]);
-                if(status == "0"){
-					document.getElementById('imageWallet').value ="";	
-					createWallet();					
-				}else{
-				    createWallet();
-				}
 			});
             j('#loading_Cat').hide();
         } else {
