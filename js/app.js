@@ -475,13 +475,13 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 
 
 function fetchSMSClaim8() {
-    
     mydb.transaction(function(t) {
      mydb.transaction(function (t) {      
       t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
          
              });  
         var headerOprationBtn;
+         var paraValue = "SMS";
       t.executeSql('SELECT * FROM smsMaster;', [],
          function(transaction, result) {
           if (result != null && result.rows != null) {
@@ -506,7 +506,7 @@ function fetchSMSClaim8() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img  id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto("SMS");">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -1276,6 +1276,7 @@ function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,e
 	}
 
 function fetchDataFromWishListA() {
+    var paraValue = "SMS";
     mydb.transaction(function(t) {
 
       t.executeSql('SELECT * FROM wishListForBussExpense;', [],
@@ -1447,7 +1448,8 @@ function onFail(message) {
 
 function onPhotoDataSuccess(imageData) {
     
-    if(cameraTask == "SMS"){
+    if(cameraTask == ""){
+        alert("in SMS");
     var fileTempCamera = imageData;
     document.getElementById("show_0").src = imageData;
     document.getElementById("attach_0").src = imageData;
@@ -1462,7 +1464,8 @@ function onPhotoDataSuccess(imageData) {
         alert("db not found, your browser does not support web sql!");
     }
     }else if(cameraTask == "wallet"){
-        
+               alert("in wallet");
+        saveWalletAttachment(imageData)
     }
     
     
@@ -1533,7 +1536,7 @@ function addTobussinesExpense(){
 }
     
 function fetchBussiness9() {
-    
+var paraValue = "SMS";
     mydb.transaction(function(t) {
      mydb.transaction(function (t) {      
       t.executeSql("INSERT INTO addExpensetable (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
@@ -2166,7 +2169,7 @@ function saveVoiceBusinessDetailsInWishList(){
 
 
 function fetchBussiness10() {
-    
+    var paraValue = "SMS";
     mydb.transaction(function(t) {
      mydb.transaction(function (t) {      
       t.executeSql("INSERT INTO addVoiceExpense (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
@@ -2254,27 +2257,27 @@ function fetchBussiness10() {
 function showImage(){
     var modal = document.getElementById('myModal');
 
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var modalImg = document.getElementById("img01");
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var modalImg = document.getElementById("img01");
 
 
-    modal.style.display = "block";
-    modalImg.src = this.src;
+        modal.style.display = "block";
+        modalImg.src = this.src;
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-    modal.style.display = "none";
-}
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() { 
+            modal.style.display = "none";
+ }
 }
 
 
 
 function getReceiptsImage() {
 			var rowsWallet;
-			mytable = j('<table></table>').attr({ id: "walletSource",class: ["table","table-striped","table-bordered-wallet"].join(' ') });
+			mytable = j('<div></div>').attr({ id: "",class: ["display:flex"].join(' ') });
 		 
 			mydb.transaction(function(t) {
 				
@@ -2285,13 +2288,11 @@ function getReceiptsImage() {
 					  
 					for (var i = 0; i < result.rows.length; i++) {
 						
-					  var row = result.rows.item(i);						 
-					  
-							if(i % 2 == 0){
-								rowsWallet = j('<tr></tr>').attr({ class: ["test"].join(' ') }).appendTo(mytable);  
-							}				
-							
-							j('<td></td>').attr({ class: ["walletattach"].join(' ') }).html('<text style="display: none">'+row.walletAttachment+'</text>'+'<p id="para" style="display: none">'+row.walletId+'</p>'+'<img src="'+row.walletAttachment+'">').appendTo(rowsWallet);
+					  var row = result.rows.item(i);	
+                        
+                        
+					   j(mytable).append('<img id="recieptid_"'+i+'" src="'+row.walletAttachment+'" style="width:30px; height:30px; padding:2px;" title="Select this reciept for processing" onclick="chooseOption(this);" >');
+
 							
 					}	
 /*				j("#walletSource td").click(function(){
@@ -2315,23 +2316,12 @@ function getReceiptsImage() {
 function saveWalletAttachment(path){
 	if (mydb) {
 		//get the values of the text inputs
-      
-
-		
-	if (file != "") {
+    
             mydb.transaction(function (t) {
                 t.executeSql("INSERT INTO walletMst (walletAttachment) VALUES (?)", 
 											[path]);
-                if(status == "0"){
-					document.getElementById('imageWallet').value ="";	
-					createWallet();					
-				}else{
-				    createWallet();
-				}
 			});
-        } else {
-            alert(window.lang.translate('You must enter inputs!'));
-        }
+           getReceiptsImage();
 	} else {
          alert(window.lang.translate('Database not found, your browser does not support web sql!'));
     }
@@ -2361,3 +2351,109 @@ function onPhotoURISuccess(imageURI) {
 	    
     }
     
+
+
+function makeItBold() {
+		try {
+            
+            
+            
+            
+            
+			let img_base64 ="/9j/7QBEUGhvdG9zaG9...base64-encoded-image-content...fXNWzvDEeYxxxzj/Coa6Bax//Z";
+			
+			let ocr_url = endPoints.OCR_URL.replace(new RegExp('YOUR_API_KEY','g'), apiKeys.OCR_GOOGLE_KEY);
+			let ocr_req_body = reqBodies.OCR_REQ_BODY.replace(new RegExp('IMG_BODY_BASE64','g'), img_base64);
+			
+			$.ajax({
+				url: ocr_url, 
+				type:"POST", async:false, 
+				success: ocrSuccess,
+				contentType:'application/json',
+				data:ocr_req_body,
+				error:ocrFailure
+			});
+			
+		}catch(e){alert("exception : " + e)}
+}
+
+
+function ocrSuccess(response,status,xhr) {
+	//console.log("ocrSuccess : " + response + " And status : " + status + " And xhr : " + xhr);
+	let textDescription = response.responses[0].textAnnotations[0].description.replace(new RegExp('\n','g'), ' new_line ');
+	let receiptObj = extractData(textDescription);
+	console.log("receipt = " + JSON.stringify(receiptObj));
+	assignValuesToHtmlComponent(receiptObj);
+}
+
+function ocrFailure(xhr,status,error) {
+	console.log("ocrFailure : " + error + " And status : " + status + " And xhr : " + xhr);
+}
+
+function extractData(receiptText) {
+	let words = receiptText.split(" ");
+	let wordsLength = words.length, iterateNo=0,receipt={},
+		totalFound="notFound",dateFound="notFound",hotelName="",hotelNameFound="notFound";
+	for(var i=0; i<wordsLength; i++) {
+		iterateNo = wordsLength -(i+1);
+		if(hotelNameFound === 'notFound') {
+			if(words[i].trim()==='new_line') {
+				receipt.hotelName = hotelName;
+				hotelNameFound = 'found';
+			} else {
+				hotelName += words[i]+" ";
+			}
+		}
+		
+		//searching total amount
+		if(totalFound === 'notFound' && (words[iterateNo].toLowerCase()==='total' || words[iterateNo].toLowerCase()==='total:')) {
+			for(var j=iterateNo+1; j<wordsLength; j++) {
+				try {
+					receipt.totalCost = parseFloat(words[j]);
+					totalFound="found";
+					break;
+				}catch(e) {console.log("exception (NaN): " + e)}
+			}
+		}
+		
+		
+		//searching date
+		if(dateFound==="notFound") {
+			try{
+				if(validateDate(words[i])=== true) {
+					receipt.receiptDate = words[i];
+					dateFound="found";
+				}
+			}catch(e) {console.log("exception (Not a date): " + e)}
+		}
+	}
+	return receipt;
+}
+
+function validateDate(strDdate) {
+	var formats = [
+	    "MM/DD/YYYY  :)  HH*mm*ss",
+	    "DD-MMM-YYYY",
+	    "DD-MM-YYYY",
+	    "DD/MMM/YYYY",
+	    "DD/MM/YYYY",
+	    "DD/MM/YY",
+	    "DD-MM-YY",
+	    'weekday, dth mmmm yyyy',
+	    'mmm-yy',
+	    'dd-mmm-yyyy time',
+	    'yyyy-mm-dd time24',
+	    'dd-mmm-yyyy time12',
+	    'yyyy/mm/dd',
+	    'yy/mm/dd'
+	];
+	
+	return moment(strDdate, formats, true).isValid();
+}
+
+function assignValuesToHtmlComponent(obj){
+	console.log(obj.hotelName);
+	console.log(obj.totalCost);	
+	console.log(obj.receiptDate);	
+	
+}

@@ -1254,6 +1254,7 @@ function deleteSelectedWallets(walletID){
 		});
   }
 
+/*
 function saveWalletAttachment(status){
 	j('#loading_Cat').show();
 	if (mydb) {
@@ -1275,6 +1276,7 @@ function saveWalletAttachment(status){
          alert(window.lang.translate('Database not found, your browser does not support web sql!'));
     }
 }
+*/
 
 
 

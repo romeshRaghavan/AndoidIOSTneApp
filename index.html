@@ -11,7 +11,6 @@
       <link rel="stylesheet" href="css/framework7/css/framework7.ios.min.css">
       <link rel="stylesheet" href="css/swipebox/src/css/swipebox.css">
       <link rel="stylesheet" href="css/app.css">
-      <link rel="stylesheet" href="#" id="theme-style">
       <link rel="stylesheet" href="select2/select2.css"/>
       <link rel="stylesheet" href="css/jquery-confirm.min.css">
    </head>
@@ -255,43 +254,24 @@
       
     <li class="swipeout">
       <div class="swipeout-content item-content">
-        <div class="item-media">
-             <img id="recieptid1" src="images/camera.png" style="width:30px; height:30px; padding:2px;" 
-            title="" onclick="getPhoto(pictureSource.PHOTOLIBRARY,0,'BE');"/>
-            
-          </div>
+    <div class="item-media">
+        <img src="images/camera.png" onclick="takePhoto('wallet');" width="10%" height="10%" >
+        <img src="images/gallery.png" onclick="getGelleryPhoto(pictureSource.PHOTOLIBRARY);" width="10%" height="10%" >
+    </div>
         
-<div class="item-inner"> 
-          <div style="display:flex">
+      </div>
+    <div class="item-inner"> 
+          <div style="display:flex" >
           <img id="recieptid1" src="images/reciepts/001.jpg" style="width:30px; height:30px; padding:2px;" 
             title="Select this reciept for processing" onclick="chooseOption(this);"/>
           <img id="recieptid2" src="images/reciepts/002.jpg" style="width:30px; height:30px; padding:2px;" 
             title="Select this reciept for processing"  onclick="chooseOption(this);"/>
           <img id="recieptid3" src="images/reciepts/003.jpg" style="width:30px; height:30px; padding:2px;" 
             title="Select this reciept for processing"  onclick="chooseOption(this);"/>
-          <span id="imgProcessingId" style="vertical-align: top; padding-left: 40px;">
-               
+          <span id="imgProcessingId" style="vertical-align: top; padding-left: 40px;">               
           </span>
-
         </div>
-        
-        </div>
-      </div>
-   <div class="col-lg-12 screenshot clearfix">
-      <div class="col-lg-12 clearfix allexpebtn" id="walletBox">
-            <h1 lang="en">My Receipts Wallet</h1>
-      </div>
-      <div>
-	  <div style="text-align:center;">
-          <div lang="en" >
-		  Add to My Receipts Wallet
-            <img src="images/camera.png" onclick="takePhoto('wallet');" width="10%" height="10%" >
-        <img src="images/gallery.png" onclick="getGelleryPhoto(pictureSource.PHOTOLIBRARY);" width="10%" height="10%" >
-        <img style="display:none;width:35%;height:80px;align:right;" id="smallImageWallet" src="" />
-            <input style="display:none;" type="file" id="imageWallet" />
-          </div>
-          </div>
-      </div>
+    
 </div>
     </li>
          <li class="swipeout" style= "display : none" id = "receiptClaim1">
@@ -382,15 +362,13 @@
       <script type="text/javascript" src="js/commonUtilities.js"></script>
       <script type="text/javascript" src="js/appLib.js"></script>
       <script type="text/javascript" src="js/index.js"></script>
+	  <script type="text/javascript" src="js/moment.js"></script>
+	  <script type="text/javascript" src="js/constants.js"></script>
    <script>   
     fetchSMSClaim8();
+    getReceiptsImage();
     commanLogin();
-       
    </script>
        
-<script>
-// Get the modal
-</script>
-    
    </body>
 </html>
