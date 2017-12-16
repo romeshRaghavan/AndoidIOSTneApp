@@ -252,83 +252,56 @@
 
                                             
       
-    <li class="swipeout">
+    <li class="swipeout" >
       <div class="swipeout-content item-content">
     <div class="item-media">
-        <img src="images/camera.png" onclick="takePhoto('wallet');" width="10%" height="10%" >
-        <img src="images/gallery.png" onclick="getGelleryPhoto(pictureSource.PHOTOLIBRARY);" width="10%" height="10%" >
+        <img src="images/camera.png" onclick="takePhoto('wallet');" width="7%" height="7%" >
+        <img src="images/gallery.png" onclick="getGelleryPhoto(pictureSource.PHOTOLIBRARY);" width="7%" height="7%" >
+           
     </div>
         
       </div>
-    <div class="item-inner"> 
-          <div style="display:flex" >
-          <img id="recieptid1" src="images/reciepts/001.jpg" style="width:30px; height:30px; padding:2px;" 
-            title="Select this reciept for processing" onclick="chooseOption(this);"/>
-          <img id="recieptid2" src="images/reciepts/002.jpg" style="width:30px; height:30px; padding:2px;" 
-            title="Select this reciept for processing"  onclick="chooseOption(this);"/>
-          <img id="recieptid3" src="images/reciepts/003.jpg" style="width:30px; height:30px; padding:2px;" 
-            title="Select this reciept for processing"  onclick="chooseOption(this);"/>
-          <span id="imgProcessingId" style="vertical-align: top; padding-left: 40px;">               
-          </span>
-        </div>
+    <div class="item-inner" id='walletBox'> 
+        
+
     
 </div>
     </li>
-         <li class="swipeout" style= "display : none" id = "receiptClaim1">
-                                                <div class="swipeout-content">
-                                                   <div class="item-content claimlisting">
-                                                      <div class="item-inner comments-list">
-                                                         <div class="image">
-                                                            <span class="ava">
-                                                            <img src="images/reciepts/001.jpg" alt="">
-                                                            </span>
-                                                         </div>
-                                                         <div class="text">
-                                                            <div class="info">
-                                                               <span class="data">Expense date : 16th Sept 2017 | Amount Rs. 360</span>
-                                                            </div>
-                                                            <div class="comment">
-                                                               Hi your order #82 of Rs. 360 for 2 items is successfull. 
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="opentogglelist">
-                                                      <div class="item-inner comments-list">
-                                                         <div class="image">
-                                                            <span class="ava">
-                                                            <img src="images/reciepts/001.jpg" alt="">
-                                                            </span>
-                                                         </div>
-                                                         <div class="text">
-                                                            <div class="info">
-                                                               <span class="data">Expense type : <select>
-                                                                  <option>Expense 1</option>
-                                                                  <option>Expense 2</option>
-                                                                  <option>Expense 3</option>
-                                                               </select> Currency :  <select>
-                                                                  <option>currency 1</option>
-                                                                  <option>currency 2</option>
-                                                                  <option>currency 3</option>
-                                                               </select></span>
-                                                            </div>
-                                                            <div class="info">
-                                                               <span class="data">Receipt date : <input type="text" placeholder="Date"> Receipt Amount  <input type="text" placeholder="Amount"></span>
-                                                            </div>
-                                                            <div class="comment">
-                                                               <textarea placeholder="Receipt's Narration"></textarea>
-                                                            </div>
-                                                            <div class="allbtn"><button class="btnall">Send</button> <button class="btnall">To wishlist</button> <button class="btnall">Delete</button></div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
+               </ul>
+                            <div id = "ocrClaims"  class="addclaim" style="display:none">
+                                             <h4>Add Claim From OCR</h4>
+                                             <div class="item-inner comments-list">
+                                                <div class="image">
+                                                   <span class="ava">
+                                                      <img id="ocrImage" src="images/dummy-image.png" alt="">
+                                                       </span>
+  
                                                 </div>
-                                                <div class="swipeout-actions-right">
-                                                   <a href="#" class="action-green js-up">Send for Approval</a>
-                                                   <a href="#" class="action-red js-down">Add to wishlist</a>
-                                                   <a href="#" class="action-blue js-down">Delete</a>
+                                                <div class="text">
+                                                   <div class="info">
+                                                      <span class="data">Expense type : <select>
+                                                         <option>Conveyance</option>
+                                                         <option>Meal</option>
+                                                         <option>Client Entertainment</option>
+                                                      </select> Currency :  <select>
+                                                         <option>INR</option>
+                                                         <option>USD</option>
+                                                      </select></span>
+                                                   </div>
+                                                   <div class="info">
+                                                      <span class="data">Expense date : <input id="ocrexpDate" type="text" placeholder="Date"> Amount : <input id= "ocramount" type="tel" placeholder="Amount"></span>
+                                                   </div>
+                                                   <div class="comment">
+                                                      <textarea id="ocrnarration" placeholder="Narration"></textarea>
+                                                   </div>
+                                                   <div class="imagess">
+                        <img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="addToOCRExpense();">&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="addTobussinesExpense();">&nbsp;&nbsp;&nbsp;<img style = "width: 25px;" src="images/towishlist.png" class="imagess" onclick ="saveOcrDetailsInWishList()">&nbsp;&nbsp;<img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="closeAddExpense()">'
                                                 </div>
-                                             </li>     
+                                             </div>
+                                          </div>
+                                        <div id ="close" class="closeme" onclick ="closeAddExpense()" ><img src="images/closeme.png" alt=""></div>
+                                           </div>
+                                           <ul id ="box15">
                                            </ul>
                                        </div>
                                     </div>
@@ -367,7 +340,12 @@
    <script>   
     fetchSMSClaim8();
     getReceiptsImage();
+    fetchOCRExpense();
     commanLogin();
+       
+       function closeAddExpense(){
+    j("#ocrClaims").hide("slow"); 
+}  
    </script>
        
    </body>

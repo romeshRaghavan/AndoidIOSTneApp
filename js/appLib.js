@@ -160,6 +160,7 @@ if (window.openDatabase) {
         t.executeSql("CREATE TABLE IF NOT EXISTS wishListForBussExpense(busExpId INTEGER PRIMARY KEY ASC, accHeadId INTEGER REFERENCES accountHeadMst(accHeadId), expNameId INTEGER REFERENCES expNameMst(expNameId),expDate DATE, expFromLoc TEXT, expToLoc TEXT, expNarration TEXT, expUnit INTEGER, expAmt Double, currencyId INTEGER REFERENCES currencyMst(currencyId),isEntitlementExceeded TEXT,busExpAttachment BLOB,wayPointunitValue TEXT)");
         t.executeSql("CREATE TABLE IF NOT EXISTS addExpensetable (smsId INTEGER PRIMARY KEY ASC, smsText TEXT,senderAddr TEXT,smsSentDate TEXT,smsAmount TEXT,smsAttachment BLOB)");
         t.executeSql("CREATE TABLE IF NOT EXISTS addVoiceExpense (smsId INTEGER PRIMARY KEY ASC, smsText TEXT,senderAddr TEXT,smsSentDate TEXT,smsAmount TEXT,smsAttachment BLOB)");
+        t.executeSql("CREATE TABLE IF NOT EXISTS addOcrExpense (smsId INTEGER PRIMARY KEY ASC, smsText TEXT,senderAddr TEXT,smsSentDate TEXT,smsAmount TEXT,smsAttachment BLOB)");
     });
 } else {
     alert(window.lang.translate('WebSQL is not supported by your browser!'));

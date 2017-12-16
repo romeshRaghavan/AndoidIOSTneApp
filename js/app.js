@@ -2,6 +2,7 @@
 var j = jQuery.noConflict();
 var $ = jQuery.noConflict();
 var defaultPagePath='app/pages/';
+var ocrImagePath;
 var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 
 
@@ -480,6 +481,7 @@ function fetchSMSClaim8() {
       t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
          
              });  
+     saveWalletAttachment("images/reciepts/001.jpg");
         var headerOprationBtn;
          var paraValue = "SMS";
       t.executeSql('SELECT * FROM smsMaster;', [],
@@ -1794,10 +1796,14 @@ function saveBusinessDetailsInWishListkkk(i,smsId){
 }
 
 
-function chooseOption(imgObj) {
+function chooseOption(imgObj,i) {
+    console.log("1");
 	if (window.confirm("Send to OCR?") == true) {
         document.getElementById("imgProcessingId").textContent  = "sending your reciept to OCR for processing...";
-		setTimeout(delayFunOK, 2000);
+		setTimeout(delayFunOK, 3000);
+        var imagePath = document.getElementById("recieptid_"+i).src;
+        sendDataToOCR(imagePath);
+
 	} else {
         document.getElementById("imgProcessingId").textContent  = "saving your reciept to saved list...";
 		setTimeout(delayFunCancel, 2000);
@@ -1805,9 +1811,7 @@ function chooseOption(imgObj) {
 }
 
 function delayFunOK() {
-    document.getElementById("imgProcessingId").textContent  = "Reciept Processed successfully.";
-    setTimeout(function() {document.getElementById("imgProcessingId").textContent  = "";}, 1000);
-    document.getElementById("receiptClaim1").style.display = "block";
+
 }
 
 function delayFunCancel() {
@@ -2277,24 +2281,25 @@ function showImage(){
 
 function getReceiptsImage() {
 			var rowsWallet;
-			mytable = j('<div></div>').attr({ id: "",class: ["display:flex"].join(' ') });
-		 
+			var mytable = j('<div></div>').attr({ id: "",class: ["display:flex"].join(' ') });
 			mydb.transaction(function(t) {
-				
+				 j('#walletBox').empty();
 		      t.executeSql('SELECT * FROM walletMst;', [],
 				 function(transaction, result) {
 					
 				if (result != null && result.rows != null) {
-					  
+					
 					for (var i = 0; i < result.rows.length; i++) {
-						
+				
 					  var row = result.rows.item(i);	
                         
-                        
-					   j(mytable).append('<img id="recieptid_"'+i+'" src="'+row.walletAttachment+'" style="width:30px; height:30px; padding:2px;" title="Select this reciept for processing" onclick="chooseOption(this);" >');
+                       
+					   j(mytable).append('<img id="recieptid_'+i+'" src="'+row.walletAttachment+'" style="width:50px; height:50px; padding:5px;" title="Select this reciept for processing" onclick="chooseOption(this,'+i+');" ></img>');
 
-							
-					}	
+                     mytable.appendTo("#walletBox");		
+					}
+                    j(mytable).append('<br><span id="imgProcessingId" style="vertical-align: top; padding-left: 40px;"></span>');
+                     mytable.appendTo("#walletBox");
 /*				j("#walletSource td").click(function(){
 					headerOprationBtn = defaultPagePath+'headerPageForWalletOperation.html';
 					if(j(this).hasClass( "selected")){
@@ -2308,7 +2313,7 @@ function getReceiptsImage() {
 				  }		
 				});
 			});
-			 mytable.appendTo("#walletBox");	 
+			 
 }
 
 
@@ -2321,7 +2326,7 @@ function saveWalletAttachment(path){
                 t.executeSql("INSERT INTO walletMst (walletAttachment) VALUES (?)", 
 											[path]);
 			});
-           getReceiptsImage();
+           //getReceiptsImage();
 	} else {
          alert(window.lang.translate('Database not found, your browser does not support web sql!'));
     }
@@ -2347,25 +2352,25 @@ function onPhotoURISuccess(imageURI) {
       // Get image handle
       //
     		saveWalletAttachment(imageURI);	
-
+getReceiptsImage();
 	    
     }
     
 
 
-function makeItBold() {
-		try {
-            
-            
-            
-            
-            
-			let img_base64 ="/9j/7QBEUGhvdG9zaG9...base64-encoded-image-content...fXNWzvDEeYxxxzj/Coa6Bax//Z";
+function sendDataToOCR(imagePath) {
+		try {       
+        ocrImagePath = imagePath;
+        encodeImage(imagePath, function (dataURL) {
+    // or do whatever you want with it.
+        var str_arr = dataURL.split(',');
+
+			let img_base64 = str_arr[1];
 			
 			let ocr_url = endPoints.OCR_URL.replace(new RegExp('YOUR_API_KEY','g'), apiKeys.OCR_GOOGLE_KEY);
 			let ocr_req_body = reqBodies.OCR_REQ_BODY.replace(new RegExp('IMG_BODY_BASE64','g'), img_base64);
 			
-			$.ajax({
+			j.ajax({
 				url: ocr_url, 
 				type:"POST", async:false, 
 				success: ocrSuccess,
@@ -2373,13 +2378,15 @@ function makeItBold() {
 				data:ocr_req_body,
 				error:ocrFailure
 			});
+       });
 			
 		}catch(e){alert("exception : " + e)}
+            
 }
 
 
 function ocrSuccess(response,status,xhr) {
-	//console.log("ocrSuccess : " + response + " And status : " + status + " And xhr : " + xhr);
+	console.log("ocrSuccess : " + response + " And status : " + status + " And xhr : " + xhr);
 	let textDescription = response.responses[0].textAnnotations[0].description.replace(new RegExp('\n','g'), ' new_line ');
 	let receiptObj = extractData(textDescription);
 	console.log("receipt = " + JSON.stringify(receiptObj));
@@ -2391,6 +2398,7 @@ function ocrFailure(xhr,status,error) {
 }
 
 function extractData(receiptText) {
+    console.log(receiptText);
 	let words = receiptText.split(" ");
 	let wordsLength = words.length, iterateNo=0,receipt={},
 		totalFound="notFound",dateFound="notFound",hotelName="",hotelNameFound="notFound";
@@ -2405,10 +2413,14 @@ function extractData(receiptText) {
 			}
 		}
 		
+       console.log(words[iterateNo]);
 		//searching total amount
-		if(totalFound === 'notFound' && (words[iterateNo].toLowerCase()==='total' || words[iterateNo].toLowerCase()==='total:')) {
+		if(totalFound === 'notFound' && (words[iterateNo].toLowerCase().trim() ==='total' 
+            || words[iterateNo].toLowerCase().trim() ==='total:' || words[iterateNo].toLowerCase().trim() ==='total :' || words[iterateNo].toLowerCase().trim() ==='total =')) {
+            console.log("found total at "+words[iterateNo]+" at "+iterateNo+ "wordsLength" +wordsLength );
 			for(var j=iterateNo+1; j<wordsLength; j++) {
 				try {
+                    console.log(" j == "+(iterateNo+1)+" words[j] "+words[j]);
 					receipt.totalCost = parseFloat(words[j]);
 					totalFound="found";
 					break;
@@ -2452,8 +2464,263 @@ function validateDate(strDdate) {
 }
 
 function assignValuesToHtmlComponent(obj){
-	console.log(obj.hotelName);
-	console.log(obj.totalCost);	
-	console.log(obj.receiptDate);	
-	
+    document.getElementById("imgProcessingId").textContent  = "Reciept Processed successfully.";
+    setTimeout(function() {document.getElementById("imgProcessingId").textContent  = "";}, 1000);
+	 document.getElementById("ocrClaims").style.display = "block";
+    document.getElementById('ocrexpDate').value= obj.receiptDate;
+    document.getElementById('ocramount').value= obj.totalCost;
+    document.getElementById('ocrnarration').value=obj.hotelName;
+    document.getElementById("ocrImage").src= ocrImagePath;
+}
+
+function encodeImage(imageUri, callback) {
+    var c = document.createElement('canvas');
+    var ctx = c.getContext("2d");
+    var img = new Image();
+    img.onload = function () {
+        c.width = this.width;
+        c.height = this.height;
+        ctx.drawImage(img, 0, 0);
+        var dataURL = c.toDataURL("image/jpeg");
+        callback(dataURL)
+    };
+    img.src = imageUri;
+}
+
+
+
+
+function addToOCRExpense(){
+    
+	if (mydb) {
+		//save incoming sms
+        var smsDate = document.getElementById('ocrexpDate').value;
+        var smsAmount =  document.getElementById('ocramount').value;
+        var smsNarration =  document.getElementById('ocrnarration').value;
+        var smsImage = document.getElementById("ocrImage").src;
+        var senderAddress ="";
+        
+	            mydb.transaction(function (t) {
+	                t.executeSql("INSERT INTO addOcrExpense (smsText,senderAddr,smsSentDate,smsAmount,smsAttachment) VALUES (?,?,?,?,?)", [smsNarration,senderAddress,smsDate,smsAmount,smsImage]);
+				});
+	            j("#ocrClaims").hide("slow");
+                 alert("Expense added Successfully.");
+              fetchOCRExpense();
+
+	} else {
+        alert("db not found, your browser does not support web sql!");
+    }
+}
+
+
+function fetchOCRExpense() {
+    var paraValue = "SMS";
+    mydb.transaction(function(t) {
+        var headerOprationBtn;
+      t.executeSql('SELECT * FROM addOcrExpense;', [],
+         function(transaction, result) {
+          if (result != null && result.rows != null) {
+        j('#box15').empty();
+        for (var i = 0; i < result.rows.length; i++) {
+            var row = result.rows.item(i);
+            var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
+            var div1 = j('<div></div>').attr({ class: ["swipeout-content"].join(' ') }).appendTo(mytable);
+            var div2 = j('<div></div>').attr({ class: ["item-content claimlisting"].join(' ') ,onclick : ["expandCollapse(this);"].join(' ') }).appendTo(div1);
+            var div3 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div2);
+            var div4 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div3);
+            var spen = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div4);
+            j(spen).append('<img id = "show_'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            var div5 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div3);
+            var div6 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div5);
+            j(div6).append('<span class="data">Expense date : '+row.smsSentDate+' | Amount : '+row.smsAmount+'</span>');
+            var div7 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div5);
+            j(div7).append(row.smsText);
+             var div8 = j('<div></div>').attr({ class: ["opentogglelist"].join(' '),style:["display:none"].join(' ') }).appendTo(div1);
+            var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
+            var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
+            var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
+            j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
+            var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
+            var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
+        /*j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
+            var select1 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen3);
+            var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
+            var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
+            var option3 =j('<option></option>').attr({ class: [""].join(' ') }).text("Telephone").appendTo(select1);
+            var option7 =j('<option></option>').attr({ class: [""].join(' ') }).text("Client Entertainment").appendTo(select1);
+            var spen4 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text(' Currency :').appendTo(div12);
+            var select2 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen4);
+            var option4 = j('<option></option>').attr({ class: [""].join(' ') }).text("INR").appendTo(select2);
+            var option5 = j('<option></option>').attr({ class: [""].join(' ') }).text("USD").appendTo(select2);
+            var option6 =j('<option></option>').attr({ class: [""].join(' ') }).text("EUR").appendTo(select2);
+
+            var div14 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
+            var spen5 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense date :').appendTo(div14);
+            j(spen5).append('<input type="text" placeholder="Date" id = "smsDate_'+i+'" value='+row.smsSentDate+'> Amount <input type="tel" placeholder="Amount" id="smsAmount_'+i+'" value ='+row.smsAmount+'>');
+            var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
+            j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.smsText+'</textarea>');  
+             var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
+             j(div16).append('<img class="imagess" style = "width: 22px;" src="images/done.png" onclick ="updateOCRExp('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 22px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 22px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishListkkk('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 22px;" src="images/todelete.png" onclick ="discardMessages123('+row.smsId+');"></img>');
+             var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
+             var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send').appendTo(div17);  
+             var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-up"].join(' ') ,onclick : ["saveBusinessDetailsInWishListkkk("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
+             var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages123("+row.smsId+");"].join(' ')}).appendTo(div17);  
+                
+            mytable.appendTo("#box15");  
+           //createExpenseName("expenseName_"+i);
+           // showPic(i,row.smsAttachment);
+            }  
+                    
+/*            j("#source tr").click(function(){ 
+                headerOprationBtn = defaultPagePath+'headerPageForSMSOperation.html';
+                if(j(this).hasClass("selected")){ 
+                var headerBackBtn=defaultPagePath+'headerPageForSMSOperation.html';
+                    j(this).removeClass('selected');
+                    j('#mainHeader').load(headerBackBtn);
+                }else{
+                if(j(this).text()=='DateExpense expid From/To LocAmt'){
+                    
+                }else{
+                    j('#mainHeader').load(headerOprationBtn);
+                    j(this).addClass('selected');
+                }                   
+                }                               
+            });*/
+            }
+         });
+     });     
+          
+ } 
+
+function updateOCRExp(i,smsId){
+    var aa =  document.getElementById('smsAmount_'+i).value;
+    if (mydb) {
+        var smsDate = document.getElementById('smsDate_'+i).value;
+        var smsAmount =  document.getElementById('smsAmount_'+i).value;
+        var smsNarration =  document.getElementById('smsNarration_'+i).value;
+        
+        if (smsDate != "" && smsAmount != "" && smsNarration != "" && smsId != "") {
+	            mydb.transaction(function (t) {
+	                t.executeSql("UPDATE addOcrExpense set smsText ='"+smsNarration+"', smsSentDate ='"+smsDate+"',smsAmount = '"+smsAmount+"' where smsId = "+smsId+";");
+				});
+                 
+            
+            } else {
+        alert("db not found, your browser does not support web sql!");
+    }
+        
+}
+    
+}
+
+
+function discardMessages123(smsID){
+    
+    j.confirm({
+    title: 'Confirm!',
+    content: 'Do you really want to delete?',
+    buttons: {
+        confirm: function () {
+            	mydb.transaction(function (t) {
+				t.executeSql("DELETE FROM addOcrExpense WHERE smsId=?", [smsID]);
+			});
+                  fetchOCRExpense();
+		   },
+           cancel: function () {
+            location.reload();
+        
+    }
+        }
+});
+    
+}
+
+
+function saveOcrDetailsInWishList(){
+	exceptionMessage='';
+	if (mydb) {
+		//get the values of the text inputs
+          
+        var exp_date ="12/05/2017";
+		var exp_from_loc = "";
+		var exp_to_loc = "";
+		var exp_narration = document.getElementById('narration').value;
+		var exp_unit = "1";
+		var way_points ="1";
+		var exp_amt =  document.getElementById('amount').value;
+		var entitlement_exceeded="N";
+		var acc_head_id;
+		var acc_head_val;
+		var exp_name_id;
+		var exp_name_val;
+		var currency_id;
+		var currency_val;
+		var file;
+        acc_head_id = 1;
+        exp_name_id= 6;
+        currency_id = 1;
+        
+		/*if(j("#accountHead").select2('data') != null){
+			acc_head_id = j("#accountHead").select2('data').id;
+			acc_head_val = j("#accountHead").select2('data').name;
+		}else{
+			acc_head_id = '-1';
+		}
+		
+		if(j("#expenseName").select2('data') != null){
+			exp_name_id = j("#expenseName").select2('data').id;
+			exp_name_val = j("#expenseName").select2('data').name;
+		}else{
+			exp_name_id = '-1';
+		}	
+		
+		if(j("#currency").select2('data') != null){
+			currency_id = j("#currency").select2('data').id;
+			currency_val = j("#currency").select2('data').name;
+		}else{
+			currency_id = '-1';
+		}
+		
+		if(fileTempGalleryBE ==undefined || fileTempGalleryBE ==""){
+		
+		}else{
+			file = fileTempGalleryBE;
+		}
+		
+		if(fileTempCameraBE ==undefined || fileTempCameraBE ==""){
+		
+		}else{
+			file = fileTempCameraBE; 
+		}*/
+		
+		/*if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){*/		  
+/*		  
+		  if(file ==undefined){
+		  	file="";
+			}*/
+		  mydb.transaction(function (t) {
+				t.executeSql("INSERT INTO wishListForBussExpense (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment,wayPointunitValue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file,way_points]);
+								
+
+			});
+
+         mydb.transaction(function (t) {
+             
+             
+				t.executeSql("DELETE FROM addOcrExpense WHERE smsId=?", [smsId]);
+			});
+          fetchOCRExpense();
+
+
+		/*}else{
+			return false;
+		}*/
+    } else {
+        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        
+    }
 }
