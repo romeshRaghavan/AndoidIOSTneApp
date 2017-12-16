@@ -2421,9 +2421,11 @@ function extractData(receiptText) {
 			for(var j=iterateNo+1; j<wordsLength; j++) {
 				try {
                     console.log(" j == "+(iterateNo+1)+" words[j] "+words[j]);
-					receipt.totalCost = parseFloat(words[j]);
-					totalFound="found";
-					break;
+                    if(isNaN(words[j])===false) {
+					   receipt.totalCost = words[j];
+                       totalFound="found";
+					   break;
+                    }
 				}catch(e) {console.log("exception (NaN): " + e)}
 			}
 		}
@@ -2471,6 +2473,7 @@ function assignValuesToHtmlComponent(obj){
     document.getElementById('ocramount').value= obj.totalCost;
     document.getElementById('ocrnarration').value=obj.hotelName;
     document.getElementById("ocrImage").src= ocrImagePath;
+    deleteImageFromWallet(ocrImagePath);
 }
 
 function encodeImage(imageUri, callback) {
@@ -2722,5 +2725,19 @@ function saveOcrDetailsInWishList(){
     } else {
         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
         
+    }
+}
+
+
+function deleteImageFromWallet(){
+    	if (mydb) {
+		//get the values of the text inputs
+    
+            mydb.transaction(function (t) {
+                t.executeSql("delete from walletMst where walletAttachment ="+path+";"\);
+			});
+           getReceiptsImage();
+	} else {
+         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
     }
 }
