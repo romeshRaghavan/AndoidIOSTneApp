@@ -508,7 +508,7 @@ function fetchSMSClaim8() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img  id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto("");">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -1329,7 +1329,7 @@ function fetchDataFromWishListA() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="images/dummy-image.png" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto("");">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -1466,8 +1466,8 @@ function onPhotoDataSuccess(imageData) {
         alert("db not found, your browser does not support web sql!");
     }
     }else if(cameraTask == "wallet"){
-               alert("in wallet");
-        saveWalletAttachment(imageData)
+        saveWalletAttachment(imageData);
+        getReceiptsImage();
     }
     
     
@@ -1569,7 +1569,7 @@ var paraValue = "SMS";
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto("");">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -2204,7 +2204,7 @@ function fetchBussiness10() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto("");">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -2544,7 +2544,7 @@ function fetchOCRExpense() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto();">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto("");">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -2566,7 +2566,7 @@ function fetchOCRExpense() {
             var div15 = j('<div></div>').attr({ class: ["comment"].join(' ') }).appendTo(div11);
             j(div15).append('<textarea placeholder="Narration" id="smsNarration_'+i+'">'+row.smsText+'</textarea>');  
              var div16 = j('<div></div>').attr({ class: ["imagess"].join(' ') }).appendTo(div11);
-             j(div16).append('<img class="imagess" style = "width: 22px;" src="images/done.png" onclick ="updateOCRExp('+i+','+row.smsId+'),reload();" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 22px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 22px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishListkkk('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 22px;" src="images/todelete.png" onclick ="discardMessages123('+row.smsId+');"></img>');
+             j(div16).append('<img class="imagess" style = "width: 22px;" src="images/done.png" onclick ="updateOCRExp('+i+','+row.smsId+');" ></img>&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 22px;     padding-left :75px;" src="images/tosend.png" onclick ="smartSmsSendForApprover('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img style = "width: 22px;" src="images/towishlist.png" class="imagess" onclick ="saveBusinessDetailsInWishListkkk('+i+','+row.smsId+');"></img> &nbsp;&nbsp;<img class="imagess"  style = "width: 22px;" src="images/todelete.png" onclick ="discardMessages123('+row.smsId+');"></img>');
              var div17 = j('<div></div>').attr({ class: ["swipeout-actions-right"].join(' ')}).appendTo(mytable);     
              var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send').appendTo(div17);  
              var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-up"].join(' ') ,onclick : ["saveBusinessDetailsInWishListkkk("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
@@ -2729,10 +2729,9 @@ function saveOcrDetailsInWishList(){
 }
 
 
-function deleteImageFromWallet(){
+function deleteImageFromWallet(path){
+    alert("test");
     	if (mydb) {
-		//get the values of the text inputs
-    
             mydb.transaction(function (t) {
                 t.executeSql("delete from walletMst where walletAttachment ="+path+";");
 			});
