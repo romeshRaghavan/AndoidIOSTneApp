@@ -481,7 +481,7 @@ function fetchSMSClaim8() {
       t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
          
              });  
-     saveWalletAttachment("images/reciepts/001.jpg");
+    // saveWalletAttachment("images/reciepts/001.jpg");
         var headerOprationBtn;
          var paraValue = "SMS";
       t.executeSql('SELECT * FROM smsMaster;', [],
@@ -2734,10 +2734,13 @@ function deleteImageFromWallet(){
 		//get the values of the text inputs
     
             mydb.transaction(function (t) {
-                t.executeSql("delete from walletMst where walletAttachment ="+path+";"\);
+                t.executeSql("delete from walletMst where walletAttachment ="+path+";");
 			});
            getReceiptsImage();
 	} else {
          alert(window.lang.translate('Database not found, your browser does not support web sql!'));
     }
 }
+
+
+
