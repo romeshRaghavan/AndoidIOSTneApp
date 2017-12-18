@@ -2729,7 +2729,7 @@ function saveOcrDetailsInWishList(){
 
 
 function deleteImageFromWallet(path){
-    alert("test");
+    //alert("test");
     	if (mydb) {
             mydb.transaction(function (t) {
                 t.executeSql("delete from walletMst where walletAttachment ="+path+";");
