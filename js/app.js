@@ -2549,8 +2549,8 @@ function fetchOCRExpense() {
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
         /*j('<input></input>').attr({ id: "expenseName_"+i,class: [""].join(' '),type: ["hidden"].join(' ') }).appendTo(spen3);*/
             var select1 = j('<select></select>').attr({ class: [""].join(' ') }).appendTo(spen3);
-            var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
-            var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
+            var option1 = j('<option></option>').attr({ class: [""].join(' ') }).text("Meal").appendTo(select1);
+            var option2 = j('<option></option>').attr({ class: [""].join(' ') }).text("Conveyance").appendTo(select1);
             var option3 =j('<option></option>').attr({ class: [""].join(' ') }).text("Telephone").appendTo(select1);
             var option7 =j('<option></option>').attr({ class: [""].join(' ') }).text("Client Entertainment").appendTo(select1);
             var spen4 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text(' Currency :').appendTo(div12);
