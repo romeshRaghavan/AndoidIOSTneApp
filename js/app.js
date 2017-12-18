@@ -508,7 +508,7 @@ function fetchSMSClaim8() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img  id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\"SMS\");">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -1329,7 +1329,7 @@ function fetchDataFromWishListA() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="images/dummy-image.png" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\"SMS\");">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -1450,7 +1450,7 @@ function onFail(message) {
 
 function onPhotoDataSuccess(imageData) {
     
-    if(cameraTask == "SMS"){
+    if(cameraTask === "SMS"){
     var fileTempCamera = imageData;
     document.getElementById("show_0").src = imageData;
     document.getElementById("attach_0").src = imageData;
@@ -1568,7 +1568,7 @@ var paraValue = "SMS";
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\"SMS\");">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -2203,7 +2203,7 @@ function fetchBussiness10() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\"SMS\");">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -2543,7 +2543,7 @@ function fetchOCRExpense() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\"SMS\");">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
