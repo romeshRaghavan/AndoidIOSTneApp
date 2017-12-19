@@ -117,8 +117,10 @@ function login()
 }
  
 function commanLogin(){
- 	var userName = "1487@angel.com";
- 	var userNameValue = "1487@angel.com";
+ 	/*var userName = "1487@angel.com";
+	 var userNameValue = "1487@angel.com"; */
+	 var userName = "DineshS@expenzing.com";
+ 	var userNameValue = "DineshS@expenzing.com";
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
 	jsonToDomainNameSend["userName"] = domainName;

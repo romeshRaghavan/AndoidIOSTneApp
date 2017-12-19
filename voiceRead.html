@@ -272,13 +272,13 @@ input.speechbutton {
                                                    </div>
                                                    <div class="info">
                                                       <span class="data">Expense date : <input id="expDate" type="text" placeholder="Date"> Amount : <input id= "amount" type="tel" placeholder="Amount">
-                                                       <img src="images/micInGray.png" alt="">
+                                                       <img src="images/micInGray.png" alt="" onclick="recordVoice();">
                                                        </span>
                                                    </div>
                                                    <div class="comment">
-                                                       <span class="data"
-                                                      <textarea id="narration" placeholder="Narration"></textarea>
+                                                       <span class="data"><textarea id="narration" placeholder="Narration"></textarea>
                                                         <img src="images/micInGray.png" alt="">
+                                                      </span>
                                                    </div>
                                                    <div class="imagess">
                         <img class="imagess" style = "width: 25px;" src="images/done.png" onclick ="addToVoicebussinesExpense();">&nbsp;&nbsp;&nbsp;<img class="imagess" style = "width: 25px;     padding-left :75px;" src="images/tosend.png" onclick ="addToVoicebussinesExpense();">&nbsp;&nbsp;&nbsp;<img style = "width: 25px;" src="images/towishlist.png" class="imagess" onclick ="saveVoiceBusinessDetailsInWishList()">&nbsp;&nbsp;<img class="imagess"  style = "width: 25px;" src="images/todelete.png" onclick ="closeAddExpense()">'
@@ -304,7 +304,8 @@ input.speechbutton {
        </div>
       <div style="display:none" id="loading_Cat" >
                <img src="../../images/loading2.gif" id="loading-image_Cat" alt="Loading..." >
-		</div>
+    </div>
+      <script src="cordova.js"></script>
       <script type="text/javascript" src="js/jquery.min.js"></script>
       <script type="text/javascript" src="css/framework7/js/framework7.min.js"></script>
       <script type="text/javascript" src="css/swipebox/src/js/jquery.swipebox.min.js"></script>
@@ -345,10 +346,25 @@ j(document).ready(function(){
 		maxDate: new Date(currentYear, currentMonth, currentDate)
 		});
      document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;
-	});
+  });
+  
+
+  document.addEventListener("deviceready", onDeviceReady, false);
+  function onDeviceReady() {
+      console.log(Media);
+      alert("Media : " + Media);
+  }
 
 });
-       
+function recordVoice() {
+  let mediaRec = new Media("myrecording.mp3", function(){alert('recorded')},function(){alert('failed')});
+  mediaRec.startRecord();
+  setTimeout(function() {
+        mediaRec.stopRecord();
+    }, 10000);
+}
+
+
        </script>
    </body>
 </html>
