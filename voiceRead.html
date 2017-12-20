@@ -277,7 +277,7 @@ input.speechbutton {
                                                    </div>
                                                    <div class="comment">
                                                        <span class="data"><textarea id="narration" placeholder="Narration"></textarea>
-                                                        <img src="images/micInGray.png" alt="">
+                                                        <img src="images/micInGray.png" alt="" onclick="recordVoice();"> 
                                                       </span>
                                                    </div>
                                                    <div class="imagess">
@@ -328,8 +328,10 @@ input.speechbutton {
     j("#addClaims").hide("slow"); 
      } 
            
+    
 j(document).ready(function(){
 
+  alert("ready");
     j("#close").on("click", function(){
           j("#addClaims").hide("slow"); 
     });
@@ -349,13 +351,17 @@ j(document).ready(function(){
   });
   
 
-  document.addEventListener("deviceready", onDeviceReady, false);
+  
+});
+
+alert("ready before");
+document.addEventListener("deviceready", onDeviceReady, false);
   function onDeviceReady() {
       console.log(Media);
       alert("Media : " + Media);
   }
 
-});
+
 function recordVoice() {
   let mediaRec = new Media("myrecording.mp3", function(){alert('recorded')},function(){alert('failed')});
   mediaRec.startRecord();
