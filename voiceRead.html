@@ -332,6 +332,14 @@ input.speechbutton {
 j(document).ready(function(){
 
   alert("ready");
+  try {
+alert("after ready");
+document.addEventListener("deviceready", onDeviceReady, false);
+  
+}catch(e) {
+    alert("issue in media initialization : " + e);
+}
+
     j("#close").on("click", function(){
           j("#addClaims").hide("slow"); 
     });
@@ -357,13 +365,19 @@ j(document).ready(function(){
 try {
 alert("ready before");
 document.addEventListener("deviceready", onDeviceReady, false);
-  function onDeviceReady() {
+  
+}catch(e) {
+    alert("issue in media initialization : " + e);
+}
+
+function onDeviceReady() {
+  try{
       console.log(Media);
       alert("Media : " + Media);
+    }catch(e) {
+    alert("device ready : " + e);
+    }
   }
-}catch(e) {
-    alert("issue in media initialization" + e);
-}
 
 
 function recordVoice() {
@@ -377,7 +391,7 @@ function recordVoice() {
         alert("stopped recording");
     }, 10000);
   }catch(e) {
-    alert("issue in media recording" + e);
+    alert("issue in media recording : " + e);
   }
 }
 
