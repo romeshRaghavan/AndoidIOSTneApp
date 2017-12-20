@@ -354,20 +354,31 @@ j(document).ready(function(){
   
 });
 
+try {
 alert("ready before");
 document.addEventListener("deviceready", onDeviceReady, false);
   function onDeviceReady() {
       console.log(Media);
       alert("Media : " + Media);
   }
+}catch(e) {
+    alert("issue in media initialization" + e);
+}
 
 
 function recordVoice() {
+  try{
   let mediaRec = new Media("myrecording.mp3", function(){alert('recorded')},function(){alert('failed')});
+  alert("new media created");
   mediaRec.startRecord();
+
   setTimeout(function() {
         mediaRec.stopRecord();
+        alert("stopped recording");
     }, 10000);
+  }catch(e) {
+    alert("issue in media recording" + e);
+  }
 }
 
 
