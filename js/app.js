@@ -1022,6 +1022,7 @@ function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadI
 
 function callSendForApprovalServiceForBEA(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure){
 var headerBackBtn=defaultPagePath+'backbtnPage.html';
+alert(window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense");
 j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense",
 				  type: 'POST',
