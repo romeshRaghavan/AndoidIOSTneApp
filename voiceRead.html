@@ -331,9 +331,9 @@ input.speechbutton {
     
 j(document).ready(function(){
 
-  alert("ready");
+  //alert("ready");
   try {
-alert("after ready");
+//alert("after ready");
 document.addEventListener("deviceready", onDeviceReady, false);
   
 }catch(e) {
@@ -363,7 +363,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 });
 
 try {
-alert("ready before");
+//alert("ready before");
 document.addEventListener("deviceready", onDeviceReady, false);
   
 }catch(e) {
@@ -373,7 +373,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
   try{
       console.log(Media);
-      alert("Media : " + Media);
+      //alert("Media : " + Media);
     }catch(e) {
     alert("device ready : " + e);
     }
@@ -383,7 +383,7 @@ function onDeviceReady() {
 function recordVoice() {
   try{
   let mediaRec = new Media("myrecording.mp3", function(){alert('recorded')},function(){alert('failed')});
-  alert("new media created");
+  //alert("new media created");
   mediaRec.startRecord();
 
   setTimeout(function() {
