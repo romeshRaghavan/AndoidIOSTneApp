@@ -1022,7 +1022,7 @@ function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadI
 
 function callSendForApprovalServiceForBEA(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure){
 var headerBackBtn=defaultPagePath+'backbtnPage.html';
-alert(window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense");
+//alert(window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense");
 j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense",
 				  type: 'POST',
@@ -1030,7 +1030,7 @@ j.ajax({
 				  crossDomain: true,
 				  data: JSON.stringify(jsonToSaveBE),
 				  success: function(data) {
-                      alert("success: " + data); 
+                      //alert("success: " + data); 
 				  	if(data.Status=="Success"){
 					  	if(data.hasOwnProperty('DelayStatus')){
 					  		setDelayMessage(data,jsonToSaveBE,busExpDetailsArr);
