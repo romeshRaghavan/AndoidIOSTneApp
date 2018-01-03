@@ -820,6 +820,7 @@ function smartSmsSendForApprover(i,smsId){
 								  }
 							  }
 
+    
 							  jsonFindBE["expenseDate"] = "11/27/2017";
 							  //get Account Head
 							  var currentAccountHeadID= 1;
@@ -832,7 +833,7 @@ function smartSmsSendForApprover(i,smsId){
 							  }else{*/
 								 // accountHeadIdToBeSent=currentAccountHeadID
 
-								  jsonFindBE["accountCodeId"] = 1;
+								  jsonFindBE["accountCodeId"] = 4;
 								  jsonFindBE["ExpenseId"] =6;
 								  jsonFindBE["ExpenseName"] = "";
 								  jsonFindBE["fromLocation"] ="";
@@ -1799,14 +1800,14 @@ function saveBusinessDetailsInWishListkkk(i,smsId){
 
 function chooseOption(imgObj,i) {
     console.log("1");
-	if (window.confirm("Send to OCR?") == true) {
-        document.getElementById("imgProcessingId").textContent  = "sending your reciept to OCR for processing...";
+	if (window.confirm("Read the receipt?") == true) {
+        document.getElementById("imgProcessingId").textContent  = "sending your receipt to OCR for processing...";
 		setTimeout(delayFunOK, 3000);
         var imagePath = document.getElementById("recieptid_"+i).src;
         sendDataToOCR(imagePath);
 
 	} else {
-        document.getElementById("imgProcessingId").textContent  = "saving your reciept to saved list...";
+        document.getElementById("imgProcessingId").textContent  = "saving your receipt to saved list...";
 		setTimeout(delayFunCancel, 2000);
 	}
 }
@@ -1816,7 +1817,7 @@ function delayFunOK() {
 }
 
 function delayFunCancel() {
-    document.getElementById("imgProcessingId").textContent  = "Reciept saved successfully to your saved list.";
+    document.getElementById("imgProcessingId").textContent  = "Receipt saved successfully to your saved list.";
     setTimeout(function() {document.getElementById("imgProcessingId").textContent  = "";}, 1000);
 }
 

@@ -47,8 +47,8 @@ function login()
 	var password = "123";
     
     var jsonToBeSend=new Object();
-    jsonToBeSend["user"] = "DineshS@expenzing.com";
-    jsonToBeSend["pass"] = "123";
+    jsonToBeSend["user"] = "andrewdmello1@yahoo.co.in";
+    jsonToBeSend["pass"] = "trainsnplanes";
 	//setUrlPathLocalStorage(urlPath);
 	urlPath=window.localStorage.getItem("urlPath");
 	j('#loading').show();
@@ -120,7 +120,7 @@ function commanLogin(){
  	/*var userName = "1487@angel.com";
 	 var userNameValue = "1487@angel.com"; */
 	 var userName = "DineshS@expenzing.com";
- 	var userNameValue = "DineshS@expenzing.com";
+ 	var userNameValue = "andrewdmello1@yahoo.co.in";
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
 	jsonToDomainNameSend["userName"] = domainName;
