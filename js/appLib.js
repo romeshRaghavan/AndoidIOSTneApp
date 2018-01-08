@@ -163,7 +163,7 @@ if (window.openDatabase) {
         t.executeSql("CREATE TABLE IF NOT EXISTS addOcrExpense (smsId INTEGER PRIMARY KEY ASC, smsText TEXT,senderAddr TEXT,smsSentDate TEXT,smsAmount TEXT,smsAttachment BLOB)");
     });
 } else {
-    alert(window.lang.translate('WebSQL is not supported by your browser!'));
+    alert('WebSQL is not supported by your browser!');
 }
 
 //function to remove a employeeDetails from the database, passed the row id as it's only parameter
@@ -261,7 +261,7 @@ function saveBusinessDetails(status){
 			return false;
 		}
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
         
     }
 }
@@ -369,6 +369,7 @@ function saveTravelSettleDetails(status){
 					resetImageData();
 				}else{
 					viewTravelSettlementExp();
+					viewTravelSettlementExp();
 				}
 			});
 		
@@ -376,7 +377,7 @@ function saveTravelSettleDetails(status){
 			return false;
 		}
     } else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }
 }
 
@@ -606,6 +607,7 @@ function synchronizeBEMasterData() {
 	jsonSentToSync["UnitId"] = window.localStorage.getItem("UnitId");
 	j('#loading_Cat').show();
 	if (mydb) {
+    try {
 		j.ajax({
 			  url: window.localStorage.getItem("urlPath")+"SyncAccountHeadWebService",
 			  type: 'POST',
@@ -622,13 +624,15 @@ function synchronizeBEMasterData() {
 								var stateArr = new Array();
 								stateArr = accountHeadArray[i];
 								var acc_head_id = stateArr.Value;
+                                alert("stateArr.Value>>> "+stateArr.Value);
 								var acc_head_name = stateArr.Label;
+                                alert("stateArr.Label>>> "+stateArr.Label);
 								t.executeSql("INSERT INTO accountHeadMst (accountHeadId,accHeadName) VALUES (?, ?)", [acc_head_id,acc_head_name]);
 								
 							}
 						}
 					});	
-					  
+					  alert("1");
 					mydb.transaction(function (t) {
 					t.executeSql("DELETE FROM expNameMst");
 					  var expNameArray = data.ExpenseNameArray;
@@ -696,7 +700,7 @@ function synchronizeBEMasterData() {
 						}  
 					});
                        
-                      		mydb.transaction(function (t) {
+            mydb.transaction(function (t) {
 					t.executeSql("DELETE FROM currencyConversionMst");
 					var currencyConvArray = data.CurrencyConvArray;
 						if(currencyConvArray != null && currencyConvArray.length > 0){
@@ -726,9 +730,12 @@ function synchronizeBEMasterData() {
 					
 			  },
 			  error:function(data) {
-                alert(window.lang.translate('Error: Oops something is wrong, Please Contact System Administer'));
+                alert('Error: Oops something is wrong, Please Contact System Administer');
 			  }
+
+
 			});
+          }catch(e) {alert("mydb : " + mydb + " exception" + e)}
 			
 		j.ajax({
 		  url: window.localStorage.getItem("urlPath")+"CurrencyService",
@@ -746,7 +753,9 @@ function synchronizeBEMasterData() {
 						var stateArr = new Array();
 						stateArr = currencyArray[i];
 						var curr_id = stateArr.Value;
+                        alert("stateArr.Value >> "+stateArr.Value);
 						var curr_name = stateArr.Label;
+                        alert("stateArr.Label >> "+stateArr.Label);
 						t.executeSql("INSERT INTO currencyMst (currencyId,currencyName) VALUES (?, ?)", [curr_id,curr_name]);
 						
 					}
@@ -765,13 +774,13 @@ function synchronizeBEMasterData() {
 				
 			},
 			  error:function(data) {
-                alert(window.lang.translate('Error: Oops something is wrong, Please Contact System Administer'));
+                alert('Error: Oops something is wrong, Please Contact System Administer');
 			  }
 				});	
 			
 	} else {
        
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
     }
 	
 }
@@ -834,7 +843,7 @@ function synchronizeBEMasterData() {
 				}
 			},		
 			error:function(data) {
-                alert(window.lang.translate('Error: Oops something is wrong, Please Contact System Administer'));
+                alert('Error: Oops something is wrong, Please Contact System Administer');
 			}	
 				
 		});
@@ -872,7 +881,7 @@ function synchronizeBEMasterData() {
 					
 				},
 				  error:function(data) {
-                    alert(window.lang.translate('Error: Oops something is wrong, Please Contact System Administer'));
+                    alert('Error: Oops something is wrong, Please Contact System Administer');
 				  }
 					});	
 		
@@ -954,13 +963,13 @@ function synchronizeBEMasterData() {
 				}
 			},
 			error:function(data) {
-                alert(window.lang.translate('Error: Oops something is wrong, Please Contact System Administer'));
+                alert('Error: Oops something is wrong, Please Contact System Administer');
 			}
 		});
 		
 				 
 	} else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }
  }
  
@@ -972,7 +981,7 @@ function synchronizeBEMasterData() {
 				t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
 			});
 	} else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
 	}
  }
  
@@ -1041,7 +1050,7 @@ function getCurrencyList(transaction, results) {
 				t.executeSql("SELECT * FROM travelAccountHeadMst where processId=3", [], getTrAccHeadList);
 			});
 	} else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
 	}
  }
 
@@ -1271,10 +1280,10 @@ function saveWalletAttachment(status){
             j('#loading_Cat').hide();
         } else {
         	j('#loading_Cat').hide();
-            alert(window.lang.translate('You must enter inputs!'));
+            alert('You must enter inputs!'));
         }
 	} else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!'));
     }
 }
 */
@@ -1289,7 +1298,7 @@ function getExpenseNamesfromDB(accountHeadId){
 			t.executeSql("SELECT * FROM expNameMst where accHeadId="+accountHeadId, [], getExpNameList);
 		});
     } else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -1301,7 +1310,7 @@ function getExpenseNamesfromDBTravel(travelRequestId){
         	//t.executeSql("SELECT * FROM travelExpenseNameMst where travelAccountHeadId="+accountHeadId, [],fetchTravelExpeseName);
 			});
     } else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -1312,7 +1321,7 @@ function getStartEndDatefromDBTravel(travelRequestId){
         var result	= t.executeSql("select travelStartDate,travelEndDate from travelRequestDetails where travelRequestId="+travelRequestId, [],fetchTravelStartEndDate);
         	});
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -1324,7 +1333,7 @@ function getCurrencyDBTravel(travelRequestId){
         	
 			});
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -1339,7 +1348,7 @@ function onloadTravelSettleData() {
 				t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
 			});
 	} else {
-		 alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+		 alert('Database not found, your browser does not support web sql!');
 	}
  }
  
@@ -1403,7 +1412,7 @@ function fetchTravelDomOrInterDate(transaction, results) {
 		t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
 		});
 		} else {
-		 alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+		 alert('Database not found, your browser does not support web sql!');
 	}
 		}
 	}
@@ -1420,7 +1429,7 @@ function getPerUnitFromDB(expenseNameID){
 			t.executeSql("SELECT * FROM expNameMst where id="+expenseNameID, [], setPerUnitDetails);
 		});
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -1431,7 +1440,7 @@ function getModecategoryFromDB(expenseNameID){
 			t.executeSql("SELECT * FROM travelExpenseNameMst where id="+expenseNameID, [], setModeCategroyDetails);
 		});
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -1442,7 +1451,7 @@ function getCategoryFromDB(modeID){
 			t.executeSql("SELECT * FROM travelCategoryMst where travelModeId="+modeID, [], fetchTrvlCategoryList);
 		});
     } else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -1489,12 +1498,12 @@ function synchronizeTRForTS() {
 					
 			},
 			error:function(data) {
-				 alert(window.lang.translate('Error: Oops something is wrong, Please Contact System Administer'));
+				 alert('Error: Oops something is wrong, Please Contact System Administer');
 			}
 		});
 
 	} else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
     }
  }
  
@@ -1649,7 +1658,7 @@ function synchronizeEAMasterData() {
 					
 			  },
 			  error:function(data) {
-                alert(window.lang.translate('Error: Oops something is wrong, Please Contact System Administer'));
+                alert('Error: Oops something is wrong, Please Contact System Administer');
 			  }
 			});
   }
@@ -1671,7 +1680,7 @@ function onloadEAData() {
 				t.executeSql("SELECT * FROM accountHeadEAMst", [], fetchAccountHeadList);
 			});
 	} else {
-		 alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+		 alert('Database not found, your browser does not support web sql!');
 	}
  }
 
@@ -1696,7 +1705,7 @@ function getAdvanceTypeFromDB(AdvancetypeID){
 			t.executeSql("SELECT * FROM advanceType where advancetypeID="+AdvancetypeID, [], fetchAdvanceTypeList);
 		});
     } else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -1720,7 +1729,7 @@ function getAccountHeadFromDB(AccountHeadID){
 			t.executeSql("SELECT * FROM accountHeadEAMst where accountHeadId="+AccountHeadID, [], fetchAccountHeadList);
 		});
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -2450,7 +2459,7 @@ function getExpenseNamesfromDBForSmartExpense(accountHeadId){
 			t.executeSql("SELECT * FROM expNameMst where accHeadId="+accountHeadId, [], getExpNameListForSmartExpense);
 		});
     } else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }	
 }
 
@@ -2478,6 +2487,6 @@ function getPerUnitFromDBForSmartExpense(expenseNameID){
 			t.executeSql("SELECT * FROM expNameMst where id="+expenseNameID, [], setPerUnitDetailsForSmartExpense);
 		});
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
     }	
 }

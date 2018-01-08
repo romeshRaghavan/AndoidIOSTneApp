@@ -3,7 +3,7 @@ var j = jQuery.noConflict();
 var $ = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var ocrImagePath;
-var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
+//var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 
 
 function naxvarBg() {
@@ -257,6 +257,7 @@ myApp.onPageInit('addExpense', function(){
 }).trigger();
 */
 
+/*
 myApp.onPageInit('wishlist', function(){
 
     jj('.wishlist .claimlisting').on('click', function (e) {
@@ -269,13 +270,16 @@ myApp.onPageInit('wishlist', function(){
         jj('.sendrest').hide(1000);
     }
 });
+*/
 
 
 
+/*
 
 
     console.log('wishlist Page Init Function Triggered');
 }).trigger();
+*/
 
 
 
@@ -478,10 +482,9 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 function fetchSMSClaim8() {
     mydb.transaction(function(t) {
      mydb.transaction(function (t) {      
-      t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
          
+         t.executeSql("INSERT INTO smsMaster (smsId,smsSentDate,senderAddr,smsText,smsAmount,smsAttachment) VALUES (?, ?, ?, ?, ?, ?)", [1,"23-Dec-2016","VM_IPAYTM","Hi your order #14247962455 of Rs. 249.00 for 2 items is successfull. ","249.00",'images/dummy-image.png']);
              });  
-    // saveWalletAttachment("images/reciepts/001.jpg");
         var headerOprationBtn;
          var paraValue = "SMS";
       t.executeSql('SELECT * FROM smsMaster;', [],
@@ -615,7 +618,7 @@ function expandCollapse(obj) {
 				t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
 			});
 	} else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
 	}
  }
 
@@ -820,7 +823,6 @@ function smartSmsSendForApprover(i,smsId){
 								  }
 							  }
 
-    
 							  jsonFindBE["expenseDate"] = "11/27/2017";
 							  //get Account Head
 							  var currentAccountHeadID= 1;
@@ -833,8 +835,8 @@ function smartSmsSendForApprover(i,smsId){
 							  }else{*/
 								 // accountHeadIdToBeSent=currentAccountHeadID
 
-								  jsonFindBE["accountCodeId"] = 4;
-								  jsonFindBE["ExpenseId"] =6;
+								  jsonFindBE["accountCodeId"] =2;
+								  jsonFindBE["ExpenseId"] =8;
 								  jsonFindBE["ExpenseName"] = "";
 								  jsonFindBE["fromLocation"] ="";
 								  jsonFindBE["toLocation"] = "";
@@ -1003,6 +1005,7 @@ function smartSmsSendForApprover1(){
 }
 
 function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadID){
+    alert("2");
 	 var jsonToSaveBE = new Object();
 	 jsonToSaveBE["employeeId"] = window.localStorage.getItem("EmployeeId");
 	 jsonToSaveBE["expenseDetails"] = jsonBEArr;
@@ -1023,6 +1026,7 @@ function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadI
 
 function callSendForApprovalServiceForBEA(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure){
 var headerBackBtn=defaultPagePath+'backbtnPage.html';
+    alert("3");
 //alert(window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense");
 j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense",
@@ -1034,9 +1038,11 @@ j.ajax({
                       //alert("success: " + data); 
 				  	if(data.Status=="Success"){
 					  	if(data.hasOwnProperty('DelayStatus')){
+                            alert("in if");
 					  		setDelayMessage(data,jsonToSaveBE,busExpDetailsArr);
 					  		 j('#loading_Cat').hide();
 					  	}else{
+                            alert("in else");
 						 successMessage = data.Message;
 						 for(var i=0; i<busExpDetailsArr.length; i++ ){
 							var businessExpDetailId = busExpDetailsArr[i];
@@ -1068,7 +1074,7 @@ j.ajax({
 				  error:function(data) {
 					j('#loading_Cat').hide();
 					requestRunning = false;
-                    alert(window.lang.translate('Error: Oops something is wrong, Please Contact System Administer'));
+                    alert('Error: Oops something is wrong, Please Contact System Administer');
 				  }
 			});
 }
@@ -1228,7 +1234,7 @@ function saveBusinessDetailsInWishList(i,smsId){
 			return false;
 		}*/
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
         
     }
 }
@@ -1236,15 +1242,15 @@ function saveBusinessDetailsInWishList(i,smsId){
 
 function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id){
 	if(exp_date == ""){
-        alert(window.lang.translate('Expense Date is invalid'));
+        alert('Expense Date is invalid');
 		return false;
 	}
 	if(acc_head_id == "-1"){
-        alert(window.lang.translate('Account Head is invalid'));
+        alert('Account Head is invalid');
 		return false;
 	}
 	if(exp_name_id == "-1"){
-        alert(window.lang.translate('Expense Name is invalid'));
+        alert('Expense Name is invalid');
 		return false;
 	}
 
@@ -1255,7 +1261,7 @@ function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,e
 
 
 	if(exp_narration == ""){
-        alert(window.lang.translate('Narration is invalid'));
+        alert('Narration is invalid');
 		return false;
 	}
 	
@@ -1268,12 +1274,12 @@ function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,e
 			}
 			
 		}else{
-            alert(window.lang.translate('Amount is invalid'));
+            alert('Amount is invalid');
 			return false;
 		}
 	
 	if(currency_id == "-1"){
-        alert(window.lang.translate('Currency Name is invalid'));
+        alert('Currency Name is invalid');
 		return false;
 	}
 	
@@ -1380,7 +1386,7 @@ function reload(){
     location.reload();
 }
 function changePage1(){
-    window.location.href = 'index.html';
+    window.location.href = 'landingSmsPage.html';
 }
 
 function hide(){
@@ -1411,7 +1417,7 @@ function hideOn(obj) {
 }
 
 function goToHome(){
-    window.location.href = 'index.html';
+    window.location.href = 'landingSmsPage.html';
 }
 
 var cameraTask;
@@ -1708,7 +1714,7 @@ function saveBusinessDetailsInWishListk(){
 			return false;
 		}*/
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
         
     }
 }
@@ -1792,7 +1798,7 @@ function saveBusinessDetailsInWishListkkk(i,smsId){
 			return false;
 		}*/
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
         
     }
 }
@@ -1800,14 +1806,14 @@ function saveBusinessDetailsInWishListkkk(i,smsId){
 
 function chooseOption(imgObj,i) {
     console.log("1");
-	if (window.confirm("Read the receipt?") == true) {
-        document.getElementById("imgProcessingId").textContent  = "sending your receipt to OCR for processing...";
+	if (window.confirm("Send to OCR?") == true) {
+        document.getElementById("imgProcessingId").textContent  = "sending your reciept to OCR for processing...";
 		setTimeout(delayFunOK, 3000);
         var imagePath = document.getElementById("recieptid_"+i).src;
         sendDataToOCR(imagePath);
 
 	} else {
-        document.getElementById("imgProcessingId").textContent  = "saving your receipt to saved list...";
+        document.getElementById("imgProcessingId").textContent  = "saving your reciept to saved list...";
 		setTimeout(delayFunCancel, 2000);
 	}
 }
@@ -1817,7 +1823,7 @@ function delayFunOK() {
 }
 
 function delayFunCancel() {
-    document.getElementById("imgProcessingId").textContent  = "Receipt saved successfully to your saved list.";
+    document.getElementById("imgProcessingId").textContent  = "Reciept saved successfully to your saved list.";
     setTimeout(function() {document.getElementById("imgProcessingId").textContent  = "";}, 1000);
 }
 
@@ -2167,7 +2173,7 @@ function saveVoiceBusinessDetailsInWishList(){
 			return false;
 		}*/
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
         
     }
 }
@@ -2330,7 +2336,7 @@ function saveWalletAttachment(path){
 			});
            //getReceiptsImage();
 	} else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }
 }
     
@@ -2725,7 +2731,7 @@ function saveOcrDetailsInWishList(){
 			return false;
 		}*/
     } else {
-        alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+        alert('Database not found, your browser does not support web sql!');
         
     }
 }
@@ -2739,7 +2745,7 @@ function deleteImageFromWallet(path){
 			});
            getReceiptsImage();
 	} else {
-         alert(window.lang.translate('Database not found, your browser does not support web sql!'));
+         alert('Database not found, your browser does not support web sql!');
     }
 }
 

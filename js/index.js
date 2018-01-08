@@ -3,8 +3,9 @@ var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
 var urlPath;
 //var WebServicePath ='http://1.255.255.140:8085/NexstepWebService/mobileLinkResolver.service';
-var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
+//var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath ='http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service';
+var WebServicePath ='http://1.255.255.87:8085/NexstepWebService/mobileLinkResolver.service';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -43,12 +44,15 @@ var filtersStr = "";
 function login()
    {
 
-    var userName = "";
-	var password = "123";
-    
+   	if(document.getElementById("username")!=null){
+    var userName = document.getElementById("username");
+	}else if(document.getElementById("username")!=null){
+		var userName = document.getElementById("userNameId");
+	}
+	var password = document.getElementById("password");
     var jsonToBeSend=new Object();
-    jsonToBeSend["user"] = "andrewdmello1@yahoo.co.in";
-    jsonToBeSend["pass"] = "trainsnplanes";
+    jsonToBeSend["user"] = userName.value;
+    jsonToBeSend["pass"] = password.value;
 	//setUrlPathLocalStorage(urlPath);
 	urlPath=window.localStorage.getItem("urlPath");
 	j('#loading').show();
@@ -60,7 +64,6 @@ function login()
          data: JSON.stringify(jsonToBeSend),
          success: function(data) {
          	if (data.Status == 'Success'){
-                
         //window.location.href = defaultPagePath+'smartExpense.html';
             //document.location.href=defaultPagePath+'index.html';
  /*           var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
@@ -69,22 +72,25 @@ function login()
              j('#mainContainer').load(pageRef);*/
               //appPageHistory.push(pageRef);
 			  //addEmployeeDetails(data);
-                 
+
+                                
+			
 			  setUserStatusInLocalStorage("Valid");
 			  setUserSessionDetails(data,jsonToBeSend);
-                
                 if(data.hasOwnProperty('EaInMobile') && 
                  data.EaInMobile != null){
                   if(data.EaInMobile){
                  synchronizeEAMasterData();
                   }
                }
-            
+             if(data.hasOwnProperty('TrRole') && 
+                 data.TrRole != null){
 			  if(data.TrRole){
 				synchronizeTRMasterData();
 				synchronizeTRForTS();  
-			  }
-               
+			   }
+             }
+               synchronizeBEMasterData();
                 
             if(data.hasOwnProperty('smartClaimsViaSMSOnMobile') && 
                  data.smartClaimsViaSMSOnMobile != null){
@@ -93,14 +99,13 @@ function login()
 	               startWatch();
                   }
                  }
-                
-			
+                 window.location.href = 'landingSmsPage.html';
 			}else if(data.Status == 'Failure'){
  			   successMessage = data.Message;
 			   if(successMessage.length == 0){
 					successMessage = "Wrong UserName or Password";
 				}
-				document.getElementById("loginErrorMsg").innerHTML = successMessage;
+				//document.getElementById("loginErrorMsg").innerHTML = successMessage;
  			   j('#loginErrorMsg').hide().fadeIn('slow').delay(2000).fadeOut('slow');
  			   j('#loading').hide();
            }else{
@@ -116,11 +121,9 @@ function login()
 
 }
  
-function commanLogin(){
- 	/*var userName = "1487@angel.com";
-	 var userNameValue = "1487@angel.com"; */
-	 var userName = "DineshS@expenzing.com";
- 	var userNameValue = "andrewdmello1@yahoo.co.in";
+function commonLogin(){
+ 	var userName = document.getElementById("username");
+    var userNameValue = userName.value; 
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
 	jsonToDomainNameSend["userName"] = domainName;
@@ -1539,11 +1542,11 @@ function setDelayMessage(returnJsonData,jsonToBeSend,busExpDetailsArr){
 		    
 		}else{
 
-			if(confirm(window.lang.translate("This voucher has exceeded Time Limit. Do you want to proceed?"))==false){
+			if(confirm("This voucher has exceeded Time Limit. Do you want to proceed?")==false){
 						return false;
 					}
 			 jsonToBeSend["DelayAllowCheck"]=true;
-			 callSendForApprovalServiceForBE(jsonToBeSend,busExpDetailsArr,pageRefSuccess,pageRefFailure);
+			 callSendForApprovalServiceForBEA(jsonToBeSend,busExpDetailsArr,pageRefSuccess,pageRefFailure);
 		}			
 }
 

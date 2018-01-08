@@ -5204,6 +5204,8 @@ html:not(.watch-active-state) .list-block .item-link:active {
   width: 290px;
   margin-top: -20px;
 }
+.tabs-animated-wrap {overflow-y: auto !important;}
+/* .tabs-animated-wrap ul li.swipeout:last-child {padding-bottom: 50px;} */
 @media (min-height: 660px) {
   .picker-modal .swiper-container .swiper-slide img,
   .popup .swiper-container .swiper-slide img {
