@@ -3,7 +3,7 @@ var j = jQuery.noConflict();
 var $ = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var ocrImagePath;
-//var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
+var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 
 
 function naxvarBg() {
@@ -2749,5 +2749,29 @@ function deleteImageFromWallet(path){
     }
 }
 
-
+function syncAllMaster(){
+	
+	var trRole = window.localStorage.getItem("TrRole");
+	var eaInMobile = window.localStorage.getItem("EaInMobile");
+	if(trRole != null || trRole != ""){
+                  if(trRole){
+				  synchronizeTRMasterData();
+				  synchronizeTRForTS();
+                   }
+               }
+             if(trRole != null || trRole != ""){
+			  if(eaInMobile){
+				synchronizeEAMasterData(); 
+			   }
+             }
+               synchronizeBEMasterData();
+                
+/*            if(data.hasOwnProperty('smartClaimsViaSMSOnMobile') && 
+                 data.smartClaimsViaSMSOnMobile != null){
+                  if(data.smartClaimsViaSMSOnMobile){
+                 synchronizeWhiteListMasterData();
+	               startWatch();
+                  }
+                 }*/
+}
 

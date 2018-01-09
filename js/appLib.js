@@ -39,8 +39,7 @@ var app = {
 		  document.addEventListener("backbutton", function(e){
 			 goBackEvent();
 		  }, false);
-		  
-        
+
            validateValidMobileUser();
     }
 };
@@ -615,6 +614,7 @@ function synchronizeBEMasterData() {
 			  crossDomain: true,
 			  data: JSON.stringify(jsonSentToSync),
 			  success: function(data) {
+				  
 				  if(data.Status=='Success'){
 					mydb.transaction(function (t) {
 					t.executeSql("DELETE FROM accountHeadMst");
@@ -624,15 +624,12 @@ function synchronizeBEMasterData() {
 								var stateArr = new Array();
 								stateArr = accountHeadArray[i];
 								var acc_head_id = stateArr.Value;
-                                alert("stateArr.Value>>> "+stateArr.Value);
 								var acc_head_name = stateArr.Label;
-                                alert("stateArr.Label>>> "+stateArr.Label);
 								t.executeSql("INSERT INTO accountHeadMst (accountHeadId,accHeadName) VALUES (?, ?)", [acc_head_id,acc_head_name]);
 								
 							}
 						}
 					});	
-					  alert("1");
 					mydb.transaction(function (t) {
 					t.executeSql("DELETE FROM expNameMst");
 					  var expNameArray = data.ExpenseNameArray;
@@ -730,7 +727,7 @@ function synchronizeBEMasterData() {
 					
 			  },
 			  error:function(data) {
-                alert('Error: Oops something is wrong, Please Contact System Administer');
+                alert('Error: Oops something is wrong, Please Contact System Administer'+JSON.stringify(data));
 			  }
 
 
@@ -753,9 +750,7 @@ function synchronizeBEMasterData() {
 						var stateArr = new Array();
 						stateArr = currencyArray[i];
 						var curr_id = stateArr.Value;
-                        alert("stateArr.Value >> "+stateArr.Value);
 						var curr_name = stateArr.Label;
-                        alert("stateArr.Label >> "+stateArr.Label);
 						t.executeSql("INSERT INTO currencyMst (currencyId,currencyName) VALUES (?, ?)", [curr_id,curr_name]);
 						
 					}
@@ -1141,6 +1136,7 @@ function setUserSessionDetails(val,userJSON){
 	 window.localStorage.setItem("UnitId",val.UnitId);
 	 //For Mobile Google Map Role Start
 	 //End
+	
      if(!val.hasOwnProperty('MobileMapRole')){
       window.localStorage.setItem("MobileMapRole",false);
     }else{

@@ -77,7 +77,7 @@ function login()
 			
 			  setUserStatusInLocalStorage("Valid");
 			  setUserSessionDetails(data,jsonToBeSend);
-                if(data.hasOwnProperty('EaInMobile') && 
+/*                if(data.hasOwnProperty('EaInMobile') && 
                  data.EaInMobile != null){
                   if(data.EaInMobile){
                  synchronizeEAMasterData();
@@ -98,7 +98,7 @@ function login()
                  synchronizeWhiteListMasterData();
 	               startWatch();
                   }
-                 }
+                 }*/
                  window.location.href = 'landingSmsPage.html';
 			}else if(data.Status == 'Failure'){
  			   successMessage = data.Message;
@@ -229,6 +229,7 @@ function displayBusinessExp(){
 			headerBackBtn=defaultPagePath+'categoryMsgPage.html';*/
            // window.location.href = defaultPagePath+'smartExpense.html';
             //document.location.href=defaultPagePath+'smartExpense.html';
+			 window.location.href = 'landingSmsPage.html';
             
 		}else{
 			headerBackBtn=defaultPagePath+'expenzingImagePage.html';
@@ -2171,6 +2172,7 @@ function hideTRMenus(){
 	}
 }
 function validateValidMobileUser(){
+	alert("in validateValidMobileUser");
 	var pgRef;
 	var headerBackBtn;
 	var jsonToBeSend=new Object();
