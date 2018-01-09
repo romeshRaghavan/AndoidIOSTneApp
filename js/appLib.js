@@ -26,6 +26,14 @@ var app = {
     },
 	
 	onDeviceReady: function() {
+		
+		var parentElement = document.getElementById("deviceready");
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+		
        		  if (navigator.notification) { // Override default HTML alert with native dialog
 			  window.alert = function (message) {
 				  navigator.notification.alert(

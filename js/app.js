@@ -1005,7 +1005,6 @@ function smartSmsSendForApprover1(){
 }
 
 function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadID){
-    alert("2");
 	 var jsonToSaveBE = new Object();
 	 jsonToSaveBE["employeeId"] = window.localStorage.getItem("EmployeeId");
 	 jsonToSaveBE["expenseDetails"] = jsonBEArr;
@@ -1026,7 +1025,6 @@ function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadI
 
 function callSendForApprovalServiceForBEA(jsonToSaveBE,busExpDetailsArr,pageRefSuccess,pageRefFailure){
 var headerBackBtn=defaultPagePath+'backbtnPage.html';
-    alert("3");
 //alert(window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense");
 j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense",

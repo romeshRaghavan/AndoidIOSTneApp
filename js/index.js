@@ -2172,7 +2172,6 @@ function hideTRMenus(){
 	}
 }
 function validateValidMobileUser(){
-	alert("in validateValidMobileUser");
 	var pgRef;
 	var headerBackBtn;
 	var jsonToBeSend=new Object();
