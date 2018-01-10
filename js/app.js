@@ -823,7 +823,7 @@ function smartSmsSendForApprover(i,smsId){
 								  }
 							  }
 
-							  jsonFindBE["expenseDate"] = "11/27/2017";
+							  jsonFindBE["expenseDate"] = "01/10/2018";
 							  //get Account Head
 							  var currentAccountHeadID= 1;
 			/*				  if(validateAccountHead(accountHeadIdToBeSent,currentAccountHeadID)==false){
@@ -835,8 +835,8 @@ function smartSmsSendForApprover(i,smsId){
 							  }else{*/
 								 // accountHeadIdToBeSent=currentAccountHeadID
 
-								  jsonFindBE["accountCodeId"] =2;
-								  jsonFindBE["ExpenseId"] =8;
+								  jsonFindBE["accountCodeId"] = window.localStorage.getItem("DefaultAccCode");
+								  jsonFindBE["ExpenseId"] = window.localStorage.getItem("DefaultExpName");
 								  jsonFindBE["ExpenseName"] = "";
 								  jsonFindBE["fromLocation"] ="";
 								  jsonFindBE["toLocation"] = "";
@@ -872,9 +872,9 @@ function smartSmsSendForApprover(i,smsId){
 								 jsonFindBE["imageAttach"] = data; 
 
                                     expenseClaimDates["maxInDateFormat"]=currentDate;
-								    expenseClaimDates["maxInStringFormat"]= "11/27/2017";
+								    expenseClaimDates["maxInStringFormat"]= "01/10/2018";
     				                expenseClaimDates["minInDateFormat"]=currentDate;
-								    expenseClaimDates["minInStringFormat"]="11/27/2017";
+								    expenseClaimDates["minInStringFormat"]="01/10/2018";
 								  jsonExpenseDetailsArr.push(jsonFindBE);
     
 
@@ -1012,7 +1012,7 @@ function sendForApprovalBusinessDetailsA(jsonBEArr,busExpDetailsArr,accountHeadI
 	 jsonToSaveBE["endDate"]=expenseClaimDates.maxInStringFormat;
 	 jsonToSaveBE["DelayAllowCheck"]=false;
 	 jsonToSaveBE["BudgetingStatus"]=window.localStorage.getItem("BudgetingStatus");
-	 jsonToSaveBE["accountHeadId"]="2";
+	 jsonToSaveBE["accountHeadId"]=window.localStorage.getItem("DefaultAccCode");
 	 jsonToSaveBE["ProcessStatus"] = "1";
 	 jsonToSaveBE["title"]= window.localStorage.getItem("FirstName")+"/"+jsonToSaveBE["startDate"]+" to "+jsonToSaveBE["endDate"];
 	
@@ -1036,11 +1036,9 @@ j.ajax({
                       //alert("success: " + data); 
 				  	if(data.Status=="Success"){
 					  	if(data.hasOwnProperty('DelayStatus')){
-                            alert("in if");
 					  		setDelayMessage(data,jsonToSaveBE,busExpDetailsArr);
 					  		 j('#loading_Cat').hide();
 					  	}else{
-                            alert("in else");
 						 successMessage = data.Message;
 						 for(var i=0; i<busExpDetailsArr.length; i++ ){
 							var businessExpDetailId = busExpDetailsArr[i];
@@ -2771,5 +2769,26 @@ function syncAllMaster(){
 	               startWatch();
                   }
                  }*/
+	
+	setTimeout(function(){ 
+		 mydb.transaction(function(t) {
+      t.executeSql('SELECT * FROM expNameMst ;', [],
+         function(transaction, result) {
+          if (result != null && result.rows != null) {
+			   for (var i = 0; i < result.rows.length; i++) {
+				    var row = result.rows.item(i);
+				   window.localStorage.setItem("DefaultAccCode",row.accHeadId);
+				   window.localStorage.setItem("DefaultExpName",row.expNameMstId);
+				   break;
+			  }
+		  }
+	  
+	      });
+	});
+		
+	}, 3000);
+	
+	
+	
 }
 
