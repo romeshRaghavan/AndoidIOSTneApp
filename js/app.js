@@ -2755,11 +2755,11 @@ function syncAllMaster(){
 				  synchronizeTRForTS();
                    }
                }
-             if(trRole != null || trRole != ""){
+            /* if(trRole != null || trRole != ""){
 			  if(eaInMobile){
 				synchronizeEAMasterData(); 
 			   }
-             }
+             }*/
                synchronizeBEMasterData();
                 
 /*            if(data.hasOwnProperty('smartClaimsViaSMSOnMobile') && 
