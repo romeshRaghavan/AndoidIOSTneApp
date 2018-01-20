@@ -442,7 +442,7 @@ j(document).ready(function() {
         j(this).next().slideToggle(200), j(this).find("span").toggleClass("icon-chevron-down").toggleClass("icon-chevron-up");
     });
 
-   
+
 }), 
 
 
@@ -493,13 +493,14 @@ function fetchSMSClaim8() {
         j('#box8').empty();
         for (var i = 0; i < result.rows.length; i++) {
             var row = result.rows.item(i);
+			var PhotoPath = row.smsAttachment;
             var mytable = j('<li></li>').attr({ id: "",class: ["swipeout"].join(' ') });
             var div1 = j('<div></div>').attr({ class: ["swipeout-content"].join(' ') }).appendTo(mytable);
             var div2 = j('<div></div>').attr({ class: ["item-content claimlisting"].join(' ') ,onclick : ["expandCollapse(this);"].join(' ') }).appendTo(div1);
             var div3 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div2);
             var div4 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div3);
             var spen = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div4);
-            j(spen).append('<img  id = "show_'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            j(spen).append('<img id = "show_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var div5 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div3);
             var div6 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div5);
             j(div6).append('<span class="data">SMS date : '+row.smsSentDate+' | Amount : '+row.smsAmount+'</span>');
@@ -509,9 +510,9 @@ function fetchSMSClaim8() {
             var div9 = j('<div></div>').attr({ class: ["item-inner comments-list"].join(' ') }).appendTo(div8);
             var div10 = j('<div></div>').attr({ class: ["image"].join(' ') }).appendTo(div9);
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
-            j(spen1).append('<img  id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
+            j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="" onclick="showImg(img_'+i+')">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS$\''+i+');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -538,8 +539,9 @@ function fetchSMSClaim8() {
              var a1 = j('<a></a>').attr({ class: ["action-green js-up"].join(' ') ,onclick : ["smartSmsSendForApprover("+i+","+row.smsId+");"].join(' ')}).text('Send').appendTo(div17);  
              var a2 = j('<a></a>').text('To wishlist').attr({ class: ["action-blue js-up"].join(' ') ,onclick : ["saveBusinessDetailsInWishList("+i+","+row.smsId+");"].join(' ')}).appendTo(div17);  
              var a3 = j('<a></a>').text('Delete').attr({ class: ["action-red js-down"].join(' '),onclick : ["discardMessages1("+row.smsId+");"].join(' ')}).appendTo(div17);  
-                
-            mytable.appendTo("#box8");  
+             var div18 =  j('<div></div>').attr({ class: ["images"].join(' ') }).appendTo(div8);
+			 j(div18).append('<a class="" onclick="hideImg(img_'+i+')"></a><img class="images" id="img_'+i+'" src="'+row.smsAttachment+'" style ="display:none" onclick ="" > <div id ="close" class="closeme" onclick ="hideImg(img_'+i+')" ><img src="images/closeme.png" alt=""></div>');
+             mytable.appendTo("#box8");  
            //createExpenseName("expenseName_"+i);
             showPic(i,row.smsAttachment);
             }  
@@ -1283,7 +1285,6 @@ function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,e
 	}
 
 function fetchDataFromWishListA() {
-    var paraValue = "SMS";
     mydb.transaction(function(t) {
 
       t.executeSql('SELECT * FROM wishListForBussExpense;', [],
@@ -1334,7 +1335,7 @@ function fetchDataFromWishListA() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="images/dummy-image.png" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'Wishlist$\''+i+');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -1417,7 +1418,7 @@ function goToHome(){
 }
 
 var cameraTask;
-function takePhoto(camera_task){
+function 	takePhoto(camera_task){
     cameraTask = camera_task;
 /*    CameraPreview.takePicture(function(base64PictureData){
    code here 
@@ -1455,27 +1456,92 @@ function onFail(message) {
 
 function onPhotoDataSuccess(imageData) {
     
+	var index = -1;
+	if((cameraTask != " ") ||  (cameraTask != null)){
+		var vals = cameraTask.split("$");
+		cameraTask = vals[0];
+		index =vals[1];
+	}
+	
+	
     if(cameraTask === "SMS"){
     var fileTempCamera = imageData;
-    document.getElementById("show_0").src = imageData;
-    document.getElementById("attach_0").src = imageData;
+    document.getElementById("show_"+index).src = imageData;
+    document.getElementById("attach_"+index).src = imageData;
        //show_0.src = "data:image/jpeg;base64,"+imageData;
 		//attach_0.src = "data:image/jpeg;base64,"+imageData;
        
             if (fileTempCamera != "" && fileTempCamera != null) {
 	            mydb.transaction(function (t) {
-	                t.executeSql("UPDATE smsMaster set smsAttachment ='"+fileTempCamera+"' where smsId = 1;");
+	                t.executeSql("UPDATE smsMaster set smsAttachment ='"+fileTempCamera+"' where smsId = ;"+index);
 				});
             } else {
         alert("db not found, your browser does not support web sql!");
-    }
-    }else if(cameraTask == "wallet"){
+      }
+    }else if(cameraTask === "wallet"){
         saveWalletAttachment(imageData);
         getReceiptsImage();
-    }
-    
-    
-    }
+    }else if(cameraTask === "Wishlist"){
+		var fileTempCamera = imageData;
+    document.getElementById("show_"+index).src = imageData;
+    document.getElementById("attach_"+index).src = imageData;
+       //show_0.src = "data:image/jpeg;base64,"+imageData;
+		//attach_0.src = "data:image/jpeg;base64,"+imageData;
+       
+            if (fileTempCamera != "" && fileTempCamera != null) {
+	            mydb.transaction(function (t) {
+	                t.executeSql("UPDATE wishListForBussExpense set busExpAttachment ='"+fileTempCamera+"' where busExpId = ;"+index);
+				});
+            } else {
+        alert("db not found, your browser does not support web sql!");
+      }
+	}else if (cameraTask === "AddExpense"){
+		var fileTempCamera = imageData;
+    document.getElementById("show_"+index).src = imageData;
+    document.getElementById("attach_"+index).src = imageData;
+       //show_0.src = "data:image/jpeg;base64,"+imageData;
+		//attach_0.src = "data:image/jpeg;base64,"+imageData;
+       
+            if (fileTempCamera != "" && fileTempCamera != null) {
+	            mydb.transaction(function (t) {
+	                t.executeSql("UPDATE addExpensetable set smsAttachment ='"+fileTempCamera+"' where smsId = ;"+index);
+				});
+            } else {
+        alert("db not found, your browser does not support web sql!");
+      }
+	}else if (cameraTask === "AddVoice"){
+		var fileTempCamera = imageData;
+    document.getElementById("show_"+index).src = imageData;
+    document.getElementById("attach_"+index).src = imageData;
+       //show_0.src = "data:image/jpeg;base64,"+imageData;
+		//attach_0.src = "data:image/jpeg;base64,"+imageData;
+       
+            if (fileTempCamera != "" && fileTempCamera != null) {
+	            mydb.transaction(function (t) {
+	                t.executeSql("UPDATE addVoiceExpense set smsAttachment ='"+fileTempCamera+"' where smsId = ;"+index);
+				});
+            } else {
+        alert("db not found, your browser does not support web sql!");
+      }
+	}else if (cameraTask === "AddOCR"){
+		var fileTempCamera = imageData;
+    document.getElementById("show_"+index).src = imageData;
+    document.getElementById("attach_"+index).src = imageData;
+       //show_0.src = "data:image/jpeg;base64,"+imageData;
+		//attach_0.src = "data:image/jpeg;base64,"+imageData;
+       
+            if (fileTempCamera != "" && fileTempCamera != null) {
+	            mydb.transaction(function (t) {
+	                t.executeSql("UPDATE smsMaster set addOcrExpense ='"+fileTempCamera+"' where smsId = ;"+index);
+				});
+            } else {
+        alert("db not found, your browser does not support web sql!");
+      }
+	}else{
+		
+	}
+      
+  }
 
 function showPic(i,image){
     var show = "show_"+i;
@@ -1573,7 +1639,7 @@ var paraValue = "SMS";
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'AddExpense$\''+i+');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -2208,7 +2274,7 @@ function fetchBussiness10() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'AddVoice$\''+i+');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -2405,15 +2471,20 @@ function extractData(receiptText) {
     console.log(receiptText);
 	let words = receiptText.split(" ");
 	let wordsLength = words.length, iterateNo=0,receipt={},
-		totalFound="notFound",dateFound="notFound",hotelName="",hotelNameFound="notFound";
+		totalFound="notFound",dateFound="notFound",hotelName="",hotelNameFound="notFound",hotelNameNewLinesCnt=0;
 	for(var i=0; i<wordsLength; i++) {
 		iterateNo = wordsLength -(i+1);
-		if(hotelNameFound === 'notFound') {
-			if(words[i].trim()==='new_line') {
+		if(hotelNameFound === 'notFound' && hotelNameNewLinesCnt<4) {
+			if(words[i].trim()==='new_line')
+				hotelNameNewLinesCnt++;
+			if(hotelNameNewLinesCnt===3) {
 				receipt.hotelName = hotelName;
 				hotelNameFound = 'found';
 			} else {
-				hotelName += words[i]+" ";
+				if(words[i].trim() != 'new_line')
+					hotelName += words[i]+" ";
+				else
+					hotelName += ", ";
 			}
 		}
 		
@@ -2422,15 +2493,33 @@ function extractData(receiptText) {
 		if(totalFound === 'notFound' && (words[iterateNo].toLowerCase().trim() ==='total' 
             || words[iterateNo].toLowerCase().trim() ==='total:' || words[iterateNo].toLowerCase().trim() ==='total :' || words[iterateNo].toLowerCase().trim() ==='total =')) {
             console.log("found total at "+words[iterateNo]+" at "+iterateNo+ "wordsLength" +wordsLength );
+			let newLinesCnt = 0;
 			for(var j=iterateNo+1; j<wordsLength; j++) {
 				try {
+					if(words[j].trim()==='new_line') {
+						newLinesCnt++;
+						if(newLinesCnt===3)
+							break;
+					}
                     console.log(" j == "+(iterateNo+1)+" words[j] "+words[j]);
-                    if(isNaN(words[j])===false) {
-					   receipt.totalCost = words[j];
-                       totalFound="found";
-					   break;
-                    }
+						if(isNaN(words[j])===false && parseFloat(words[j])>1.0) {
+							receipt.totalCost = words[j];
+							totalFound="found";
+							break;
+						} 
 				}catch(e) {console.log("exception (NaN): " + e)}
+			}
+			
+			//newLinesCnt===3: means total amount is not available further on the right, 
+			//better move to left to get the latest number which can be total amount.
+			if(newLinesCnt===3) {
+				for(var j=iterateNo-1; j>0; j--) {
+					if(isNaN(words[j])===false) {
+							receipt.totalCost = words[j];
+							totalFound="found";
+							break;
+					} 
+				}
 			}
 		}
 		
@@ -2548,7 +2637,7 @@ function fetchOCRExpense() {
             var spen1 = j('<spen></spen>').attr({ class: ["ava"].join(' ') }).appendTo(div10);
             j(spen1).append('<img id="attach_'+i+'" src="'+row.smsAttachment+'" alt ="">');
             var spen11 = j('<spen></spen>').attr({ class: [""].join(' ') }).appendTo(div10);
-            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'SMS\');">');
+            j(spen11).append('<img style="width: 53%; padding: 10px;" src="images/camera.png" onclick="takePhoto(\'AddOCR\$'*+i+');">');
             var div11 = j('<div></div>').attr({ class: ["text"].join(' ') }).appendTo(div9);
             var div12 = j('<div></div>').attr({ class: ["info"].join(' ') }).appendTo(div11);
             var spen3 = j('<spen></spen>').attr({ class: ["data"].join(' ') }).text('Expense type :').appendTo(div12);
@@ -2582,7 +2671,7 @@ function fetchOCRExpense() {
             }  
                     
 /*            j("#source tr").click(function(){ 
-                headerOprationBtn = defaultPagePath+'headerPageForSMSOperation.html';
+                headerOprationBtn = defaultedPagePath+'headerPageForSMSOperation.html';
                 if(j(this).hasClass("selected")){ 
                 var headerBackBtn=defaultPagePath+'headerPageForSMSOperation.html';
                     j(this).removeClass('selected');
@@ -2625,7 +2714,7 @@ function updateOCRExp(i,smsId){
 
 
 function discardMessages123(smsID){
-    
+ 
     j.confirm({
     title: 'Confirm!',
     content: 'Do you really want to delete?',
@@ -2755,7 +2844,7 @@ function syncAllMaster(){
 				  synchronizeTRForTS();
                    }
                }
-            /* if(trRole != null || trRole != ""){
+    /*         if(eaInMobile != null || eaInMobile != ""){
 			  if(eaInMobile){
 				synchronizeEAMasterData(); 
 			   }
@@ -2776,7 +2865,7 @@ function syncAllMaster(){
          function(transaction, result) {
           if (result != null && result.rows != null) {
 			   for (var i = 0; i < result.rows.length; i++) {
-				    var row = result.rows.item(i);
+				    var row = result.rows.item(i);``
 				   window.localStorage.setItem("DefaultAccCode",row.accHeadId);
 				   window.localStorage.setItem("DefaultExpName",row.expNameMstId);
 				   break;
@@ -2792,3 +2881,18 @@ function syncAllMaster(){
 	
 }
 
+function zoomImg(id){
+	//var images = j('#'+id).attr(src);
+	j('#img01').attr('src', 'images/dummy-image.png').css('display','block');
+//	j('#img01').attr('src', path);
+	
+}
+
+function showImg(id){
+	j(id).css('display','block');
+	
+}
+
+function hideImg(id){
+	j(id).css('display','none');
+}

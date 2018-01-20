@@ -5,7 +5,7 @@ var urlPath;
 //var WebServicePath ='http://1.255.255.140:8085/NexstepWebService/mobileLinkResolver.service';
 var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath ='http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service';
-//var WebServicePath ='http://1.255.255.87:8085/NexstepWebService/mobileLinkResolver.service';
+//var WebServicePath ='http://1.255.255.132:8085/NexstepWebService/mobileLinkResolver.service';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -250,7 +250,7 @@ function displayBusinessExp(){
   						}
 		 			  
 					});
-			j('#mainContainer').swipe({
+/*			j('#mainContainer').swipe({
 				swipe:function(event,direction,distance,duration,fingercount){
 					switch (direction) {
 						case "right":
@@ -262,7 +262,7 @@ function displayBusinessExp(){
 				},
 				 threshold:200,
 				allowPageScroll:"auto"
-			});
+			});*/
 	});
 	appPageHistory.push(pgRef);
  }
@@ -3218,7 +3218,8 @@ function parseSMS(smsBody) {
 			var keywords = [
 						"spent",
 						"deducted",
-						"paid"
+						"paid",
+				        "is made at"
 						];
 						
 			var paidTo = [
